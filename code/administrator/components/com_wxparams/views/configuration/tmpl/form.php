@@ -19,15 +19,14 @@ wxjq(document).ready(function() {
 
 <form method="post" action="<?=@route( 'id=' . $configuration->id )?>"
 	class="adminform" name="adminForm">
-<div id="mainform">
-<label for="title" class="mainlabel"><?=@text('WXPARAMS_TITLE');?></label>
-<input id="title" type="text" name="title" value="<?=@escape($configuration->title);?>" /><br />
-<label for="description" class="mainlabel"><?=@text('WXPARAMS_DESCRIPTION');?></label>
-<textarea id="description" name="description"><?=@escape($configuration->description);?></textarea><br />
-<?
-// Render the XML form
-echo $form->renderHtml();
-?>
+<div id="mainform"><label for="title" class="mainlabel"><?=@text( 'WXPARAMS_TITLE' );?></label>
+<input id="title" type="text" name="title"
+	value="<?=@escape( $configuration->title );?>" /><br />
+<label for="description" class="mainlabel"><?=@text( 'WXPARAMS_DESCRIPTION' );?></label>
+<textarea id="description" name="description"><?=@escape( $configuration->description );?></textarea><br />
+<label for="item_id" class="mainlabel"><?=@text( 'WXPARAMS_MENU_ITEM' );?></label>
+<?=@helper( 'admin::com.wxparams.template.helper.adapter.listbox.' . strtolower( WxFactory::getAdapter() ) . '.menuitems' );?><br />
+<?// Render the XML form
+echo $form->renderHtml();?>
 </div>
-<input type="hidden" name="package" value="<?=$package;?>"/>
-</form>
+<input type="hidden" name="package" value="<?=$package;?>" /></form>
