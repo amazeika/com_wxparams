@@ -3,6 +3,24 @@
 class WxparamsFactory {
 	
 	/**
+	 * Returns the form
+	 *
+	 * @param SimpleXMLElement $xml
+	 * @return mixed ComWxparamsFormDefault or ComWxparamsFormTabbed depending on the passed
+	 * XML data.
+	 */
+	static public function getForm(SimpleXMLElement $xml, $params = null) {
+		foreach ( $xml->children() as $name => $element ) {
+			// A form is considered as tabbed if every root element is a fieldset element with a
+			// non-empty group attribute.
+			if ($name != 'fieldset' || empty( $element ['group'] )) {
+				return KFactory::tmp( 'admin::com.wxparams.form.default' )->importXml( $xml, $params );
+			}
+		}
+		return KFactory::tmp( 'admin::com.wxparams.form.tabbed' )->importXml( $xml, $params );
+	}
+	
+	/**
 	 * 
 	 * SPL custom autoload function. 
 	 * 
@@ -33,7 +51,7 @@ class WxparamsFactory {
 		
 		while ( 1 ) {
 			
-			$class_dir = WXINVOICES_INCLUDES . DS . implode( DS, $path );
+			$class_dir = WXPARAMS_INCLUDES . DS . implode( DS, $path );
 			
 			if (! empty( $results )) {
 				// For a class like WxMediaAbstract, it will check for wextend/mediaabstract.php,
@@ -61,5 +79,5 @@ class WxparamsFactory {
 		}
 	
 	}
-	
+
 }
