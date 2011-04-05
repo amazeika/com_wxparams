@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form validator="admin::com.wxform.form.validator.test"
 	preprocessor="admin::com.wxform.form.preprocessor.test">
-	<fieldset group="general" legend="general legend" label="general label">
+	<tab label="general">
+		<fieldset legend="Test 1">
 		<text id="person" name="form[person]" size="20" default="test person"
 			label="Person label" description="Person description" />
+		</fieldset>
+		<fieldset legend="test 2">
 		<select id="access" name="form[access]" multiple="multiple"
 			default="0" size="3" label="Access Level" description="DETAILACCESS">
 			<option value="0">Public</option>
 			<option value="1" label="Registered" />
 			<option value="2" label="Special" />
 		</select>
-	</fieldset>
-	<fieldset group="specific" legend="specific legend" label="specific label">
+		</fieldset>
+	</tab>
+	<tab label="specific">
 		<radiolist id="toto" name="form[toto]" default="1" size="2"
 			label="toto label" description="toto description">
 			<option value="1">Foo</option>
 			<option value="2">Bar</option>
 		</radiolist>
-	</fieldset>
+	</tab>
 </form>

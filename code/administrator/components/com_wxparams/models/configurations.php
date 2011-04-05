@@ -17,7 +17,7 @@ class ComWxparamsModelConfigurations extends KModelDefault {
 	}
 	
 	protected function _initialize(KConfig $config) {
-		$config->append( array ('table_behaviors' => array ('admin::com.wxparams.database.behavior.configurationsdefaultable' ) ) );
+		$config->append( array ('table_behaviors' => array ('admin::com.wxparams.database.behavior.configurationsdefaultable','lockable' ) ) );
 		parent::_initialize( $config );
 	}
 	

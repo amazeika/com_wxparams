@@ -11,9 +11,8 @@ class WxparamsFactory {
 	 */
 	static public function getForm(SimpleXMLElement $xml, $params = null) {
 		foreach ( $xml->children() as $name => $element ) {
-			// A form is considered as tabbed if every root element is a fieldset element with a
-			// non-empty group attribute.
-			if ($name != 'fieldset' || empty( $element ['group'] )) {
+			// A form is considered as tabbed if every root element is a tab element.
+			if ($name != 'tab') {
 				return KFactory::tmp( 'admin::com.wxparams.form.default' )->importXml( $xml, $params );
 			}
 		}

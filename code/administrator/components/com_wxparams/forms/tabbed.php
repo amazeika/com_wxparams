@@ -23,14 +23,13 @@ class ComWxparamsFormTabbed extends ComWxparamsFormDefault {
 			
 			$inner_div = $dom->createElement( 'div' );
 			$outer_div->appendChild( $inner_div );
-			
-			if ($element instanceof KFormElementFieldset && ! empty( $element->_xml ['group'] )) {
+			if ($element instanceof ComWxparamsFormElementTab) {
 				// Each fieldset represents a tab that groups elements inside of it
 				$li = $dom->createElement( 'li' );
 				$a = $dom->createElement( 'a' );
 				$a->setAttribute( 'href', '#tabs-' . $i );
-				$fieldset_label = $element->getLabel();
-				$a->appendChild( $dom->createTextNode( $fieldset_label ['label'] ) );
+				$label = $element->getLabel();
+				$a->appendChild( $dom->createTextNode( $label ['label'] ) );
 				$li->appendChild( $a );
 				$ul->appendChild( $li );
 				$inner_div->setAttribute( 'id', 'tabs-' . $i );
