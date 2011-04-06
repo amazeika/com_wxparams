@@ -16,8 +16,12 @@ defined( 'KOOWA' ) or die( 'Restricted access' );
 			<td colspan="2">
 		<?=@text( 'FILTERS' );?>
 		</td>
+			<td colspan="2"></td>
 			<td>
 		<?=@template( 'admin::com.default.view.list.search_form' );?>
+		</td>
+			<td>
+		<?=@helper( 'admin::com.wxparams.template.helper.adapter.listbox.' . strtolower( WxFactory::getAdapter() ) . '.packages', array ('name'=>'package', 'attribs' => array ('onchange' => 'this.form.submit()' ) ) );?>
 		</td>
 		</tr>
 		<tr>
@@ -89,8 +93,7 @@ defined( 'KOOWA' ) or die( 'Restricted access' );
 	<tfoot>
 		<tr>
 			<td colspan="7">
-			<?=@helper( 'paginator.pagination', array ('total' => $total ) );?>
-                </td>
+			<?=@helper( 'paginator.pagination', array ('total' => $total ) );?></td>
 		</tr>
 	</tfoot>
 	</form>

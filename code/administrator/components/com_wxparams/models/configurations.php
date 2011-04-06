@@ -29,7 +29,7 @@ class ComWxparamsModelConfigurations extends KModelDefault {
 			$query->where( 'package', '=', $state->package );
 		}
 		
-		if ($state->default == 1) {
+		if ($state->default === 1) {
 			$query->where( 'default', '=', 1 );
 		}
 		
