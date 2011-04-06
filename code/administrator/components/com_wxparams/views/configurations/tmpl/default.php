@@ -27,6 +27,8 @@ defined( 'KOOWA' ) or die( 'Restricted access' );
 			<th width="5">
 				<?=@helper( 'grid.sort', array ('column' => 'id', 'title' => @text( 'WXPARAMS_ID' ) ) );?>
 			</th>
+			<th width="5">
+				<?=@helper( 'grid.sort', array ('column' => 'item_id', 'title' => @text( 'WXPARAMS_MENU_ITEM' ) ) );?>
 			<th>
 				<?=@helper( 'grid.sort', array ('column' => 'title', 'title' => @text( 'WXPARAMS_TITLE' ) ) );?>
 			</th>
@@ -56,6 +58,9 @@ defined( 'KOOWA' ) or die( 'Restricted access' );
 				<?=$configuration->id;?>
 			</td>
 			<td align="center">
+				<?=$configuration->item_id;?>
+			</td>
+			<td align="center">
 				<?=$configuration->title;?>
 			</td>
 			<td align="center">
@@ -73,7 +78,7 @@ defined( 'KOOWA' ) or die( 'Restricted access' );
 	if (! count( $configurations )) {
 		?>
 		<tr>
-			<td colspan="6" align="center">
+			<td colspan="7" align="center">
 				<?=@text( 'WXPARAMS_NO_ITEMS_FOUND' );?>
 			</td>
 		</tr>
@@ -83,7 +88,7 @@ defined( 'KOOWA' ) or die( 'Restricted access' );
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="6">
+			<td colspan="7">
 			<?=@helper( 'paginator.pagination', array ('total' => $total ) );?>
                 </td>
 		</tr>
