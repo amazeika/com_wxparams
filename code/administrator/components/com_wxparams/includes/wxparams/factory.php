@@ -19,6 +19,38 @@ class WxparamsFactory {
 		return KFactory::tmp( 'admin::com.wxparams.form.tabbed' )->importXml( $xml, $params );
 	}
 	
+	static public function getParams($package = null, $item_id = null) {
+		
+		$state = array ();
+		
+		if (! $package) {
+			// Get the package from the request
+			if (! $package = KRequest::get( 'get.option', 'cmd', null )) {
+				throw new KException( 'Unable to determine the package name' );
+			}
+		}
+		
+		$state ['package'] = $package;
+		
+		if (! $item_id) {
+			// Try to determine the menu item id from the request
+			if (! $item_id = KRequest::get( 'get.Itemid', 'int', null )) {
+				// The itemid is not set, we should use the default configuration
+				$state ['default'] = 1;
+			}
+		}
+		
+		if ($item_id) {
+			$state ['item_id'] = $item_id;
+		}
+		
+		foreach ( KFactory::tmp( 'admin::com.wxparams.model.configurations' )->set( $state )->getList() as $row ) {
+			return json_decode( $row->params );
+		}
+		
+		return null;
+	}
+	
 	/**
 	 * 
 	 * SPL custom autoload function. 

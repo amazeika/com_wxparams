@@ -29,4 +29,5 @@ wxjq(document).ready(function() {
 <?// Render the XML form
 echo $form->renderHtml();?>
 </div>
-<input type="hidden" name="package" value="<?=$package;?>" /></form>
+<input type="hidden" name="package" value="<?=$package;?>" />
+</form>
