@@ -1,6 +1,6 @@
 <?php
 
-class ComWxparamsTemplateHelperAdapterListboxJ16 extends KTemplateHelperListbox implements ComWxparamsTemplateHelperListbox {
+class ComWxparamsTemplateHelperAdapterListboxJ16 extends ComWxparamsTemplateHelperAdapterListboxAbstract {
 
 	public function menuitems($config = array()) {
 		
