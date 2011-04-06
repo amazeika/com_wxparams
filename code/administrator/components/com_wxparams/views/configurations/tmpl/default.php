@@ -16,12 +16,12 @@ defined( 'KOOWA' ) or die( 'Restricted access' );
 			<td colspan="2">
 		<?=@text( 'FILTERS' );?>
 		</td>
-			<td colspan="2"></td>
+			<td colspan="3"></td>
+
 			<td>
-		<?=@template( 'admin::com.default.view.list.search_form' );?>
-		</td>
-			<td>
-		<?=@helper( 'admin::com.wxparams.template.helper.adapter.listbox.' . strtolower( WxFactory::getAdapter() ) . '.packages', array ('name'=>'package', 'attribs' => array ('onchange' => 'this.form.submit()' ) ) );?>
+		<?
+		//echo @helper( 'admin::com.wxparams.template.helper.adapter.listbox.' . strtolower( WxFactory::getAdapter() ) . '.packages', array ('attribs' => array ('onchange' => 'this.form.submit()' ) ) );
+		?>
 		</td>
 		</tr>
 		<tr>
@@ -32,7 +32,7 @@ defined( 'KOOWA' ) or die( 'Restricted access' );
 				<?=@helper( 'grid.sort', array ('column' => 'id', 'title' => @text( 'WXPARAMS_ID' ) ) );?>
 			</th>
 			<th width="5">
-				<?=@helper( 'grid.sort', array ('column' => 'item_id', 'title' => @text( 'WXPARAMS_MENU_ITEM' ) ) );?>
+				<?=@helper( 'grid.sort', array ('column' => 'item_id', 'title' => @text( 'WXPARAMS_MENU_ITEM' ) ) );?>	
 			<th>
 				<?=@helper( 'grid.sort', array ('column' => 'title', 'title' => @text( 'WXPARAMS_TITLE' ) ) );?>
 			</th>

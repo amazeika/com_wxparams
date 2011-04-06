@@ -2,3 +2,7 @@ li.value {
 	list-style-type: none;
 	float: left;
 }
+
+.icon-32-settings {
+	background-image: url("../images/toolbar/icon-32-config.png");
+}

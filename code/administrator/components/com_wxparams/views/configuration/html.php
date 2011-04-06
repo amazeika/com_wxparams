@@ -4,7 +4,7 @@ class ComWxparamsViewConfigurationHtml extends ComWxparamsViewHtml {
 	
 	public function display() {
 		
-		KFactory::get( 'admin::com.wxparams.toolbar.configuration' )->setTitle( WxText::_( 'WXPARAMS_CONFIGURATION' ) );
+		$toolbar = KFactory::get( 'admin::com.wxparams.toolbar.configuration' )->setTitle( WxText::_( 'WXPARAMS_CONFIGURATION' ) );
 		
 		$xml = new SimpleXMLElement( file_get_contents( dirname( __FILE__ ) . '/test.xml' ) );
 		
@@ -24,6 +24,7 @@ class ComWxparamsViewConfigurationHtml extends ComWxparamsViewHtml {
 		
 		$this->assign( 'package', $package );
 		$this->assign( 'form', $form );
+		$this->assign( 'toolbar', $toolbar );
 		
 		return parent::display();
 	}

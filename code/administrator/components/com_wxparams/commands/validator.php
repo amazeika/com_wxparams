@@ -8,6 +8,7 @@ class ComWxparamsCommandValidator extends ComWextendCommandValidatorAbstract {
 	}
 	
 	protected function validateInput(KCommandContext $context, &$errors) {
+		// Nothing to do here.
 	}
 
 }
