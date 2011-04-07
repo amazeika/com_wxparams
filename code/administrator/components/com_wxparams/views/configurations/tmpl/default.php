@@ -6,7 +6,8 @@ defined( 'KOOWA' ) or die( 'Restricted access' );
 <?=@helper( 'behavior.modal' );?>
 <style src="media://com_default/css/admin.css" />
 <style src="media://com_wxparams/css/admin.css" />
-<script src="media://lib_koowa/js/koowa.js" />
+
+<?=@template('admin::com.wextend.template.toolbar');?>
 
 <table class="adminlist" style="clear: both;">
 	<form action="<?=@route();?>" method="get" name="adminForm">

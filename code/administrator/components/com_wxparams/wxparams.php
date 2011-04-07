@@ -8,4 +8,7 @@ require_once WXPATH_ADMINISTRATOR . DS . 'framework' . DS . 'framework.php';
 // Load the component framework
 require_once dirname(__FILE__).'/includes/framework.php'; 
 
+// Forcing component rendering only
+KRequest::set('get.tmpl','component');
+
 echo KFactory::get('admin::com.wxparams.dispatcher')->dispatch(KRequest::get('get.view','cmd','configurations'));

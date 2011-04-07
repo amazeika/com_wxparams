@@ -11,6 +11,8 @@ defined( 'KOOWA' ) or die( 'Restricted access' );
 <style src="media://com_wextend/css/admin.css" />
 <style src="media://com_wxparams/css/admin.css" />
 
+<?=@template('admin::com.wextend.template.toolbar');?>
+
 <script type="text/javascript">
 wxjq(document).ready(function() {
 	wxjq('#tabs').tabs();
