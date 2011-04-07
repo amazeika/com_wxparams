@@ -6,7 +6,7 @@ class ComWxparamsFormDefault extends KFormDefault {
 
 		foreach ($params as $key => $value) {
 			// Look for the corresponding XML element
-			$element = $xml->xpath('//*[@name="form['.$key.']"]');
+			$element = $xml->xpath('//*[@name="params['.$key.']"]');
 			// Insert the current value as the default
 			$element[0]['default'] = $value;
 		}
