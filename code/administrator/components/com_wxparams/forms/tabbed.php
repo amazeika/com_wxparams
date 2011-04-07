@@ -18,29 +18,20 @@ class ComWxparamsFormTabbed extends ComWxparamsFormDefault {
 		$outer_div->appendChild( $ul );
 		
 		$i = 1;
-		
+
 		foreach ( $this as $element ) {
-			
-			$inner_div = $dom->createElement( 'div' );
-			$outer_div->appendChild( $inner_div );
-			if ($element instanceof ComWxparamsFormElementTab) {
-				// Each fieldset represents a tab that groups elements inside of it
-				$li = $dom->createElement( 'li' );
-				$a = $dom->createElement( 'a' );
-				$a->setAttribute( 'href', '#tabs-' . $i );
-				$label = $element->getLabel();
-				$a->appendChild( $dom->createTextNode( $label ['label'] ) );
-				$li->appendChild( $a );
-				$ul->appendChild( $li );
-				$inner_div->setAttribute( 'id', 'tabs-' . $i );
-			}
-			
-			if ($dom_label = $element->renderDomLabel( $dom )) {
-				$inner_div->appendChild( $dom_label );
-			}
-			
+			// Each fieldset represents a tab that groups elements inside of it
+			$li = $dom->createElement( 'li' );
+			$a = $dom->createElement( 'a' );
+			$a->setAttribute( 'href', '#tabs-' . $i );
+			$label = $element->getLabel();
+			$a->appendChild( $dom->createTextNode( $label ['label'] ) );
+			$li->appendChild( $a );
+			$ul->appendChild( $li );
+					
 			if ($dom_element = $element->renderDomElement( $dom )) {
-				$inner_div->appendChild( $dom_element );
+				$dom_element->setAttribute( 'id', 'tabs-' . $i );
+				$outer_div->appendChild( $dom_element );
 			}
 			
 			$i ++;
