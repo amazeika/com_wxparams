@@ -2,24 +2,44 @@
 
 class ComWxparamsFormDefault extends KFormDefault {
 	
-	protected function processXml(SimpleXMLElement $xml, $params) {
-
-		foreach ($params as $key => $value) {
-			// Look for the corresponding XML element
-			$element = $xml->xpath('//*[@name="params['.$key.']"]');
-			// Insert the current value as the default
-			$element[0]['default'] = $value;
+	protected function processXml(SimpleXMLElement $xml, $params = null) {
+		
+		foreach ( $xml->xpath( '//*[@name]' ) as $element ) {
+			$attributes = $element->attributes();
+			if ($params) {
+				// Bind params
+				$attributes->default = $params [( string ) $attributes->name];
+			}
+			// Change the element's name
+			$attributes->name = 'params[' . ( string ) $attributes->name . ']';
 		}
-			
 	}
 	
 	public function importXml(SimpleXMLElement $xml, $params = null) {
 		
-		if ($params) {
-			// Bind params
-			$this->processXml( $xml, $params );
-		}
+		$this->processXml( $xml, $params );
+		
 		return parent::importXml( $xml );
+	}
+	
+	/**
+	 * Returns the default values.
+	 * 
+	 * @return array Associative array containing the name and the default value of each element.
+	 */
+	public function getDefaults() {
+		
+		$defaults = array ();
+		
+		foreach ( $this->_xml->xpath( '//*[@default]' ) as $element ) {
+			$attributes = $element->attributes();
+			preg_match( '/params\[(.*?)\]/', $attributes->name, $results );
+			$name = $results [1];
+			$defaults [$name] = ( string ) $attributes->default;
+		}
+		
+		return $defaults;
+	
 	}
 	
 	/**
