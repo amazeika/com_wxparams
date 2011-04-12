@@ -24,18 +24,10 @@ class ComWxparamsModelConfigurations extends KModelDefault {
 		
 		$state = $this->getState();
 		
-		if ($state->package) {
-			$query->where( 'package', '=', $state->package );
+		if (is_numeric( $state->default )) {
+			$query->where( 'default', '=', $state->default );
 		}
 		
-		if ($state->default == 1) {
-			$query->where( 'default', '=', 1 );
-		}
-		
-		if ($state->item_id) {
-			$query->where( 'item_id', '=', $state->item_id );
-		}
-
 		parent::_buildQueryWhere( $query );
 	
 	}
