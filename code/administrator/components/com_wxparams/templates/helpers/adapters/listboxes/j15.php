@@ -6,9 +6,9 @@ class ComWxparamsTemplateHelperAdapterListboxJ15 extends ComWxparamsTemplateHelp
 		
 		$config = new KConfig( $config );
 		
-		$config->append( array ('model' => 'menus', 'name' => 'item_id', 'value' => 'id', 'text' => 'name' ) );
+		$config->append( array ('text' => 'name' ) );
 		
-		return parent::_listbox( $config );
+		return parent::menuitems( $config );
 	
 	}
 

@@ -2,6 +2,25 @@
 
 class WxparamsFactory {
 	
+	static $_config;
+	
+	/**
+	 * Constructor.
+	 * 
+	 * Method declared final private to avoid instances of this class.
+	 * 
+	 */
+	final private function __construct() {
+	
+	}
+	
+	/**
+	 * Prevent clonning.
+	 */
+	final private function __clone() {
+	
+	}
+	
 	/**
 	 * Returns the form
 	 *
@@ -9,7 +28,13 @@ class WxparamsFactory {
 	 * @return mixed ComWxparamsFormDefault or ComWxparamsFormTabbed depending on the passed
 	 * XML data.
 	 */
-	static public function getForm(SimpleXMLElement $xml, $params = null) {
+	static public function getForm($params = null) {
+		
+		// Get the package from the session variable
+		$package = KRequest::get( 'session.com.wxparams.package', 'cmd' );
+		
+		$xml = new SimpleXMLElement( file_get_contents( JPATH_ROOT . '/media/' . $package . '/config/' . $package . '.xml' ) );
+		
 		foreach ( $xml->children() as $name => $element ) {
 			// A form is considered as tabbed if every root element is a tab element.
 			if ($name != 'tab') {
@@ -19,36 +44,42 @@ class WxparamsFactory {
 		return KFactory::tmp( 'admin::com.wxparams.form.tabbed' )->importXml( $xml, $params );
 	}
 	
-	static public function getParams($package = null, $item_id = null) {
-		
-		$state = array ();
+	static public function getConfig($package = null, $item_id = null) {
 		
 		if (! $package) {
-			// Get the package from the request
-			if (! $package = KRequest::get( 'get.option', 'cmd', null )) {
-				throw new KException( 'Unable to determine the package name' );
-			}
+			$package = KRequest::get( 'get.option', 'cmd' );
 		}
-		
-		$state ['package'] = $package;
 		
 		if (! $item_id) {
-			// Try to determine the menu item id from the request
-			if (! $item_id = KRequest::get( 'get.Itemid', 'int', null )) {
-				// The itemid is not set, we should use the default configuration
-				$state ['default'] = 1;
+			// If the item_id is not set, com_params attemps to get this value from the request on
+			// frontend applications. On backend applications, this value is forced to 0, which is
+			// the item_id value used for backend configuration rows. 
+			if (KFactory::get( 'lib.joomla.application' )->isSite()) {
+				$item_id = KRequest::get( 'get.Itemid', 'int', null );
+			} else {
+				$item_id = 0;
 			}
 		}
 		
-		if ($item_id) {
-			$state ['item_id'] = $item_id;
+		// Cache
+		if (self::$_config instanceof WxparamsConfig) {
+			if (! $row = self::$_config->getRow()) {
+				// No row attached to the configuration object, no way to know if package and item_id
+				// changed. We force the re-generation of the configuration object.
+				self::$_config = null;
+			} elseif (! ($row->package == $package && $row->item_id == $item_id)) {
+				// A different configuration object is being requested. We force the re-generation of
+				// the configuration object.
+				self::$_config = null;
+			}
 		}
 		
-		foreach ( KFactory::tmp( 'admin::com.wxparams.model.configurations' )->set( $state )->getList() as $row ) {
-			return json_decode( $row->params );
+		if (! self::$_config) {
+			self::$_config = new WxparamsConfig( new KConfig( array ('package' => $package, 'item_id' => $item_id ) ) );
 		}
 		
-		return null;
+		return self::$_config;
+	
 	}
 	
 	/**

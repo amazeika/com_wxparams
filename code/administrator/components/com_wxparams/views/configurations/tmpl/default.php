@@ -9,7 +9,7 @@ defined( 'KOOWA' ) or die( 'Restricted access' );
 
 <script src="media://lib_koowa/js/koowa.js" />
 
-<?=@template('admin::com.wextend.template.toolbar');?>
+<?=@template( 'admin::com.wextend.template.toolbar' );?>
 
 <table class="adminlist" style="clear: both;">
 	<form action="<?=@route();?>" method="get" name="adminForm">
@@ -35,9 +35,12 @@ defined( 'KOOWA' ) or die( 'Restricted access' );
 				<?=@helper( 'grid.sort', array ('column' => 'id', 'title' => @text( 'WXPARAMS_ID' ) ) );?>
 			</th>
 			<th width="5">
-				<?=@helper( 'grid.sort', array ('column' => 'item_id', 'title' => @text( 'WXPARAMS_MENU_ITEM' ) ) );?>	
+				<?=@helper( 'grid.sort', array ('column' => 'item_id', 'title' => @text( 'WXPARAMS_MENU_ITEM' ) ) );?>
 			<th>
 				<?=@helper( 'grid.sort', array ('column' => 'title', 'title' => @text( 'WXPARAMS_TITLE' ) ) );?>
+			</th>
+			<th>
+				<?=@text( 'WXPARAMS_DESCRIPTION' );?>
 			</th>
 			<th>
 				<?=@helper( 'grid.sort', array ('column' => 'package', 'title' => @text( 'WXPARAMS_PACKAGE' ) ) );?>
@@ -62,16 +65,19 @@ defined( 'KOOWA' ) or die( 'Restricted access' );
 				<?=@helper( 'admin::com.wextend.template.helper.grid.checkbox', array ('row' => $configuration ) );?>
 			</td>
 			<td align="center">
-				<?=$configuration->id;?>
+				<?=@escape( $configuration->id );?>
 			</td>
 			<td align="center">
-				<?=$configuration->item_id;?>
+				<?=@escape( $configuration->item_id );?>
 			</td>
 			<td align="center">
-				<?=$configuration->title;?>
+				<?=@escape( $configuration->title );?>
 			</td>
 			<td align="center">
-				<?=$configuration->package;?>
+				<?=@escape( $configuration->description );?>
+			</td>
+			<td align="center">
+				<?=@escape( $configuration->package );?>
 			</td>
 			<td align="center">
 				<?=@helper( 'admin::com.wextend.template.helper.grid.defaultable', array ('row' => $configuration ) );?>
@@ -85,7 +91,7 @@ defined( 'KOOWA' ) or die( 'Restricted access' );
 	if (! count( $configurations )) {
 		?>
 		<tr>
-			<td colspan="7" align="center">
+			<td colspan="8" align="center">
 				<?=@text( 'WXPARAMS_NO_ITEMS_FOUND' );?>
 			</td>
 		</tr>
@@ -95,7 +101,7 @@ defined( 'KOOWA' ) or die( 'Restricted access' );
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="7">
+			<td colspan="8">
 			<?=@helper( 'paginator.pagination', array ('total' => $total ) );?></td>
 		</tr>
 	</tfoot>

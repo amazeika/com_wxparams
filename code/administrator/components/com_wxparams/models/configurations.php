@@ -11,7 +11,6 @@ class ComWxparamsModelConfigurations extends KModelDefault {
 		parent::__construct( $config );
 		
 		$state = $this->getState();
-		$state->insert( 'package', 'cmd' );
 		$state->insert( 'default', 'int' );
 	
 	}
@@ -29,10 +28,14 @@ class ComWxparamsModelConfigurations extends KModelDefault {
 			$query->where( 'package', '=', $state->package );
 		}
 		
-		if ($state->default === 1) {
+		if ($state->default == 1) {
 			$query->where( 'default', '=', 1 );
 		}
 		
+		if ($state->item_id) {
+			$query->where( 'item_id', '=', $state->item_id );
+		}
+
 		parent::_buildQueryWhere( $query );
 	
 	}
