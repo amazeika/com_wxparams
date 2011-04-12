@@ -1,7 +1,30 @@
 <?php
+/**
+ * @version 1.0 $Id$
+ * @package com_wxparams
+ * @copyright Copyright (C) 2011 Arunas Mazeika. All rights reserved
+ * @author Arunas Mazeika
+ * @license GNU General Public License v3+ (GNU GPLv3) <http://www.gnu.org/licenses/gpl.html>
+ * @link http://www.wextend.com
+ * 
+ */
 
+/**
+ * Default form.
+ * 
+ * @author Arunas Mazeika
+ * @package com_wxparams
+ */
 class ComWxparamsFormDefault extends KFormDefault {
 	
+	/**
+	 * Process the XML form for use with com_wxparams. Form elements are enclosed in an array
+	 * for avoiding naming conflicts. An optional params variable can be provided for changing
+	 * the default values of the form elements.
+	 * 
+	 * @param SimpleXMLElement $xml The XML form.
+	 * @param Array $params An associative array with data to be binded with the XML form.
+	 */
 	protected function processXml(SimpleXMLElement $xml, $params = null) {
 		
 		foreach ( $xml->xpath( '//*[@name]' ) as $element ) {
@@ -15,6 +38,11 @@ class ComWxparamsFormDefault extends KFormDefault {
 		}
 	}
 	
+	/**
+	 * Imports the XML form.
+	 * 
+	 * @return ComWxparamsFormDefault The form object.
+	 */
 	public function importXml(SimpleXMLElement $xml, $params = null) {
 		
 		$this->processXml( $xml, $params );
@@ -45,7 +73,7 @@ class ComWxparamsFormDefault extends KFormDefault {
 	/**
 	 * Render the form as a DOM object
 	 *
-	 * @return	DOMDocument
+	 * @return DOMDocument The DOM document.
 	 */
 	public function renderDom() {
 		
@@ -67,9 +95,9 @@ class ComWxparamsFormDefault extends KFormDefault {
 	}
 	
 	/**
-	 * Render the form as HTMl
+	 * Render the form as HTML.
 	 *
-	 * @return	string	Html
+	 * @return string The HTML document.
 	 */
 	public function renderHtml() {
 		

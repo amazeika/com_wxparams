@@ -1,7 +1,27 @@
 <?php
+/**
+ * @version 1.0 $Id$
+ * @package com_wxparams
+ * @copyright Copyright (C) 2011 Arunas Mazeika. All rights reserved
+ * @author Arunas Mazeika
+ * @license GNU General Public License v3+ (GNU GPLv3) <http://www.gnu.org/licenses/gpl.html>
+ * @link http://www.wextend.com
+ * 
+ */
 
+/**
+ * The factory.
+ * 
+ * @author Arunas Mazeika
+ * @package com_wxparams
+ */
 class WxparamsFactory {
 	
+	/**
+	 * Configuration object.
+	 * 
+	 * @var WxparamsConfig 
+	 */
 	static $_config;
 	
 	/**
@@ -22,11 +42,10 @@ class WxparamsFactory {
 	}
 	
 	/**
-	 * Returns the form
+	 * Returns a form object for the current package.
 	 *
-	 * @param SimpleXMLElement $xml
-	 * @return mixed ComWxparamsFormDefault or ComWxparamsFormTabbed depending on the passed
-	 * XML data.
+	 * @param array $params Optional associative array with values to be binded to the XML form.
+	 * @return mixed ComWxparamsFormDefault or ComWxparamsFormTabbed depending on the XML form.
 	 */
 	static public function getForm($params = null) {
 		
@@ -44,6 +63,27 @@ class WxparamsFactory {
 		return KFactory::tmp( 'admin::com.wxparams.form.tabbed' )->importXml( $xml, $params );
 	}
 	
+	/**
+	 * Returns a configuration object.
+	 * 
+	 * If the package is not provided, the method will get its value from the request.
+	 * 
+	 * If the menu item id is not provided the following sequences apply for providing a configuration
+	 * object:
+	 * 
+	 * Frontend: -> If an Itemid variable is available in the request, use it for getting the corresponding
+	 *              configuration row.
+	 *           -> Look for a default configuration row for the current package.
+	 *           -> Return a default configuration object containing the default values from the XML form.
+	 *           
+	 * Backend: -> Look for a configuration row with menu item id of zero (0). Backend configuration
+	 *             rows have their item_id set to zero.
+	 *          -> Look for a default configuration row for the current package.
+	 *          -> Return a default configuration object containing the default values from the XML form.
+	 * 
+	 * @param string $package The package name.
+	 * @param int $item_id The menu item id.
+	 */
 	static public function getConfig($package = null, $item_id = null) {
 		
 		if (! $package) {
@@ -102,10 +142,9 @@ class WxparamsFactory {
 	}
 	
 	/**
-	 * 
 	 * SPL custom autoload function. 
 	 * 
-	 * @param string $class
+	 * @param string $class The class.
 	 */
 	public static function autoload($class) {
 		
