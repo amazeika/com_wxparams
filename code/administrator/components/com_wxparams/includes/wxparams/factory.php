@@ -75,11 +75,30 @@ class WxparamsFactory {
 		}
 		
 		if (! self::$_config) {
-			self::$_config = new WxparamsConfig( new KConfig( array ('package' => $package, 'item_id' => $item_id ) ) );
+			
+			$model = KFactory::tmp( 'admin::com.wxparams.model.configurations' );
+			
+			if (! is_null( $item_id )) {
+				// An item_id was provided/determined, attempt to get a corresponding configuration object.
+				$row = $model->set( array ('package' => $package, 'item_id' => $item_id ) )->getItem();
+				if ($row->id) {
+					self::$_config = new WxparamsConfig( new KConfig( array ('row' => $row, 'params' => $row->getParams() ) ) );
+					return self::$_config;
+				}
+			}
+			
+			// Default configuration fallback. getList must be used as the state is not unique.
+			$rowset = $model->reset()->set( array ('package' => $package, 'default' => 1 ) )->getList();
+			foreach ( $rowset as $row ) {
+				self::$_config = new WxparamsConfig( new KConfig( array ('row' => $row, 'params' => $row->getParams() ) ) );
+				return self::$_config;
+			}
+			
+			// Configuration not found. Return a configuration default object (containing the default
+			// values in the form XML file).
+			self::$_config = new WxparamsConfig( new KConfig( array ('params' => WxparamsFactory::getForm()->getDefaults() ) ) );
 		}
-		
 		return self::$_config;
-	
 	}
 	
 	/**
