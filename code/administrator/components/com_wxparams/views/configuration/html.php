@@ -41,6 +41,9 @@ class ComWxparamsViewConfigurationHtml extends ComWxparamsViewHtml {
 		$this->assign( 'form', $form );
 		$this->assign( 'toolbar', $toolbar );
 		
+		// Load the language file
+		KFactory::get('lib.joomla.language')->load($package);
+		
 		return parent::display();
 	}
 
