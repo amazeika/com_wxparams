@@ -13,7 +13,7 @@ class ComWxparamsToolbarButtonSettings extends KToolbarButtonAbstract {
 	
 	public function getOnClick() {
 		
-		return 'wxjq(\'#wxparams_launcher\').colorbox({width: \'80%\', height: \'80%\', iframe: true}); wxjq(\'#wxparams_launcher\').click(); return false;';
+		return 'wxjq(\'#wxparams_launcher\').colorbox({width: \'95%\', height: \'95%\', iframe: true}); wxjq(\'#wxparams_launcher\').click(); return false;';
 	
 	}
 	
