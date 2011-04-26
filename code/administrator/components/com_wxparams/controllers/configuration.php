@@ -29,12 +29,13 @@ class ComWxparamsControllerConfiguration extends ComDefaultControllerDefault
 		
 		// Enqueue validators, pre and post data processors if necessary. Commands are dinamically enqueued
 		// using the available information in the request data.
-		$data = KConfig::toData($this->getCommandContext()->data);
-		$needles = array('validator', 'preprocessor', 'postprocessor');
-		foreach($needles as $needle) {
-			if(in_array($needle, $data)) {
-				// Enqueue the command
-				$command_chain->enqueue(KFactory::tmp($data[$needle]));
+		if($data = $this->getCommandContext()->data) {
+			$needles = array('validator', 'preprocessor', 'postprocessor');
+			foreach($needles as $needle) {
+				if($identifier = $data->$needle) {
+					// Enqueue the command
+					$command_chain->enqueue(KFactory::tmp($identifier));
+				}
 			}
 		}
 	
