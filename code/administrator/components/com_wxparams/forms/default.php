@@ -118,9 +118,8 @@ class ComWxparamsFormDefault extends KFormDefault {
 			}
 		}
 		
-		$form = $dom->getElementsByTagName( 'form' )->item( 0 );
-		$string = $dom->saveXml( $form );
-		
+		$string = $dom->saveHTML();
+
 		return str_replace( '<', PHP_EOL . '<', $string );
 	}
 
