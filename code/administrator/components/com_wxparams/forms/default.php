@@ -29,7 +29,7 @@ class ComWxparamsFormDefault extends KFormDefault {
 		
 		foreach ( $xml->xpath( '//*[@name]' ) as $element ) {
 			$attributes = $element->attributes();
-			if ($params) {
+			if ($params && isset($params [( string ) $attributes->name])) {
 				// Bind params
 				$attributes->default = $params [( string ) $attributes->name];
 			}
