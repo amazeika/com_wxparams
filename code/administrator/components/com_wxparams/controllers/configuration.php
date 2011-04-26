@@ -9,33 +9,49 @@
  * 
  */
 
-class ComWxparamsControllerConfiguration extends KControllerDefault {
+class ComWxparamsControllerConfiguration extends ComDefaultControllerDefault
+{
 	
-	public function __construct(KConfig $config = null) {
+	public function __construct(KConfig $config = null)
+	{
 		
-		if (! $config) {
+		if(!$config) {
 			$config = new KConfig();
 		}
 		
-		parent::__construct( $config );
+		parent::__construct($config);
 		
 		$command_chain = $this->getCommandChain();
 		// Pre-processor needs to be executed prior validation
-		$command_chain->enqueue( KFactory::tmp( 'admin::com.wxparams.command.preprocessor' ), KCommand::PRIORITY_HIGH );
-		$command_chain->enqueue( KFactory::tmp( 'admin::com.wxparams.command.validator' ) );
+		$command_chain->enqueue(KFactory::tmp('admin::com.wxparams.command.preprocessor'), 
+			KCommand::PRIORITY_HIGH);
+		$command_chain->enqueue(KFactory::tmp('admin::com.wxparams.command.validator'));
+		
+		// Enqueue validators, pre and post data processors if necessary. Commands are dinamically enqueued
+		// using the available information in the request data.
+		$data = $this->getCommandContext()->data;
+		$needles = array('validator', 'preprocessor', 'postprocessor');
+		foreach($needles as $needle) {
+			if(in_array($needle, $data)) {
+				// Enqueue the command
+				$command_chain->enqueue(KFactory::tmp($data[$needle]));
+			}
+		}
 	
 	}
 	
-	protected function _actionBrowse(KCommandContext $context) {
+	protected function _actionBrowse(KCommandContext $context)
+	{
 		// While the plural view makes use of the model state for determining the package context,
 		// other views/classes make use of the package session variable.
-		$session_package = KRequest::get( 'session.com.wxparams.package', 'cmd' );
-		$state_package = $this->getModel()->getState()->package;
-		if ($session_package != $state_package) {
+		$session_package = KRequest::get('session.com.wxparams.package', 'cmd');
+		$state_package = $this->getModel()
+			->getState()->package;
+		if($session_package != $state_package) {
 			// Update the package session variable
-			KRequest::set( 'session.com.wxparams.package', $state_package );
+			KRequest::set('session.com.wxparams.package', $state_package);
 		}
-		return parent::_actionBrowse( $context );
+		return parent::_actionBrowse($context);
 	}
 
 }
