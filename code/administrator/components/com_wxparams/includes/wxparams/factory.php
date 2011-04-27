@@ -47,25 +47,31 @@ class WxparamsFactory
 	/**
 	 * Returns a form object for the current package.
 	 *
-	 * @param array $params Optional associative array with values to be binded to the XML form.
+	 * @param array $config Optional configuration array.
 	 * @return mixed ComWxparamsFormDefault or ComWxparamsFormTabbed depending on the XML form.
 	 */
-	static public function getForm($params = null)
+	static public function getForm($config = array())
 	{
+		$config = new KConfig($config);
 		
-		// Get the package from the session variable
-		$package = KRequest::get('session.com.wxparams.package', 'cmd');
+		// Default values
+		$config->append(array('params'=>null,'package'=>null));
+		
+		if (!$config->package) {
+			// Get the package from the session variable
+			$config->package = KRequest::get('session.com.wxparams.package', 'cmd');
+		}
 		
 		$xml = new SimpleXMLElement(
-			file_get_contents(JPATH_ROOT . '/media/' . $package . '/config/' . $package . '.xml'));
+			file_get_contents(JPATH_ROOT . '/media/' . $config->package . '/config/' . $config->package . '.xml'));
 		
 		foreach($xml->children() as $name => $element) {
 			// A form is considered as tabbed if every root element is a tab element.
 			if($name != 'tab') {
-				return KFactory::tmp('admin::com.wxparams.form.default')->importXml($xml, $params);
+				return KFactory::tmp('admin::com.wxparams.form.default')->importXml($xml, $config->params);
 			}
 		}
-		return KFactory::tmp('admin::com.wxparams.form.tabbed')->importXml($xml, $params);
+		return KFactory::tmp('admin::com.wxparams.form.tabbed')->importXml($xml, $config->params);
 	}
 	
 	/**
@@ -152,7 +158,7 @@ class WxparamsFactory
 			// Configuration not found. Return a configuration default object (containing the default
 			// values in the form XML file).
 			self::$_config = new WxparamsConfig(
-				new KConfig(array('params' => WxparamsFactory::getForm()->getDefaults()
+				new KConfig(array('params' => WxparamsFactory::getForm(array('package'=>$package))->getDefaults()
 				)));
 		}
 		return self::$_config;

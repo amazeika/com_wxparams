@@ -32,13 +32,14 @@ class ComWxparamsViewConfigurationHtml extends ComWxparamsViewHtml
 			}
 		}
 		
+		$config = array();
+		
 		if($state->isUnique()) {
-			// Bind the parameters and render the form.
-			$form = WxparamsFactory::getForm($row->getParams());
-		} else {
-			// Just render the form.
-			$form = WxparamsFactory::getForm();
-		}
+			// Bind the parameters to the form data
+			$config['params'] = $row->getParams();
+		} 
+		
+		$form = WxparamsFactory::getForm($config);
 		
 		$this->assign('package', $package);
 		$this->assign('form', $form);
