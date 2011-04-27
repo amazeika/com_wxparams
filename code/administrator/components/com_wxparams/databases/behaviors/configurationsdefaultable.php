@@ -9,12 +9,14 @@
  * 
  */
 
-class ComWxparamsDatabaseBehaviorConfigurationsdefaultable extends ComWextendDatabaseBehaviorDefaultable {
+class ComWxparamsDatabaseBehaviorConfigurationsdefaultable extends ComWextendDatabaseBehaviorDefaultable
+{
 	
-	public function _buildQueryWhere(KDatabaseQuery $query) {
+	public function _buildQueryWhere(KDatabaseQuery $query)
+	{
 		
 		// Sub-class by package
-		$query->where( 'package', '=', $this->package );
+		$query->where('package', '=', $this->package);
 	
 	}
 

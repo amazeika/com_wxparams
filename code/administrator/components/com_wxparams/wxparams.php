@@ -9,15 +9,16 @@
  * 
  */
 
-defined( 'KOOWA' ) or die( 'Restricted access' );
+defined('KOOWA') or die('Restricted access');
 
 // Load the WeXtend framework
-define( 'WXPATH_ADMINISTRATOR', JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_wextend' );
+define('WXPATH_ADMINISTRATOR', JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_wextend');
 require_once WXPATH_ADMINISTRATOR . DS . 'framework' . DS . 'framework.php';
 // Load the component framework
-require_once dirname( __FILE__ ) . '/includes/framework.php';
+require_once dirname(__FILE__) . '/includes/framework.php';
 
 // Forcing component rendering only
-KRequest::set( 'get.tmpl', 'component' );
+KRequest::set('get.tmpl', 'component');
 
-echo KFactory::get( 'admin::com.wxparams.dispatcher' )->dispatch( KRequest::get( 'get.view', 'cmd', 'configurations' ) );
+echo KFactory::get('admin::com.wxparams.dispatcher')->dispatch(
+	KRequest::get('get.view', 'cmd', 'configurations'));

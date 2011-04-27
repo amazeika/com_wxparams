@@ -9,15 +9,18 @@
  * 
  */
 
-class ComWxparamsTemplateHelperAdapterListboxJ15 extends ComWxparamsTemplateHelperAdapterListboxAbstract  {
+class ComWxparamsTemplateHelperAdapterListboxJ15 extends ComWxparamsTemplateHelperAdapterListboxAbstract
+{
 	
-	public function menuitems($config = array()) {
+	public function menuitems($config = array())
+	{
 		
-		$config = new KConfig( $config );
+		$config = new KConfig($config);
 		
-		$config->append( array ('text' => 'name' ) );
+		$config->append(array('text' => 'name'
+		));
 		
-		return parent::menuitems( $config );
+		return parent::menuitems($config);
 	
 	}
 

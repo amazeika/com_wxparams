@@ -15,7 +15,8 @@
  * @author Arunas Mazeika
  * @package com_wxparams
  */
-class WxparamsConfig extends KObjectArray {
+class WxparamsConfig extends KObjectArray
+{
 	
 	/**
 	 * Configuration row.
@@ -29,13 +30,14 @@ class WxparamsConfig extends KObjectArray {
 	 * 
 	 * @param KConfig $config Optional configuration object.
 	 */
-	public function __construct(KConfig $config = null) {
+	public function __construct(KConfig $config = null)
+	{
 		
-		if (! $config) {
+		if(!$config) {
 			$config = new KConfig();
 		}
 		
-		parent::__construct( $config );
+		parent::__construct($config);
 		
 		$this->_row = $config->row;
 		
@@ -48,11 +50,12 @@ class WxparamsConfig extends KObjectArray {
 	 * 
 	 * @return boolean True if successfully saved, false otherwise.
 	 */
-	public function save() {
+	public function save()
+	{
 		// The configuration can only be saved if a row for this configuration object exists.
-		if ($this->_row instanceof ComWxparamsDatabaseRowConfiguration) {
-			$this->_row->params = json_encode( $this->toArray() );
-			if ($this->_row->save()) {
+		if($this->_row instanceof ComWxparamsDatabaseRowConfiguration) {
+			$this->_row->params = json_encode($this->toArray());
+			if($this->_row->save()) {
 				$this->_data = $this->_row->getParams();
 				return true;
 			}
@@ -65,7 +68,8 @@ class WxparamsConfig extends KObjectArray {
 	 * 
 	 * @return mixed ComWxparamsDatabaseRowConfiguration or null. 
 	 */
-	public function getRow() {
+	public function getRow()
+	{
 		return $this->_row;
 	}
 	
@@ -74,9 +78,11 @@ class WxparamsConfig extends KObjectArray {
 	 * 
 	 * @param KConfig $config The configuration object.
 	 */
-	protected function _initialize(KConfig $config) {
-		$config->append( array ('row' => null, 'params' => array () ) );
-		parent::_initialize( $config );
+	protected function _initialize(KConfig $config)
+	{
+		$config->append(array('row' => null, 'params' => array()
+		));
+		parent::_initialize($config);
 	}
 
 }

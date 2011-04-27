@@ -9,7 +9,8 @@
  * 
  */
 
-interface ComWxparamsTemplateHelperListbox {
+interface ComWxparamsTemplateHelperListbox
+{
 	
 	public function menuitems($config = array());
 	

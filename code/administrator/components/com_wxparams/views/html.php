@@ -9,6 +9,7 @@
  * 
  */
 
-class ComWxparamsViewHtml extends ComDefaultViewHtml {
+class ComWxparamsViewHtml extends ComDefaultViewHtml
+{
 
 }

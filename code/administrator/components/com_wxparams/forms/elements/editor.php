@@ -23,7 +23,8 @@ class ComWxparamsFormElementEditor extends KFormElementAbstract
 	 *
 	 * @var array	Array of strings
 	 */
-	protected $_validAttribs = array('id', 'editor', 'width', 'height', 'cols', 'rows', 'buttons', 'options');
+	protected $_validAttribs = array('id', 'editor', 'width', 'height', 'cols', 'rows', 'buttons', 'options'
+	);
 	
 	/**
 	 * Constructor.
@@ -54,7 +55,9 @@ class ComWxparamsFormElementEditor extends KFormElementAbstract
 					'cols' => '75', 
 					'rows' => '20', 
 					'buttons' => true, 
-					'options' => array())));
+					'options' => array()
+				)
+			));
 		parent::_initialize($config);
 	}
 	
@@ -68,16 +71,19 @@ class ComWxparamsFormElementEditor extends KFormElementAbstract
 		
 		$config = new KConfig($this->getAttributes());
 		
-		$editor = KFactory::get('lib.joomla.editor', array($config->editor));
+		$editor = KFactory::get('lib.joomla.editor', array($config->editor
+		));
 		
 		$html = $editor->display($this->getName(), $this->getDefault(), $config->width, $config->height, 
 			$config->cols, $config->rows, $config->buttons, $config->options);
 		
 		// Input filtering.
-		$patterns = array('/<!--.*?-->/', '/id="params\[(.*?)\]"/');
-		$replacements = array('','id="$1"');
+		$patterns = array('/<!--.*?-->/', '/id="params\[(.*?)\]"/'
+		);
+		$replacements = array('', 'id="$1"'
+		);
 		$html = preg_replace($patterns, $replacements, $html);
-
+		
 		$fragment->appendXML($html);
 		
 		$elem->appendChild($fragment);

@@ -15,7 +15,8 @@
  * @author Arunas Mazeika
  * @package com_wxparams
  */
-class ComWxparamsFormDefault extends KFormDefault {
+class ComWxparamsFormDefault extends KFormDefault
+{
 	
 	/**
 	 * Process the XML form for use with com_wxparams. Form elements are enclosed in an array
@@ -25,16 +26,17 @@ class ComWxparamsFormDefault extends KFormDefault {
 	 * @param SimpleXMLElement $xml The XML form.
 	 * @param Array $params An associative array with data to be binded with the XML form.
 	 */
-	protected function processXml(SimpleXMLElement $xml, $params = null) {
+	protected function processXml(SimpleXMLElement $xml, $params = null)
+	{
 		
-		foreach ( $xml->xpath( '//*[@name]' ) as $element ) {
+		foreach($xml->xpath('//*[@name]') as $element) {
 			$attributes = $element->attributes();
-			if ($params && isset($params [( string ) $attributes->name])) {
+			if($params && isset($params[(string) $attributes->name])) {
 				// Bind params
-				$attributes->default = $params [( string ) $attributes->name];
+				$attributes->default = $params[(string) $attributes->name];
 			}
 			// Change the element's name
-			$attributes->name = 'params[' . ( string ) $attributes->name . ']';
+			$attributes->name = 'params[' . (string) $attributes->name . ']';
 		}
 	}
 	
@@ -43,11 +45,12 @@ class ComWxparamsFormDefault extends KFormDefault {
 	 * 
 	 * @return ComWxparamsFormDefault The form object.
 	 */
-	public function importXml(SimpleXMLElement $xml, $params = null) {
+	public function importXml(SimpleXMLElement $xml, $params = null)
+	{
 		
-		$this->processXml( $xml, $params );
+		$this->processXml($xml, $params);
 		
-		return parent::importXml( $xml );
+		return parent::importXml($xml);
 	}
 	
 	/**
@@ -55,15 +58,16 @@ class ComWxparamsFormDefault extends KFormDefault {
 	 * 
 	 * @return array Associative array containing the name and the default value of each element.
 	 */
-	public function getDefaults() {
+	public function getDefaults()
+	{
 		
-		$defaults = array ();
+		$defaults = array();
 		
-		foreach ( $this->_xml->xpath( '//*[@default]' ) as $element ) {
+		foreach($this->_xml->xpath('//*[@default]') as $element) {
 			$attributes = $element->attributes();
-			preg_match( '/params\[(.*?)\]/', $attributes->name, $results );
-			$name = $results [1];
-			$defaults [$name] = ( string ) $attributes->default;
+			preg_match('/params\[(.*?)\]/', $attributes->name, $results);
+			$name = $results[1];
+			$defaults[$name] = (string) $attributes->default;
 		}
 		
 		return $defaults;
@@ -75,18 +79,19 @@ class ComWxparamsFormDefault extends KFormDefault {
 	 *
 	 * @return DOMDocument The DOM document.
 	 */
-	public function renderDom() {
+	public function renderDom()
+	{
 		
 		$dom = new DOMDocument();
 		
-		foreach ( $this as $element ) {
+		foreach($this as $element) {
 			
-			if ($dom_label = $element->renderDomLabel( $dom )) {
-				$dom->appendChild( $dom_label );
+			if($dom_label = $element->renderDomLabel($dom)) {
+				$dom->appendChild($dom_label);
 			}
 			
-			if ($dom_element = $element->renderDomElement( $dom )) {
-				$dom->appendChild( $dom_element );
+			if($dom_element = $element->renderDomElement($dom)) {
+				$dom->appendChild($dom_element);
 			}
 		
 		}
@@ -99,28 +104,29 @@ class ComWxparamsFormDefault extends KFormDefault {
 	 *
 	 * @return string The HTML document.
 	 */
-	public function renderHtml() {
+	public function renderHtml()
+	{
 		
 		$dom = $this->renderDom();
 		
 		// Setting validators, pre and post data processors
-		foreach ( $this->_xml->attributes() as $key => $value ) {
-			switch ($key) {
-				case 'validator' :
-				case 'preprocessor' :
-				case 'postprocessor' :
-					$element = $dom->createElement( 'input' );
-					$element->setAttribute( 'type', 'hidden' );
-					$element->setAttribute( 'name', $key );
-					$element->setAttribute( 'value', $value );
-					$dom->appendChild( $element );
+		foreach($this->_xml->attributes() as $key => $value) {
+			switch($key){
+				case 'validator':
+				case 'preprocessor':
+				case 'postprocessor':
+					$element = $dom->createElement('input');
+					$element->setAttribute('type', 'hidden');
+					$element->setAttribute('name', $key);
+					$element->setAttribute('value', $value);
+					$dom->appendChild($element);
 					break;
 			}
 		}
 		
 		$string = $dom->saveHTML();
-
-		return str_replace( '<', PHP_EOL . '<', $string );
+		
+		return str_replace('<', PHP_EOL . '<', $string);
 	}
 
 }
