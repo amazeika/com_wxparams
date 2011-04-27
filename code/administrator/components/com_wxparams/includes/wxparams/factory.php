@@ -55,15 +55,15 @@ class WxparamsFactory
 		$config = new KConfig($config);
 		
 		// Default values
-		$config->append(array('params'=>null,'package'=>null));
+		$config->append(array('params' => null, 'package' => null));
 		
-		if (!$config->package) {
+		if(!$config->package) {
 			// Get the package from the session variable
 			$config->package = KRequest::get('session.com.wxparams.package', 'cmd');
 		}
 		
-		$xml = new SimpleXMLElement(
-			file_get_contents(JPATH_ROOT . '/media/' . $config->package . '/config/' . $config->package . '.xml'));
+		$xml = new SimpleXMLElement(file_get_contents(JPATH_ROOT . '/media/' . $config->package . '/config/' .
+			 $config->package . '.xml'));
 		
 		foreach($xml->children() as $name => $element) {
 			// A form is considered as tabbed if every root element is a tab element.
@@ -132,34 +132,31 @@ class WxparamsFactory
 			
 			if(!is_null($item_id)) {
 				// An item_id was provided/determined, attempt to get a corresponding configuration object.
-				$row = $model->set(array('package' => $package, 'item_id' => $item_id
-				))
+				$row = $model->set(array('package' => $package, 'item_id' => $item_id))
 					->getItem();
 				if($row->id) {
-					self::$_config = new WxparamsConfig(
-						new KConfig(array('row' => $row, 'params' => $row->getParams()
-						)));
+					self::$_config = new WxparamsConfig(new KConfig(array(
+						'row' => $row, 
+						'params' => $row->getParams())));
 					return self::$_config;
 				}
 			}
 			
 			// Default configuration fallback. getList must be used as the state is not unique.
 			$rowset = $model->reset()
-				->set(array('package' => $package, 'default' => 1
-			))
+				->set(array('package' => $package, 'default' => 1))
 				->getList();
 			foreach($rowset as $row) {
-				self::$_config = new WxparamsConfig(
-					new KConfig(array('row' => $row, 'params' => $row->getParams()
-					)));
+				self::$_config = new WxparamsConfig(new KConfig(array(
+					'row' => $row, 
+					'params' => $row->getParams())));
 				return self::$_config;
 			}
 			
 			// Configuration not found. Return a configuration default object (containing the default
 			// values in the form XML file).
-			self::$_config = new WxparamsConfig(
-				new KConfig(array('params' => WxparamsFactory::getForm(array('package'=>$package))->getDefaults()
-				)));
+			self::$_config = new WxparamsConfig(new KConfig(array(
+				'params' => WxparamsFactory::getForm(array('package' => $package))->getDefaults())));
 		}
 		return self::$_config;
 	}

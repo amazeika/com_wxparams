@@ -23,15 +23,13 @@ class ComWxparamsControllerConfiguration extends ComDefaultControllerDefault
 		
 		$command_chain = $this->getCommandChain();
 		// Pre-processor needs to be executed prior validation
-		$command_chain->enqueue(KFactory::tmp('admin::com.wxparams.command.preprocessor'), 
-			KCommand::PRIORITY_HIGH);
+		$command_chain->enqueue(KFactory::tmp('admin::com.wxparams.command.preprocessor'), KCommand::PRIORITY_HIGH);
 		$command_chain->enqueue(KFactory::tmp('admin::com.wxparams.command.validator'));
 		
 		// Enqueue validators, pre and post data processors if necessary. Commands are dinamically enqueued
 		// using the available information in the request data.
 		if($data = $this->getCommandContext()->data) {
-			$needles = array('validator', 'preprocessor', 'postprocessor'
-			);
+			$needles = array('validator', 'preprocessor', 'postprocessor');
 			foreach($needles as $needle) {
 				if($identifier = $data->$needle) {
 					// Enqueue the command

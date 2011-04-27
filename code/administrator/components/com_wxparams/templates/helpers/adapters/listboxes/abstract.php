@@ -18,9 +18,11 @@ abstract class ComWxparamsTemplateHelperAdapterListboxAbstract extends ComDefaul
 		
 		$config = new KConfig($config);
 		
-		$config->append(
-			array('model' => 'configurations', 'name' => 'package', 'value' => 'package', 'text' => 'package'
-			));
+		$config->append(array(
+			'model' => 'configurations', 
+			'name' => 'package', 
+			'value' => 'package', 
+			'text' => 'package'));
 		
 		return parent::_listbox($config);
 	
@@ -31,8 +33,7 @@ abstract class ComWxparamsTemplateHelperAdapterListboxAbstract extends ComDefaul
 		
 		$config = new KConfig($config);
 		
-		$config->append(array('model' => 'menus', 'name' => 'item_id', 'value' => 'id', 'deselect' => false
-		));
+		$config->append(array('model' => 'menus', 'name' => 'item_id', 'value' => 'id', 'deselect' => false));
 		
 		return parent::_listbox($config);
 	
@@ -45,11 +46,8 @@ abstract class ComWxparamsTemplateHelperAdapterListboxAbstract extends ComDefaul
 		
 		if($config->name == 'item_id') {
 			// Append the Backend option to the list
-			$config->options->append(
-				array(
-					$this->option(array('text' => '- ' . WxText::_('WXPARAMS_BACKEND') . ' -', 'value' => 0
-					))
-				));
+			$config->options->append(array(
+				$this->option(array('text' => '- ' . WxText::_('WXPARAMS_BACKEND') . ' -', 'value' => 0))));
 		}
 		
 		return parent::optionlist($config);

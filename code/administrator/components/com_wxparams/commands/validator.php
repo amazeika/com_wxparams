@@ -14,9 +14,7 @@ class ComWxparamsCommandValidator extends ComWextendCommandValidatorAbstract
 	
 	protected function _initialize(KConfig $config)
 	{
-		$config->append(array('mandatory_fields' => array('title', 'package'
-		)
-		));
+		$config->append(array('mandatory_fields' => array('title', 'package')));
 		parent::_initialize($config);
 	}
 	
@@ -30,8 +28,7 @@ class ComWxparamsCommandValidator extends ComWextendCommandValidatorAbstract
 			->getTable()
 			->getRow();
 		
-		$row->setData(array('package' => $data->package, 'item_id' => $data->item_id
-		));
+		$row->setData(array('package' => $data->package, 'item_id' => $data->item_id));
 		
 		if($row->load() && KRequest::get('get.id', 'int') != $row->id) {
 			$errors[] = WxText::_('WXPARAMS_CONFIGURATION_EXISTS');

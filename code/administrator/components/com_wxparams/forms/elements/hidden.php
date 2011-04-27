@@ -23,8 +23,7 @@ class ComWxparamsFormElementHidden extends KFormElementAbstract
 	 *
 	 * @var array	Array of strings
 	 */
-	protected $_validAttribs = array('id'
-	);
+	protected $_validAttribs = array('id');
 	
 	public function renderDomElement(DOMDocument $dom)
 	{

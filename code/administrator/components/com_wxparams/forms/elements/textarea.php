@@ -37,8 +37,7 @@ class ComWxparamsFormElementTextarea extends KFormElementAbstract
 		'style', 
 		'tabindex', 
 		'title', 
-		'xml:lang'
-	);
+		'xml:lang');
 	
 	public function renderDomElement(DOMDocument $dom)
 	{

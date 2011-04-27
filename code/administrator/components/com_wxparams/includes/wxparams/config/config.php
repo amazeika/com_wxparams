@@ -80,8 +80,7 @@ class WxparamsConfig extends KObjectArray
 	 */
 	protected function _initialize(KConfig $config)
 	{
-		$config->append(array('row' => null, 'params' => array()
-		));
+		$config->append(array('row' => null, 'params' => array()));
 		parent::_initialize($config);
 	}
 

@@ -34,11 +34,9 @@ class ComWxparamsFormElementTab extends KFormElementAbstract
 		'style', 
 		'tabindex', 
 		'title', 
-		'xml:lang'
-	);
+		'xml:lang');
 	
-	protected $_label = array('label', 'description'
-	);
+	protected $_label = array('label', 'description');
 	
 	public function renderDomElement(DOMDocument $dom)
 	{

@@ -28,5 +28,4 @@ if(!in_array('.php', explode(',', $autoload_extensions))) {
 }
 
 // Registering the custom autoload function
-spl_autoload_register(array('WxparamsFactory', 'autoload'
-)); 
+spl_autoload_register(array('WxparamsFactory', 'autoload')); 

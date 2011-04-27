@@ -52,6 +52,9 @@ defined('KOOWA') or die('Restricted access');
 			
 			
 			
+			
+			
+			
 			<th>
 				<?=@helper('grid.sort', array('column' => 'title', 'title' => @text('WXPARAMS_TITLE')));?>
 			</th>

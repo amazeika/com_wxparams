@@ -15,8 +15,7 @@ class ComWxparamsViewConfigurationHtml extends ComWxparamsViewHtml
 	public function display()
 	{
 		
-		$toolbar = KFactory::get('admin::com.wxparams.toolbar.configuration')->setTitle(
-			'WXPARAMS_CONFIGURATION');
+		$toolbar = KFactory::get('admin::com.wxparams.toolbar.configuration')->setTitle('WXPARAMS_CONFIGURATION');
 		
 		$model = $this->getModel();
 		$state = $model->getState();
@@ -37,7 +36,7 @@ class ComWxparamsViewConfigurationHtml extends ComWxparamsViewHtml
 		if($state->isUnique()) {
 			// Bind the parameters to the form data
 			$config['params'] = $row->getParams();
-		} 
+		}
 		
 		$form = WxparamsFactory::getForm($config);
 		
