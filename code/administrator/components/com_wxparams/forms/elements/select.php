@@ -30,15 +30,13 @@ class ComWxparamsFormElementSelect extends KFormElementSelect
 	 */
 	public function importXml(SimpleXMLElement $xml)
 	{
-		parent::importXml($xml);
-		
-		$identifier = clone $this->getIdentifier();
-		$identifier->name = 'option';
-		
-		$attributes = $this->_xml->attributes();
+		$attributes = $xml->attributes();
 		
 		// See if the options must be generated using a pre-defined model.
 		if($options_model = (string) $attributes->options_model) {
+			parent::importXml($xml);
+			$identifier = clone $this->getIdentifier();
+			$identifier->name = 'option';
 			$rowset = KFactory::tmp($options_model)->getList();
 			$options_label = (string) $attributes->options_label;
 			$options_value = (string) $attributes->options_value;
