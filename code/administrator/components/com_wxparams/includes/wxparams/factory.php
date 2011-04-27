@@ -45,7 +45,8 @@ class WxparamsFactory
 	}
 	
 	/**
-	 * Returns a form object for the current package.
+	 * Returns a form object. If a package is provided in the configuration array, a form for the
+	 * requested package will be returned. Otherwise the session package information will be used.
 	 *
 	 * @param array $config Optional configuration array.
 	 * @return mixed ComWxparamsFormDefault or ComWxparamsFormTabbed depending on the XML form.
@@ -92,26 +93,21 @@ class WxparamsFactory
 	 * -> Look for a default configuration row for the current package.
 	 * -> Return a default configuration object containing the default values from the XML form.
 	 * 
-	 * @param string $package The package name.
-	 * @param int $item_id The menu item id.
+	 * @param array $config An option configuration array.
 	 */
-	static public function getConfig($package = null, $item_id = null)
+	static public function getConfig($config = array())
 	{
+		$config = new KConfig($config);
 		
-		if(!$package) {
-			$package = KRequest::get('get.option', 'cmd');
-		}
-		
-		if(!$item_id) {
-			// If the item_id is not set, com_params attemps to get this value from the request on
-			// frontend applications. On backend applications, this value is forced to 0, which is
-			// the item_id value used for backend configuration rows. 
-			if(KFactory::get('lib.joomla.application')->isSite()) {
-				$item_id = KRequest::get('get.Itemid', 'int', null);
-			} else {
-				$item_id = 0;
-			}
-		}
+		// Default values:
+		// 1. If the package is not set we take it directly from the request.
+		// 2. If the item_id is not set, com_params attemps to get this value from the request on
+		// frontend applications. On backend applications, this value is forced to 0, which is
+		// the item_id value used for backend configuration rows.
+		$config->append(array(
+			'package' => KRequest::get('get.option', 'cmd')))
+			->append(array(
+			KFactory::get('lib.joomla.application')->isSite() ? KRequest::get('get.Itemid', 'int', null) : 0));
 		
 		// Cache
 		if(self::$_config instanceof WxparamsConfig) {
@@ -119,7 +115,7 @@ class WxparamsFactory
 				// No row attached to the configuration object, no way to know if package and item_id
 				// changed. We force the re-generation of the configuration object.
 				self::$_config = null;
-			} elseif(!($row->package == $package && $row->item_id == $item_id)) {
+			} elseif(!($row->package == $config->package && $row->item_id == $config->item_id)) {
 				// A different configuration object is being requested. We force the re-generation of
 				// the configuration object.
 				self::$_config = null;
@@ -132,7 +128,9 @@ class WxparamsFactory
 			
 			if(!is_null($item_id)) {
 				// An item_id was provided/determined, attempt to get a corresponding configuration object.
-				$row = $model->set(array('package' => $package, 'item_id' => $item_id))
+				$row = $model->set(array(
+					'package' => $config->package, 
+					'item_id' => $config->item_id))
 					->getItem();
 				if($row->id) {
 					self::$_config = new WxparamsConfig(new KConfig(array(
@@ -144,7 +142,7 @@ class WxparamsFactory
 			
 			// Default configuration fallback. getList must be used as the state is not unique.
 			$rowset = $model->reset()
-				->set(array('package' => $package, 'default' => 1))
+				->set(array('package' => $config->package, 'default' => 1))
 				->getList();
 			foreach($rowset as $row) {
 				self::$_config = new WxparamsConfig(new KConfig(array(
@@ -156,7 +154,7 @@ class WxparamsFactory
 			// Configuration not found. Return a configuration default object (containing the default
 			// values in the form XML file).
 			self::$_config = new WxparamsConfig(new KConfig(array(
-				'params' => WxparamsFactory::getForm(array('package' => $package))->getDefaults())));
+				'params' => WxparamsFactory::getForm(array('package' => $config->package))->getDefaults())));
 		}
 		return self::$_config;
 	}
