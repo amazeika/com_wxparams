@@ -37,12 +37,12 @@ class ComWxparamsFormTabbed extends ComWxparamsFormDefault
 		$i = 1;
 		
 		foreach($this as $element) {
-			// Each fieldset represents a tab that groups elements inside of it
+			// Each root element is a tab containing elements
 			$li = $dom->createElement('li');
 			$a = $dom->createElement('a');
 			$a->setAttribute('href', '#tabs-' . $i);
 			$label = $element->getLabel();
-			$a->appendChild($dom->createTextNode($label['label']));
+			$a->appendChild($dom->createTextNode(WxText::_($label['label'])));
 			$li->appendChild($a);
 			$ul->appendChild($li);
 			
