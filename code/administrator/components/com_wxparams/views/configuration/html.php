@@ -13,7 +13,7 @@ class ComWxparamsViewConfigurationHtml extends ComWxparamsViewHtml {
 	
 	public function display() {
 		
-		$toolbar = KFactory::get( 'admin::com.wxparams.toolbar.configuration' )->setTitle( WxText::_( 'WXPARAMS_CONFIGURATION' ) );
+		$toolbar = KFactory::get( 'admin::com.wxparams.toolbar.configuration' )->setTitle( 'WXPARAMS_CONFIGURATION' );
 		
 		$model = $this->getModel();
 		$state = $model->getState();
