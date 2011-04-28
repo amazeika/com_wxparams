@@ -23,7 +23,7 @@ class ComWxparamsFormElementEditor extends KFormElementAbstract
 	 *
 	 * @var array	Array of strings
 	 */
-	protected $_validAttribs = array('id', 'editor', 'width', 'height', 'cols', 'rows', 'buttons', 'options');
+	protected $_validAttribs = array();
 	
 	/**
 	 * Constructor.
@@ -55,6 +55,16 @@ class ComWxparamsFormElementEditor extends KFormElementAbstract
 				'buttons' => true, 
 				'options' => array())));
 		parent::_initialize($config);
+	}
+	
+	/**
+	 * Override for wraping element names in an array for avoiding naming conflicts.
+	 *
+	 * @return string The element name.
+	 */
+	public function getName()
+	{
+		return 'params[' . $this->_name . ']';
 	}
 	
 	public function renderDomElement(DOMDocument $dom)

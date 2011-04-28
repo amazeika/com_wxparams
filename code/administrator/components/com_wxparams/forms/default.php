@@ -19,9 +19,8 @@ class ComWxparamsFormDefault extends KFormDefault
 {
 	
 	/**
-	 * Process the XML form for use with com_wxparams. Form elements are enclosed in an array
-	 * for avoiding naming conflicts. An optional params variable can be provided for changing
-	 * the default values of the form elements.
+	 * Process the XML form for use with com_wxparams. An optional params variable can be provided for
+	 * changing default values of the form elements.
 	 * 
 	 * @param SimpleXMLElement $xml The XML form.
 	 * @param Array $params An associative array with data to be binded with the XML form.
@@ -35,8 +34,6 @@ class ComWxparamsFormDefault extends KFormDefault
 				// Bind params
 				$attributes->default = $params[(string) $attributes->name];
 			}
-			// Change the element's name
-			$attributes->name = 'params[' . (string) $attributes->name . ']';
 		}
 	}
 	

@@ -23,18 +23,7 @@ class ComWxparamsFormElementTab extends KFormElementAbstract
 	 *
 	 * @var array	Array of strings
 	 */
-	protected $_validAttribs = array(
-		'disabled', 
-		'placeholder', 
-		'accesskey', 
-		'class', 
-		'dir', 
-		'id', 
-		'lang', 
-		'style', 
-		'tabindex', 
-		'title', 
-		'xml:lang');
+	protected $_validAttribs = array();
 	
 	protected $_label = array('label', 'description');
 	

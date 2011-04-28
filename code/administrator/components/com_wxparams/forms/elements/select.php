@@ -34,17 +34,21 @@ class ComWxparamsFormElementSelect extends KFormElementSelect
 		
 		// See if the options must be generated using a pre-defined model.
 		if($options_model = (string) $attributes->options_model) {
+			// Import XML data
 			parent::importXml($xml);
-			$identifier = clone $this->getIdentifier();
-			$identifier->name = 'option';
-			$rowset = KFactory::tmp($options_model)->getList();
-			$options_label = (string) $attributes->options_label;
-			$options_value = (string) $attributes->options_value;
 			// Default option
 			$option = new SimpleXMLElement('<option />');
 			$option->addAttribute('label', ' - ' . WxText::_('WXPARAMS_SELECT') . ' - ');
 			$option->addAttribute('value', '');
+			// Add it to the select element ...
+			$identifier = clone $this->getIdentifier();
+			$identifier->name = 'option';
 			$this->addOption(KFactory::tmp($identifier)->importXml($option));
+			// Get the option data
+			$rowset = KFactory::tmp($options_model)->getList();
+			// Determine the row columns that will be used for labels and values
+			$options_label = (string) $attributes->options_label;
+			$options_value = (string) $attributes->options_value;
 			foreach($rowset as $row) {
 				$option = new SimpleXMLElement('<option />');
 				$option->addAttribute('label', $row->$options_label);
@@ -55,6 +59,16 @@ class ComWxparamsFormElementSelect extends KFormElementSelect
 		}
 		
 		return parent::importXml($xml);
+	}
+	
+	/**
+	 * Override for wraping element names in an array for avoiding naming conflicts.
+	 *
+	 * @return string The element name.
+	 */
+	public function getName()
+	{
+		return 'params[' . $this->_name . ']';
 	}
 
 }
