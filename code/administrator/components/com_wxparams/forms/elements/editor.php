@@ -81,9 +81,10 @@ class ComWxparamsFormElementEditor extends KFormElementAbstract
 		
 		$html = $editor->display($this->getName(), $this->getDefault(), $config->width, $config->height, $config->cols, $config->rows, $config->buttons, $config->options);
 		
-		// Input filtering.
-		$patterns = array('/<!--.*?-->/', '/id="params\[(.*?)\]"/');
-		$replacements = array('', 'id="$1"');
+		// Input filtering and setting of id and name attributes.
+		$patterns = array('/<!--.*?-->/', '/id="(.*?)"/');
+		$id = (string) isset($this->_xml['id']) ? $this->_xml['id'] : '$1';
+		$replacements = array('', 'id="' . $id . '"');
 		$html = preg_replace($patterns, $replacements, $html);
 		
 		$fragment->appendXML($html);
