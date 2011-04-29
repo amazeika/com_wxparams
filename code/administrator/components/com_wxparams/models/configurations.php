@@ -44,8 +44,13 @@ class ComWxparamsModelConfigurations extends KModelDefault
 			$query->where('default', '=', $state->default);
 		}
 		
-		parent::_buildQueryWhere($query);
-	
+		if($state->package) {
+			$query->where('package', '=', $state->package);
+		}
+		
+		if($state->type) {
+			$query->where('type', '=', $state->type);
+		}
 	}
 
 }

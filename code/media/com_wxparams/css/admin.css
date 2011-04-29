@@ -11,3 +11,7 @@ li.value {
 	list-style-type: none;
 	float: left;
 }
+
+.settings_button {
+	background-image: url('../media/com_wxparams/images/icon-32-settings.png');
+}

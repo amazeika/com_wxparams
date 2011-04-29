@@ -11,41 +11,18 @@
 
 class ComWxparamsViewConfigurationHtml extends ComWxparamsViewHtml
 {
-	
 	public function display()
-	{
-		
-		$toolbar = KFactory::get('admin::com.wxparams.toolbar.configuration')->setTitle('WXPARAMS_CONFIGURATION');
+	{		
+		$this->assign('toolbar', KFactory::get('admin::com.wxparams.toolbar.configuration')->setTitle('WXPARAMS_CONFIGURATION'));
 		
 		$model = $this->getModel();
-		$state = $model->getState();
-		
-		// Get the package name
-		if($state->isUnique()) {
-			$row = $model->getItem();
-			$package = $row->package;
-		} else {
-			// Get the package value from the session
-			if(!$package = KRequest::get('session.com.wxparams.package', 'cmd')) {
-				throw new KViewException('Unable to determine the package name.');
-			}
-		}
-		
-		$config = array();
-		
-		if($state->isUnique()) {
-			// Bind the parameters to the form data
-			$config['params'] = $row->getParams();
-		}
-		
-		$form = WxparamsFactory::getForm($config);
-		
-		$this->assign('package', $package);
-		$this->assign('form', $form);
-		$this->assign('toolbar', $toolbar);
+		$config = ($model->getState()
+			->isUnique()) ? array('params' => $model->getItem()
+			->getParams()) : array();
+		$this->assign('form', WxparamsFactory::getForm($config));
 		
 		// Load the language file
-		KFactory::get('lib.joomla.language')->load($package);
+		KFactory::get('lib.joomla.language')->load($this->form->getPackage());
 		
 		return parent::display();
 	}

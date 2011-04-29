@@ -17,6 +17,7 @@ class ComWxparamsDatabaseBehaviorConfigurationsdefaultable extends ComWextendDat
 		
 		// Sub-class by package
 		$query->where('package', '=', $this->package);
+		$query->where('type', '=', $this->type);
 	
 	}
 

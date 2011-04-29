@@ -9,11 +9,18 @@
  * 
  */
 
-interface ComWxparamsTemplateHelperListbox
+class ComWxparamsTemplateHelperListboxJ15 extends ComWxparamsTemplateHelperListboxAbstract
 {
 	
-	public function menuitems($config = array());
+	public function menuitems($config = array())
+	{
+		
+		$config = new KConfig($config);
+		
+		$config->append(array('text' => 'name'));
+		
+		return parent::menuitems($config);
 	
-	public function packages($config = array());
+	}
 
 }

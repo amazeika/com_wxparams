@@ -37,10 +37,18 @@ wxjq(document).ready(function() {
 	value="<?=@escape($configuration->title);?>" /><br />
 <label for="description" class="mainlabel"><?=@text('WXPARAMS_DESCRIPTION');?></label>
 <textarea id="description" name="description"><?=@escape($configuration->description);?></textarea><br />
+<?
+if($form->getType() != 'global') {
+	?>
 <label for="item_id" class="mainlabel"><?=@text('WXPARAMS_MENU_ITEM');?></label>
-<?=@helper('admin::com.wxparams.template.helper.adapter.listbox.' . strtolower(WxFactory::getAdapter()) . '.menuitems');?><br />
+<?=@helper('admin::com.wxparams.template.helper.listbox.' . strtolower(WxFactory::getAdapter()) . '.menuitems');?><br />
+<?
+}
+?>
 <? // Render the XML form
+
 echo $form->renderHtml();
 ?>
 </div>
-<input type="hidden" name="package" value="<?=$package;?>" /></form>
+<input type="hidden" name="package" value="<?=$form->getPackage();?>" />
+<input type="hidden" name="type" value="<?=$form->getType();?>" /></form>

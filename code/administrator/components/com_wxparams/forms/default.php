@@ -18,21 +18,55 @@
 class ComWxparamsFormDefault extends KFormDefault
 {
 	
+	protected $_package;
+	protected $_type;
+	protected $_values;
+	
+	public function __construct(KConfig $config = null)
+	{
+		if(!$config) {
+			$config = new KConfig();
+		}
+		parent::__construct($config);
+		
+		$this->_package = $config->package;
+		$this->_type = $config->type;
+		$this->_values = $config->params;
+	}
+	
+	protected function _initialize(KConfig $config)
+	{
+		$config->append(array('package' => null, 'type' => null, 'params' => null));
+		parent::_initialize($config);
+	}
+	
+	public function getPackage()
+	{
+		return $this->_package;
+	}
+	
+	public function getType()
+	{
+		return $this->_type;
+	}
+	
 	/**
 	 * Process the XML form for use with com_wxparams. An optional params variable can be provided for
 	 * changing default values of the form elements.
 	 * 
 	 * @param SimpleXMLElement $xml The XML form.
-	 * @param Array $params An associative array with data to be binded with the XML form.
 	 */
-	protected function processXml(SimpleXMLElement $xml, $params = null)
+	protected function processXml(SimpleXMLElement $xml)
 	{
 		
 		foreach($xml->xpath('//*[@name]') as $element) {
 			$attributes = $element->attributes();
-			if($params && isset($params[(string) $attributes->name])) {
-				// Bind params
-				$attributes->default = $params[(string) $attributes->name];
+			if($this->_values && $this->_values->{(string) $attributes->name}) {
+				// Bind parameter value
+				$value = KConfig::toData($this->_values->{(string) $attributes->name});
+				// Array values are imploded using commas.
+				$value = is_array($value) ? implode(',', $value) : $value;
+				$element->addAttribute('value', $value);
 			}
 		}
 	}
@@ -42,10 +76,10 @@ class ComWxparamsFormDefault extends KFormDefault
 	 * 
 	 * @return ComWxparamsFormDefault The form object.
 	 */
-	public function importXml(SimpleXMLElement $xml, $params = null)
+	public function importXml(SimpleXMLElement $xml)
 	{
 		
-		$this->processXml($xml, $params);
+		$this->processXml($xml);
 		
 		return parent::importXml($xml);
 	}

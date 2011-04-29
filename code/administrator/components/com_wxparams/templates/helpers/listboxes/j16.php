@@ -9,7 +9,7 @@
  * 
  */
 
-class ComWxparamsTemplateHelperAdapterListboxJ15 extends ComWxparamsTemplateHelperAdapterListboxAbstract
+class ComWxparamsTemplateHelperListboxJ16 extends ComWxparamsTemplateHelperListboxAbstract
 {
 	
 	public function menuitems($config = array())
@@ -17,7 +17,7 @@ class ComWxparamsTemplateHelperAdapterListboxJ15 extends ComWxparamsTemplateHelp
 		
 		$config = new KConfig($config);
 		
-		$config->append(array('text' => 'name'));
+		$config->append(array('text' => 'title'));
 		
 		return parent::menuitems($config);
 	

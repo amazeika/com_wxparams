@@ -39,19 +39,4 @@ class ComWxparamsControllerConfiguration extends ComDefaultControllerDefault
 		}
 	
 	}
-	
-	protected function _actionBrowse(KCommandContext $context)
-	{
-		// While the plural view makes use of the model state for determining the package context,
-		// other views/classes make use of the package session variable.
-		$session_package = KRequest::get('session.com.wxparams.package', 'cmd');
-		$state_package = $this->getModel()
-			->getState()->package;
-		if($session_package != $state_package) {
-			// Update the package session variable
-			KRequest::set('session.com.wxparams.package', $state_package);
-		}
-		return parent::_actionBrowse($context);
-	}
-
 }

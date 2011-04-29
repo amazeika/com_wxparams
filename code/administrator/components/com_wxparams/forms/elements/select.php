@@ -68,7 +68,7 @@ class ComWxparamsFormElementSelect extends KFormElementSelect
 	 */
 	public function getName()
 	{
-		return 'params[' . $this->_name . ']';
+		return preg_replace('/(\w+)/', 'params[$1]', parent::getName());
 	}
 
 }
