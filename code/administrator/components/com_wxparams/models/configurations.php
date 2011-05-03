@@ -51,6 +51,8 @@ class ComWxparamsModelConfigurations extends KModelDefault
 		if($state->type) {
 			$query->where('type', '=', $state->type);
 		}
+		
+		parent::_buildQueryWhere($query);
 	}
 
 }
