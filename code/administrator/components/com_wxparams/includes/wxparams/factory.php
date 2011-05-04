@@ -76,9 +76,8 @@ class WxparamsFactory
 		} else {
 			//TODO 
 		}
-
-		$xml = new SimpleXMLElement(file_get_contents(JPATH_ROOT . '/media/' . $config->package . '/config/' .
-			 str_replace('.', '/', $config->type) . '/form.xml'));
+		
+		$xml = new SimpleXMLElement(file_get_contents(JPATH_ROOT . '/media/' . $config->package . '/config/' . str_replace('.', '/', $config->type) . '/form.xml'));
 		
 		$config = $config->toArray();
 		foreach($xml->children() as $name => $element) {
@@ -126,131 +125,126 @@ class WxparamsFactory
 	{
 		$config = new KConfig($config);
 		
-		// Default values:
-		// 1. If the package is not set we take it directly from the request.
-		// 2. If the item_id is not set, com_params attemps to get this value from the request.
-		// 3. If the type is not set, the component attemps to get this value from the request 
-		// (the view) on frontend applications. On the backend, this value is forced to global.
-		$config->append(array(
-			'package' => KRequest::get('get.option', 'cmd'), 
-			'item_id' => KRequest::get('get.Itemid', 'int', null), 
-			'type' => KFactory::get('lib.joomla.application')->isSite() ? 'view.' .
-				 KRequest::get('get.view', 'cmd') : 'global'));
+		// Package and type are mandatory
+		if(!$config->package || !$config->type) {
+			throw new KException('Package and/or type missing.');
+		}
+		
+		// If the item_id is not set, the component attemps to get this value from the request.
+		$config->append(array('item_id' => KRequest::get('get.Itemid', 'int', null)));
 		
 		// Cache
 		if(self::$_config instanceof WxparamsConfig) {
 			if(!$row = self::$_config->getRow()) {
-				// No row attached to the configuration object, no way to know if package and item_id
-				// changed. We force the re-generation of the configuration object.
+				// No row attached to the configuration object, no way to know if package, item_id
+				//  and type changed. We force the re-generation of the configuration object.
 				self::$_config = null;
-			} elseif(!($row->package == $config->package && $row->item_id == $config->item_id &&
-				 $row->type == $config->type)) {
-					// A different configuration object is being requested. We force the re-generation of
-					// the configuration object.
-					self::$_config = null;
-				}
+			} elseif(!($row->package == $config->package && $row->item_id == $config->item_id && $row->type == $config->type)) {
+				// A different configuration object is being requested. We force the re-generation of
+				// the configuration object.
+				self::$_config = null;
 			}
+		}
+		
+		if(!self::$_config) {
 			
-			if(!self::$_config) {
-				
-				$model = KFactory::tmp('admin::com.wxparams.model.configurations');
-				
-				if(!is_null($item_id)) {
-					// An item_id was provided/determined, attempt to get a corresponding configuration object.
-					$row = $model->set(array(
-						'package' => $config->package, 
-						'item_id' => $config->item_id, 
-						'type' => $config->type))
-						->getItem();
-					if($row->id) {
-						self::$_config = new WxparamsConfig(new KConfig(array(
-							'row' => $row, 
-							'params' => $row->getParams())));
-						return self::$_config;
-					}
-				}
-				
-				// Default configuration fallback. getList must be used as the state is not unique.
-				$rowset = $model->reset()
-					->set(array('package' => $config->package, 'type' => $config->type, 'default' => 1))
-					->getList();
-				foreach($rowset as $row) {
+			$row = KFactory::tmp('admin::com.wxparams.database.row.configuration');
+			
+			if(!is_null($config->item_id)) {
+				// An item_id was provided/determined, attempt to get a corresponding configuration object.
+				$row > setData(array(
+					'package' => $config->package, 
+					'item_id' => $config->item_id, 
+					'type' => $config->type));
+				if($row->load()) {
 					self::$_config = new WxparamsConfig(new KConfig(array(
 						'row' => $row, 
 						'params' => $row->getParams())));
 					return self::$_config;
 				}
-				
-				// Configuration not found. Return a configuration default object (containing the default
-				// values in the form XML file).
-				self::$_config = new WxparamsConfig(new KConfig(array(
-					'params' => WxparamsFactory::getForm(array(
-						'package' => $config->package, 
-						'type' => $config->type))->getDefaults())));
 			}
-			return self::$_config;
-		}
-		
-		/**
-		 * SPL custom autoload function. 
-		 * 
-		 * @param string $class The class.
-		 */
-		public static function autoload($class)
-		{
 			
-			// 3rd party libraries
-			switch($class){
-				/*case 'Toto' :
+			// Default configuration fallback.
+			$row->reset();
+			$row->setData(array(
+				'package' => $config->package, 
+				'type' => $config->type, 
+				'default' => 1));
+			if($row->load()) {
+				self::$_config = new WxparamsConfig(new KConfig(array(
+					'row' => $row, 
+					'params' => $row->getParams())));
+				return self::$_config;
+			}
+			
+			// Configuration not found. Return a configuration default object (containing the default
+			// values in the form XML file).
+			self::$_config = new WxparamsConfig(new KConfig(array(
+				'params' => WxparamsFactory::getForm(array(
+					'package' => $config->package, 
+					'type' => $config->type))->getDefaults())));
+		}
+		return self::$_config;
+	}
+	
+	/**
+	 * SPL custom autoload function. 
+	 * 
+	 * @param string $class The class.
+	 */
+	public static function autoload($class)
+	{
+		
+		// 3rd party libraries
+		switch($class){
+			/*case 'Toto' :
 				require_once (dirname( __FILE__ ) . DS . '..' . DS . '..' . DS . 'toto' . DS . 'toto.php');
 				break;*/
-			}
+		}
+		
+		$path = array();
+		
+		// Split pascal cased strings
+		$results = preg_split('#(?<!^)(?=[A-Z])#', $class);
+		
+		// Map the current prefix to the corresponding directory
+		switch($results[0]){
+			case 'Wxparams':
+				$path[] = 'wxparams';
+				// Remove the prefix
+				array_shift($results);
+				break;
+		}
+		
+		while(1) {
 			
-			$path = array();
+			$class_dir = WXPARAMS_INCLUDES . DS . implode(DS, $path);
 			
-			// Split pascal cased strings
-			$results = preg_split('#(?<!^)(?=[A-Z])#', $class);
-			
-			// Map the current prefix to the corresponding directory
-			switch($results[0]){
-				case 'Wxparams':
-					$path[] = 'wxparams';
-					// Remove the prefix
-					array_shift($results);
+			if(!empty($results)) {
+				// For a class like WxMediaAbstract, it will check for wextend/mediaabstract.php,
+				// and wextend/media/abstract.php on two iterations
+				$class_file_name = strtolower(implode('', $results)) . '.php';
+				$class_path = $class_dir . DS . $class_file_name;
+				
+				// Checks if the current class path exists, loading the class if it does
+				if(file_exists($class_path)) {
+					require_once ($class_path);
 					break;
-			}
-			
-			while(1) {
-				
-				$class_dir = WXPARAMS_INCLUDES . DS . implode(DS, $path);
-				
-				if(!empty($results)) {
-					// For a class like WxMediaAbstract, it will check for wextend/mediaabstract.php,
-					// and wextend/media/abstract.php on two iterations
-					$class_file_name = strtolower(implode('', $results)) .
-						 '.php';
-						$class_path = $class_dir . DS . $class_file_name;
-						
-						// Checks if the current class path exists, loading the class if it does
-						if(file_exists($class_path)) {
-							require_once ($class_path);
-							break;
-						}
-					} else {
-						// As a last attempt to load the class, check if a class with the same name as the
-						// last item in the path exists, i.e. wextend/file/file.php for WxFile class
-						$class_file_name = strtolower(end($path)) .
-							 '.php';
-							$class_path = $class_dir . DS . $class_file_name;
-							if(file_exists($class_path)) {
-								require_once ($class_path);
-							}
-							break;
-						}
-						
-						$path[] = strtolower(array_shift($results));
-					}
-				
 				}
-			
+			} else {
+				// As a last attempt to load the class, check if a class with the same name as the
+				// last item in the path exists, i.e. wextend/file/file.php for WxFile class
+				$class_file_name = strtolower(end($path)) . '.php';
+				$class_path = $class_dir . DS . $class_file_name;
+				if(file_exists($class_path)) {
+					require_once ($class_path);
+				}
+				break;
 			}
+			
+			$path[] = strtolower(array_shift($results));
+		}
+	
+	}
+
+}
