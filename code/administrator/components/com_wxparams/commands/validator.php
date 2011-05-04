@@ -30,10 +30,6 @@ class ComWxparamsCommandValidator extends ComWextendCommandValidatorAbstract
 		
 		$row->setData(array('package' => $data->package, 'item_id' => $data->item_id, 'type' => $data->type));
 		
-		if($row->load() && KRequest::get('get.id', 'int') != $row->id) {
-			$errors[] = WxText::_('WXPARAMS_CONFIGURATION_EXISTS');
-			return false;
-		}
 	}
 
 }
