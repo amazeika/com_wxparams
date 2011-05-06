@@ -23,6 +23,8 @@ class ComWxparamsModelConfigurations extends KModelDefault
 		
 		$state = $this->getState();
 		$state->insert('default', 'int');
+		$state->insert('package', 'cmd');
+		$state->insert('type', 'cmd');
 	
 	}
 	
