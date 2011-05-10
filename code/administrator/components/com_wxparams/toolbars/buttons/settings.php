@@ -23,6 +23,14 @@ class ComWxparamsToolbarButtonSettings extends KToolbarButtonAbstract
 		
 		$this->_config_package = $config->config_package;
 		$this->_config_type = $config->config_type;
+		
+		// Push the jQuery & Colorbox libs, and the CSS file of com_wxparams to the document. Right now the only way
+		// is using JDocument, after the toolbar re-factoring this should be possible using Nooku only. TODO.
+		$document = KFactory::get('lib.joomla.document');
+		$document->addScript(WxHelperUri::absolutize('media/com_wextend/js/libraries/jquery/jquery.js'));
+		$document->addScript(WxHelperUri::absolutize('media/com_wextend/js/libraries/colorbox/jquery.colorbox-min.js'));
+		$document->addStyleSheet(WxHelperUri::absolutize('media/com_wextend/js/libraries/colorbox/style1/colorbox.css'));
+		$document->addStyleSheet(WxHelperUri::absolutize('media/com_wxparams/css/admin.css'));
 	}
 	
 	protected function _initialize(KConfig $config)
@@ -39,21 +47,30 @@ class ComWxparamsToolbarButtonSettings extends KToolbarButtonAbstract
 	public function getOnClick()
 	{
 		
-		return 'wxjq(\'#wxparams_launcher\').colorbox({width: \'95%\', height: \'95%\', iframe: true}); wxjq(\'#wxparams_launcher\').click(); return false;';
+		return 'wxjq(this).colorbox({width: \'95%\', height: \'95%\', iframe: true}); return false;';
 	
 	}
 	
+	public function getLink()
+	{
+		return 'index.php?option=com_wxparams&package=' . $this->_config_package . '&type=' . $this->_config_type;
+	}
+	
+	public function getClass() {
+		return 'settings_button';
+	}
+	
+	
+	
 	public function render()
 	{
-		
+		die('here');
 		$html = parent::render();
 		
 		// Replace class by for style to avoid having to include the com_wxparams CSS file in the client code.
-		$html = preg_replace('/<span(.*?)class=".*?"/', '<span$1style="background-image: url(\'' .
-		 KRequest::root() . '/media/com_wxparams/images/icon-32-settings.png\')"', $html);
+		$html = preg_replace('/<span(.*?)class=".*?"/', '<span$1style="background-image: url(\'' . KRequest::root() . '/media/com_wxparams/images/icon-32-settings.png\')"', $html);
 		
-		$html .= '<a id="wxparams_launcher" href="index.php?option=com_wxparams&package=' .
-		 $this->_config_package . '&type=' . $this->_config_type . '"></a>';
+		$html .= '<a id="wxparams_launcher" href="index.php?option=com_wxparams&package=' . $this->_config_package . '&type=' . $this->_config_type . '"></a>';
 		
 		return $html;
 	}
