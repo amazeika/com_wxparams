@@ -96,7 +96,7 @@ defined('KOOWA') or die('Restricted access');
 				<?=@helper('admin::com.wextend.template.helper.grid.defaultable', array('row' => $configuration));?>
 			</td>
 			<td align="center">
-			<?=@helper('admin::com.wextend.template.helper.grid.actions', array('actions' => array('edit')));?>
+			<?=@helper('admin::com.wextend.template.helper.grid.actions', array('actions' => array('edit'), 'row' => $configuration));?>
 			</td>
 		</tr>
 	<?
