@@ -28,9 +28,7 @@ class ComWxparamsViewConfigurationsHtml extends ComWxparamsViewHtml
 		
 		$toolbar = KFactory::get('admin::com.wxparams.toolbar.configurations')->setTitle($title)
 			->append('edit');
-		
-		$this->assign('toolbar', $toolbar);
-		
+				
 		return parent::display();
 	
 	}
