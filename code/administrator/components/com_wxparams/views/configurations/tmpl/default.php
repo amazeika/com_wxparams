@@ -58,6 +58,9 @@ defined('KOOWA') or die('Restricted access');
 			<th>
 				<?=@helper('grid.sort', array('column' => 'default', 'title' => @text('WXPARAMS_DEFAULT')));?>
 			</th>
+			<th width="5">
+				<?=@text('WXPARAMS_ACTIONS');?>
+			</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -92,6 +95,9 @@ defined('KOOWA') or die('Restricted access');
 			<td align="center">
 				<?=@helper('admin::com.wextend.template.helper.grid.defaultable', array('row' => $configuration));?>
 			</td>
+			<td align="center">
+			<?=@helper('admin::com.wextend.template.helper.grid.actions', array('actions' => array('edit')));?>
+			</td>
 		</tr>
 	<?
 		$i++;
@@ -101,7 +107,7 @@ defined('KOOWA') or die('Restricted access');
 	if(!count($configurations)) {
 		?>
 		<tr>
-			<td colspan="8" align="center">
+			<td colspan="9" align="center">
 				<?=@text('WXPARAMS_NO_ITEMS_FOUND');?>
 			</td>
 		</tr>
@@ -111,7 +117,7 @@ defined('KOOWA') or die('Restricted access');
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="8">
+			<td colspan="9">
 			<?=@helper('paginator.pagination', array('total' => $total));?></td>
 		</tr>
 	</tfoot>
