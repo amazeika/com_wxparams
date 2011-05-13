@@ -98,7 +98,7 @@ class WxparamsFactory
 	 */
 	static public function getSessionState()
 	{
-		return KRequest::get('session.admin::com.wxparams.model.configurations.', 'cmd', array());
+		return KRequest::get('session.admin::com.wxparams.model.configurations.browse', 'cmd', array());
 	}
 	
 	/**
