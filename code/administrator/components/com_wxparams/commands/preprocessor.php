@@ -16,6 +16,8 @@ class ComWxparamsCommandPreprocessor extends ComWextendCommandProcessorAbstract
 	{
 		// Parameters are JSON encoded for DB storage.
 		$context->data->params = json_encode($context->data->params->toArray());
+		// Remove Line Feed (LF) and Return Carriage (RC) chars.
+		$context->data->params = str_replace(array('\n', '\r'), '', $context->data->params);
 	}
 
 }
