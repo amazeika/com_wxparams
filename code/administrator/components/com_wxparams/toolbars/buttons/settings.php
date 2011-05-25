@@ -44,6 +44,19 @@ class ComWxparamsToolbarButtonSettings extends KToolbarButtonAbstract
 		parent::_initialize($config);
 	}
 	
+	public function getAttribs()
+	{	
+		if($onlick = $this->getOnClick()) {
+			$this->_options->attribs->append(array('onclick' => $onlick));
+		}
+		
+		if($link = $this->getLink()) {
+			$this->_options->attribs->append(array('href' => $link));
+		}
+		
+		return parent::getAttribs();
+	}
+	
 	public function getOnClick()
 	{
 		
@@ -54,24 +67,5 @@ class ComWxparamsToolbarButtonSettings extends KToolbarButtonAbstract
 	public function getLink()
 	{
 		return 'index.php?option=com_wxparams&package=' . $this->_config_package . '&type=' . $this->_config_type;
-	}
-	
-	public function getClass() {
-		return 'settings_button';
-	}
-	
-	
-	
-	public function render()
-	{
-		die('here');
-		$html = parent::render();
-		
-		// Replace class by for style to avoid having to include the com_wxparams CSS file in the client code.
-		$html = preg_replace('/<span(.*?)class=".*?"/', '<span$1style="background-image: url(\'' . KRequest::root() . '/media/com_wxparams/images/icon-32-settings.png\')"', $html);
-		
-		$html .= '<a id="wxparams_launcher" href="index.php?option=com_wxparams&package=' . $this->_config_package . '&type=' . $this->_config_type . '"></a>';
-		
-		return $html;
 	}
 }
