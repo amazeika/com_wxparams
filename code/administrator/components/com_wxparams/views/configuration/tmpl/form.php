@@ -30,9 +30,8 @@ wxjq(document).ready(function() {
 });
 </script>
 
-<form method="post" action="<?=@route('id=' . $configuration->id)?>"
-	class="adminform" name="adminForm">
-<div id="mainform"><label for="title" class="mainlabel"><?=@text('WXPARAMS_TITLE');?></label>
+<form method="post" action="<?=@route('id=' . $configuration->id)?>" class="-koowa-form" id="mainform">
+<label for="title" class="mainlabel"><?=@text('WXPARAMS_TITLE');?></label>
 <input id="title" type="text" name="title"
 	value="<?=@escape($configuration->title);?>" /><br />
 <label for="description" class="mainlabel"><?=@text('WXPARAMS_DESCRIPTION');?></label>
@@ -47,8 +46,8 @@ if($form->getType() != 'global') {
 ?>
 <? // Render the XML form
 
+
 echo $form->renderHtml();
 ?>
-</div>
 <input type="hidden" name="package" value="<?=$form->getPackage();?>" />
 <input type="hidden" name="type" value="<?=$form->getType();?>" /></form>

@@ -18,13 +18,11 @@ defined('KOOWA') or die('Restricted access');
 <style src="media://com_wxparams/css/admin.css" />
 
 <script src="media://lib_koowa/js/koowa.js" />
-
 <?=@template('admin::com.wextend.template.toolbar');?>
 
+<form action="<?=@route();?>" method="get" class="-koowa-grid">
 <table class="adminlist" style="clear: both;">
-	<form action="<?=@route();?>" method="get" name="adminForm">
 	<thead>
-		<input type="hidden" name="boxchecked" value="0" />
 		<tr>
 			<td colspan="2">
 		<?=@text('FILTERS');?>
@@ -39,8 +37,9 @@ defined('KOOWA') or die('Restricted access');
 		</tr>
 		<tr>
 			<th width="5"><?=@text('Num');?></th>
-			<th width="20"><input type="checkbox" name="toggle" value=""
-				onclick="checkAll(<?=count($configurations);?>);" /></th>
+			<th width="20">
+				<?=@helper('grid.checkall');?>
+			</th>
 			<th width="5">
 				<?=@helper('grid.sort', array('column' => 'id', 'title' => @text('WXPARAMS_ID')));?>
 			</th>
@@ -66,8 +65,6 @@ defined('KOOWA') or die('Restricted access');
 	<tbody>
 	<?
 	$i = 0;
-	?>
-	<?
 	foreach($configurations as $configuration) {
 		?>
 		<tr>
@@ -75,7 +72,7 @@ defined('KOOWA') or die('Restricted access');
 				<?=$i + 1;?>
 			</td>
 			<td align="center">
-				<?=@helper('admin::com.wextend.template.helper.grid.checkbox', array('row' => $configuration));?>
+				<?=@helper('grid.checkbox', array('row' => $configuration));?>
 			</td>
 			<td align="center">
 				<?=@escape($configuration->id);?>
@@ -121,5 +118,5 @@ defined('KOOWA') or die('Restricted access');
 			<?=@helper('paginator.pagination', array('total' => $total));?></td>
 		</tr>
 	</tfoot>
-	</form>
 </table>
+</form>
