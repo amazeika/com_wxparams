@@ -27,9 +27,15 @@ class ComWxparamsToolbarButtonSettings extends KToolbarButtonAbstract
 		// Push the jQuery & Colorbox libs, and the CSS file of com_wxparams to the document. Right now the only way
 		// is using JDocument, after the toolbar re-factoring this should be possible using Nooku only. TODO.
 		$document = KFactory::get('lib.joomla.document');
-		$document->addScript(WxHelperUri::absolutize('media/com_wextend/js/libraries/jquery/jquery.js'));
-		$document->addScript(WxHelperUri::absolutize('media/com_wextend/js/libraries/colorbox/jquery.colorbox-min.js'));
-		$document->addStyleSheet(WxHelperUri::absolutize('media/com_wextend/js/libraries/colorbox/style1/colorbox.css'));
+		if($config->jquery) {
+			// Add jQuery
+			$document->addScript(WxHelperUri::absolutize('media/com_wextend/js/libraries/jquery/jquery.js'));
+		}
+		if($config->colorbox) {
+			// Add colorbox
+			$document->addScript(WxHelperUri::absolutize('media/com_wextend/js/libraries/colorbox/jquery.colorbox-min.js'));
+			$document->addStyleSheet(WxHelperUri::absolutize('media/com_wextend/js/libraries/colorbox/style1/colorbox.css'));
+		}
 		$document->addStyleSheet(WxHelperUri::absolutize('media/com_wxparams/css/admin.css'));
 	}
 	
@@ -40,12 +46,14 @@ class ComWxparamsToolbarButtonSettings extends KToolbarButtonAbstract
 		// time the button is instantiated.
 		$config->append(array(
 			'config_package' => KRequest::get('get.option', 'cmd'), 
-			'config_type' => 'view.' . KInflector::singularize(KRequest::get('get.view', 'cmd'))));
+			'config_type' => 'view.' . KInflector::singularize(KRequest::get('get.view', 'cmd')), 
+			'jquery' => true, 
+			'colorbox' => true));
 		parent::_initialize($config);
 	}
 	
 	public function getAttribs()
-	{	
+	{
 		if($onlick = $this->getOnClick()) {
 			$this->_options->attribs->append(array('onclick' => $onlick));
 		}
