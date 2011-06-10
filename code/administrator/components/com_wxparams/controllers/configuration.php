@@ -11,20 +11,10 @@
 
 class ComWxparamsControllerConfiguration extends ComDefaultControllerDefault
 {
-	
-	public function __construct(KConfig $config = null)
+	protected function _initialize(KConfig $config)
 	{
-		
-		if(!$config) {
-			$config = new KConfig();
-		}
-		
-		parent::__construct($config);
-		
-		$command_chain = $this->getCommandChain();
-		// Pre-processor needs to be executed prior validation
-		$command_chain->enqueue(KFactory::tmp('admin::com.wxparams.command.preprocessor'), KCommand::PRIORITY_HIGH);
-		$command_chain->enqueue(KFactory::tmp('admin::com.wxparams.command.validator'));
+		$config->append(array('behaviors' => array('validatable', 'processable')));
+		parent::_initialize($config);
 	}
 	
 	public function execute($action, KCommandContext $context)
@@ -36,7 +26,8 @@ class ComWxparamsControllerConfiguration extends ComDefaultControllerDefault
 			foreach($needles as $needle) {
 				if($identifier = $data->$needle) {
 					// Enqueue the command
-					$this->getCommandChain()->enqueue(KFactory::tmp($identifier));
+					$this->getCommandChain()
+						->enqueue(KFactory::tmp($identifier));
 				}
 			}
 		}
