@@ -13,7 +13,7 @@ class ComWxparamsControllerConfiguration extends ComDefaultControllerDefault
 {
 	protected function _initialize(KConfig $config)
 	{
-		$config->append(array('behaviors' => array('validatable', 'processable')));
+		$config->append(array('persistable' => true, 'behaviors' => array('validatable', 'processable')));
 		parent::_initialize($config);
 	}
 	

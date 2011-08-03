@@ -20,4 +20,4 @@ require_once dirname(__FILE__) . '/includes/framework.php';
 // Forcing component rendering only
 KRequest::set('get.tmpl', 'component');
 
-echo KFactory::get('admin::com.wxparams.dispatcher', array('controller' => 'configuration'))->dispatch();
+echo KFactory::get('admin::com.wxparams.dispatcher')->dispatch();
