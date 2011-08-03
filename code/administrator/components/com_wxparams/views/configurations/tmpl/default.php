@@ -18,7 +18,11 @@ defined('KOOWA') or die('Restricted access');
 <style src="media://com_wxparams/css/admin.css" />
 
 <script src="media://lib_koowa/js/koowa.js" />
-<?=@template('admin::com.wextend.template.toolbar');?>
+
+<style src="base://templates/khepri/css/icon.css" />
+
+<?=@helper('admin::com.default.template.helper.toolbar.render',array('toolbar'=>$this->getView()->getToolbar()));?>
+<?=@helper('admin::com.default.template.helper.toolbar.title',array('toolbar'=>$this->getView()->getToolbar()));?>
 
 <form action="<?=@route();?>" method="get" class="-koowa-grid">
 <table class="adminlist" style="clear: both;">

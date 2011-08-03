@@ -11,5 +11,14 @@
 
 class ComWxparamsViewHtml extends ComDefaultViewHtml
 {
+    protected $_toolbar;
+    
+    public function setToolbar($toolbar) {
+        $this->_toolbar = $toolbar;
+    }
+    
+    public function getToolbar() {
+        return $this->_toolbar;
+    }
 
 }

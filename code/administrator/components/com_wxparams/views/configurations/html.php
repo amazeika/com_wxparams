@@ -26,7 +26,7 @@ class ComWxparamsViewConfigurationsHtml extends ComWxparamsViewHtml
 			$title .= ' - ' . WxText::_('WXPARAMS_GLOBAL');
 		}
 		
-		$toolbar = KFactory::get('admin::com.wxparams.toolbar.configurations')->setTitle($title);
+		//$toolbar = KFactory::get('admin::com.wxparams.toolbar.configurations')->setTitle($title);
 				
 		return parent::display();
 	

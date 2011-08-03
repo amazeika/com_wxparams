@@ -21,8 +21,10 @@ defined('KOOWA') or die('Restricted access');
 <style src="media://com_wextend/css/admin.css" />
 <style src="media://com_wxparams/css/form.css" />
 <style src="base://templates/system/css/system.css" />
+<style src="base://templates/khepri/css/icon.css" />
 
-<?=@template('admin::com.wextend.template.toolbar');?>
+<?=@helper('admin::com.default.template.helper.toolbar.render',array('toolbar'=>$this->getView()->getToolbar()));?>
+<?=@helper('admin::com.default.template.helper.toolbar.title',array('toolbar'=>$this->getView()->getToolbar()));?>
 
 <script type="text/javascript">
 wxjq(document).ready(function() {
