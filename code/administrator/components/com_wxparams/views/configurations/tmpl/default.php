@@ -16,6 +16,8 @@ defined('KOOWA') or die('Restricted access');
 <?=@helper('behavior.modal');?>
 <style src="media://lib_koowa/css/koowa.css" />
 <style src="media://com_wxparams/css/admin.css" />
+<style src="media://com_wextend/css/wextend.css" />
+
 
 <script src="media://lib_koowa/js/koowa.js" />
 
@@ -58,9 +60,6 @@ defined('KOOWA') or die('Restricted access');
 			<th>
 				<?=@helper('grid.sort', array('column' => 'package', 'title' => @text('WXPARAMS_PACKAGE')));?>
 			</th>
-			<th>
-				<?=@helper('grid.sort', array('column' => 'default', 'title' => @text('WXPARAMS_DEFAULT')));?>
-			</th>
 			<th width="5">
 				<?=@text('WXPARAMS_ACTIONS');?>
 			</th>
@@ -94,10 +93,7 @@ defined('KOOWA') or die('Restricted access');
 				<?=@escape($configuration->package);?>
 			</td>
 			<td align="center">
-				<?=@helper('admin::com.wextend.template.helper.grid.defaultable', array('row' => $configuration));?>
-			</td>
-			<td align="center">
-			<?=@helper('admin::com.wextend.template.helper.grid.actions', array('actions' => array('edit'), 'row' => $configuration));?>
+			<?=@helper('admin::com.wextend.template.helper.grid.actions', array('actions' => array('edit','defaultable'), 'row' => $configuration));?>
 			</td>
 		</tr>
 	<?
@@ -108,7 +104,7 @@ defined('KOOWA') or die('Restricted access');
 	if(!count($configurations)) {
 		?>
 		<tr>
-			<td colspan="9" align="center">
+			<td colspan="8" align="center">
 				<?=@text('WXPARAMS_NO_ITEMS_FOUND');?>
 			</td>
 		</tr>
@@ -118,7 +114,7 @@ defined('KOOWA') or die('Restricted access');
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="9">
+			<td colspan="8">
 			<?=@helper('paginator.pagination', array('total' => $total));?></td>
 		</tr>
 	</tfoot>
