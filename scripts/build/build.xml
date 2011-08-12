@@ -15,6 +15,9 @@
 		<copy todir=".tmp/media">
 			<fileset dir="code/media" />
 		</copy>
+		<copy todir=".tmp/plugins">
+			<fileset dir="code/plugins" />
+		</copy>
 
 		<phingcall target="__destruct" />
 
