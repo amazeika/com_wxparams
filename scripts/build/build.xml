@@ -4,35 +4,7 @@
 	<!-- Put username and password here, this file wont be stored on the svn -->
 	<property file="scripts/build/build.properties" />
 
-	<property name="svn.path" value="trunk" />
-	<echo message="svn.path = ${svn.path}" />
-	<echo
-		message="If you need to use a branch, call 'phing -Dsvn.path=branches/99-toolbar'" />
-
-	<target name="__construct">
-
-		<!-- Get com_wxparams from SVN -->
-		<svnexport
-			repositoryurl="svn+ssh://root@arunasmazeika.com/home/subver/svn/com_wxparams/${svn.path}/code/"
-			todir=".tmp" nocache="true" force="true" />
-
-	</target>
-
 	<target name="build">
-
-		<phingcall target="cleanup" />
-
-		<phingcall target="__construct" />
-
-		<phingcall target="__destruct" />
-
-		<phingcall target="packit" />
-		
-		<phingcall target="cleanup" />
-
-	</target>
-
-	<target name="debug">
 
 		<phingcall target="cleanup" />
 
@@ -43,19 +15,12 @@
 		<copy todir=".tmp/media">
 			<fileset dir="code/media" />
 		</copy>
-		<copy todir=".tmp/components">
-			<fileset dir="code/components" />
-		</copy>
-		<copy todir=".tmp/language">
-			<fileset dir="code/language" />
-		</copy>
 
 		<phingcall target="__destruct" />
 
 		<phingcall target="packit" />
 		
 		<phingcall target="cleanup" />
-
 	</target>
 
 	<target name="__destruct">
