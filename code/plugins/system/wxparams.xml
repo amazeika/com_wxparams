@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="system">
+	<name>System - WxParams</name>
+	<author>Arunas Mazeika</author>
+	<creationDate>August 2011</creationDate>
+	<copyright>Copyright (C) 2011 Arunas Mazeika - All rights reserved
+	</copyright>
+	<license>GNU GPLv3 - http://www.gnu.org/licenses/gpl.html</license>
+	<authorEmail>contact@wextend.com</authorEmail>
+	<authorUrl>www.wextend.com</authorUrl>
+	<version>1.0.0</version>
+	<description>WxParams loader</description>
+
+	<!-- Files -->
+	<files folder="plugins/system">
+		<filename plugin="wxparams">wxparams.php</filename>
+	</files>
+</install>
