@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id$ -->
+<install type="component" version="1.5.0" method="upgrade">
+	<name>WxParams</name>
+	<author>Arunas Mazeika</author>
+	<creationDate>August 2011</creationDate>
+	<copyright>Copyright (C) 2011 Arunas Mazeika - All rights reserved
+	</copyright>
+	<license>GNU GPLv3 - http://www.gnu.org/licenses/gpl.html</license>
+	<authorEmail>contact@wextend.com</authorEmail>
+	<authorUrl>www.wextend.com</authorUrl>
+	<version>1.0.0</version>
+	<description>A re-usable settings and parameters component</description>
+
+	<!-- Application/administrator -->
+	<administration>
+		<files folder="administrator/components/com_wxparams">
+			<folder>includes</folder>
+			<folder>controllers</folder>
+			<folder>templates</folder>
+			<folder>install</folder>
+			<folder>models</folder>
+			<folder>databases</folder>
+			<folder>views</folder>
+			<file>wxparams.php</file>
+			<file>dispatcher.php</file>
+		</files>
+		<languages>
+			<language tag="en-GB">administrator/language/en-GB/en-GB.com_wxparams.ini
+			</language>
+		</languages>
+
+	</administration>
+
+	<!-- Installation -->
+	<installfile>install/install.wxparams.php</installfile>
+	<uninstallfile>install/uninstall.wxparams.php</uninstallfile>
+	<install>
+		<sql>
+			<file charset="utf8" driver="mysql">install/install.mysql.utf.sql</file>
+		</sql>
+	</install>
+
+	<uninstall>
+		<sql>
+			<file charset="utf8" driver="mysql">install/uninstall.mysql.utf.sql
+			</file>
+		</sql>
+	</uninstall>
+
+	<!-- Media -->
+	<media destination="com_wxparams" folder="media/com_wxparams">
+		<folder>css</folder>
+		<folder>images</folder>
+		<folder>js</folder>
+	</media>
+
+	<!-- Application/framework -->
+	<framework>
+		<file>/plugins/system/wxparams.php</file>
+		<file>/plugins/system/wxparams.xml</file>
+	</framework>
+</install>
