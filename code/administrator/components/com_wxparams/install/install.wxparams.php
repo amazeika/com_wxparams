@@ -7,6 +7,12 @@ $manifest = simplexml_load_file($this->parent->getPath('manifest'));
 $package = strtolower((string) $manifest->name);
 $jversion = JVersion::isCompatible('1.6.0') ? '1.6' : '1.5';
 
+// Move framework folders to their corresponding locations
+foreach($manifest->framework->folder as $folder) {
+	$from = isset($folder['src']) ? $folder['src'] : $folder;
+	JFolder::copy($source . $from, JPATH_ROOT . $folder, false, true);
+}
+
 // Move framework files to their corresponding locations
 foreach($manifest->framework->file as $file) {
 	$folder = JPATH_ROOT . dirname($file);
