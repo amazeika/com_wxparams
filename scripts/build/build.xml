@@ -19,14 +19,14 @@
 			<fileset dir="code/plugins" />
 		</copy>
 
-		<phingcall target="__destruct" />
+		<phingcall target="prepare" />
 
 		<phingcall target="packit" />
 		
 		<phingcall target="cleanup" />
 	</target>
 
-	<target name="__destruct">
+	<target name="prepare">
 
 		<!-- Move the xml manifest to a place joomla can find it -->
 		<move file=".tmp/administrator/components/com_wxparams/manifest.xml"
