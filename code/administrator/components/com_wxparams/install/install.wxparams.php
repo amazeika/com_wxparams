@@ -2,9 +2,9 @@
 
 // Variable definitions
 $database = JFactory::getDBO();
-$source = $this->parent->getPath('source');
+$source     = $this->parent->getPath('source');
 $manifest = simplexml_load_file($this->parent->getPath('manifest'));
-$package = strtolower((string) $manifest->name);
+$package = (string) $manifest->name;
 $jversion = JVersion::isCompatible('1.6.0') ? '1.6' : '1.5';
 
 // Move framework files to their corresponding locations
