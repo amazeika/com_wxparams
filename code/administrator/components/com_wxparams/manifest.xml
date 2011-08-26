@@ -20,7 +20,7 @@
 			<folder>templates</folder>
 			<folder>install</folder>
 			<folder>models</folder>
-			<floder>forms</floder>
+			<folder>forms</folder>
 			<folder>databases</folder>
 			<folder>views</folder>
 			<file>wxparams.php</file>
