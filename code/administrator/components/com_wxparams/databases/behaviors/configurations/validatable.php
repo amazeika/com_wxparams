@@ -1,5 +1,5 @@
 <?php
-class ComWxparamsDatabaseBehaviorValidatable extends ComWextendDatabaseBehaviorValidatable
+class ComWxparamsDatabaseBehaviorConfigurationValidatable extends ComWextendDatabaseBehaviorValidatable
 {
 	protected function _validateItemid()
 	{

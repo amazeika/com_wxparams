@@ -9,7 +9,7 @@
  * 
  */
 
-class ComWxparamsDatabaseBehaviorConfigurationsdefaultable extends ComWextendDatabaseBehaviorDefaultable
+class ComWxparamsDatabaseBehaviorConfigurationDefaultable extends ComWextendDatabaseBehaviorDefaultable
 {
 	
 	public function _buildQueryWhere(KDatabaseQuery $query)
