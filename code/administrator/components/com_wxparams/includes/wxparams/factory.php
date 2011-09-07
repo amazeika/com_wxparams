@@ -152,7 +152,7 @@ class WxparamsFactory
 			
 			if(!is_null($config->item_id)) {
 				// An item_id was provided/determined, attempt to get a corresponding configuration object.
-				$row > setData(array(
+				$row->setData(array(
 					'package' => $config->package, 
 					'item_id' => $config->item_id, 
 					'type' => $config->type));
