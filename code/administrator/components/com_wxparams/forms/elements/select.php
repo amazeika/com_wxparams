@@ -45,7 +45,8 @@ class ComWxparamsFormElementSelect extends KFormElementSelect
 			$identifier->name = 'option';
 			$this->addOption(KFactory::tmp($identifier)->importXml($option));
 			// Get the option data
-			$rowset = KFactory::tmp($options_model)->getList();
+			$rowset = KFactory::tmp($options_model)->set(array('limit' => 0))
+				->getList();
 			// Determine the row columns that will be used for labels and values
 			$options_label = (string) $attributes->options_label;
 			$options_value = (string) $attributes->options_value;
