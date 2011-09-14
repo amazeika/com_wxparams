@@ -96,9 +96,7 @@ class ComWxparamsFormDefault extends KFormDefault
 		
 		foreach($this->_xml->xpath('//*[@default]') as $element) {
 			$attributes = $element->attributes();
-			preg_match('/params\[(.*?)\]/', $attributes->name, $results);
-			$name = $results[1];
-			$defaults[$name] = (string) $attributes->default;
+			$defaults[(string) $attributes->name] = (string) $attributes->default;
 		}
 		
 		return $defaults;
