@@ -11,21 +11,21 @@
 
 /**
  * Koowa System plugin
-.*
+ *
  * @author      Johan Janssens <johan@nooku.org>
  * @category    Nooku
  * @package     Nooku_Plugins
  * @subpackage  System
  */
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined('_JEXEC') or die('Restricted access');
 
 class plgSystemWxparams extends JPlugin
 {
-	public function __construct($subject, $config = array())
+	public function onAfterInitialise()
 	{
-        // Load the WeXtend framework
-        require_once (JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_wxparams' . DS . 'includes' . DS . 'loader.php');
-	    
-		parent::__construct($subject, $config);
+		if(defined('KOOWA')) {
+			// Load the WxParams framework
+			require_once (JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_wxparams' . DS . 'includes' . DS . 'loader.php');
+		}
 	}
 }
