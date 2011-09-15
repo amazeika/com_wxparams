@@ -10,6 +10,7 @@
  */
 
 define('WXPARAMS_INCLUDES', dirname(__FILE__));
+define('WXPARAMS', 1);
 
 require_once (WXPARAMS_INCLUDES . DS . 'wxparams' . DS . 'factory.php');
 
