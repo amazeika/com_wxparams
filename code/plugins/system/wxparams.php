@@ -21,11 +21,10 @@ defined('_JEXEC') or die('Restricted access');
 
 class plgSystemWxparams extends JPlugin
 {
-	public function onAfterInitialise()
+	public function __construct($subject, $config = array())
 	{
-		if(defined('KOOWA')) {
-			// Load the WxParams framework
-			require_once (JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_wxparams' . DS . 'includes' . DS . 'loader.php');
-		}
+		// Load the WxParams framework
+		require_once (JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_wxparams' . DS . 'includes' . DS . 'loader.php');
+		parent::__construct($subject, $config);
 	}
 }
