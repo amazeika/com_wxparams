@@ -79,7 +79,7 @@ class ComWxparamsFormElementEditor extends KFormElementAbstract
 		
 		$editor = KFactory::get('lib.joomla.editor', array($config->editor));
 		
-		$html = $editor->display($this->getName(), $this->getValue(), $config->width, $config->height, $config->cols, $config->rows, $config->buttons, $config->options);
+		$html = $editor->display($this->getName(), htmlspecialchars($this->getValue(), ENT_QUOTES), $config->width, $config->height, $config->cols, $config->rows, $config->buttons, $config->options);
 		
 		// Input filtering and setting of id and name attributes.
 		$patterns = array('/<!--.*?-->/', '/id="(.*?)"/');
