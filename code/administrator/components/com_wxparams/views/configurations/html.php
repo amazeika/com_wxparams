@@ -11,25 +11,4 @@
 
 class ComWxparamsViewConfigurationsHtml extends ComWxparamsViewHtml
 {
-	
-	public function display()
-	{
-		// Determine the title for the view
-		$type = $this->getModel()
-			->getState()->type;
-		$title = WxText::_('WXPARAMS_CONFIGURATIONS');
-		if($pos = strpos($type, '.')) {
-			// View config
-			$title .= ' - ' . WxText::_('WXPARAMS_VIEW') . ': ' . ucfirst(substr($type, $pos + 1));
-		} else {
-			// Global config
-			$title .= ' - ' . WxText::_('WXPARAMS_GLOBAL');
-		}
-		
-		//$toolbar = KFactory::get('admin::com.wxparams.toolbar.configurations')->setTitle($title);
-				
-		return parent::display();
-	
-	}
-
 }

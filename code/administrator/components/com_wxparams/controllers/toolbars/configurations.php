@@ -1,7 +1,28 @@
 <?php
 
-class ComWxparamsControllerToolbarConfigurations extends ComDefaultControllerToolbarDefault {
-    
+class ComWxparamsControllerToolbarConfigurations extends ComDefaultControllerToolbarDefault
+{
+	
+	public function __construct(KConfig $config)
+	{
+		if(!$config) {
+			$config = new KConfig();
+		}
+		
+		$title = WxText::_('WXPARAMS_CONFIGURATIONS');
+		// Determine the toolbar title
+		$type = KRequest::get('view.type', 'cmd', '');
+		if($pos = strpos($type, '.')) {
+			// View config
+			$title .= ' - ' . WxText::_('WXPARAMS_VIEW') . ': ' . ucfirst(substr($type, $pos + 1));
+		} else {
+			// Global config
+			$title .= ' - ' . WxText::_('WXPARAMS_GLOBAL');
+		}
+		
+		$this->setTitle($title);
+	}
+	
 	protected function _commandSettings(KControllerToolbarCommand $command, $config = array())
 	{
 		
@@ -21,5 +42,5 @@ class ComWxparamsControllerToolbarConfigurations extends ComDefaultControllerToo
 		$document = KFactory::get('lib.joomla.document');
 		$document->addStyleSheet(WxHelperUri::absolutize('media/com_wxparams/css/admin.css'));
 	}
-    
+
 }
