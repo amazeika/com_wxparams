@@ -36,9 +36,6 @@ defined('KOOWA') or die('Restricted access');
 			<td colspan="3"></td>
 
 			<td>
-		<?
-		//echo @helper( 'admin::com.wxparams.template.helper.adapter.listbox.' . strtolower( WxFactory::getAdapter() ) . '.packages', array ('attribs' => array ('onchange' => 'this.form.submit()' ) ) );
-		?>
 		</td>
 		</tr>
 		<tr>
