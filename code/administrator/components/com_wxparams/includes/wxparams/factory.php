@@ -15,33 +15,25 @@
  * @author Arunas Mazeika
  * @package com_wxparams
  */
-class WxparamsFactory
+class WxparamsFactory extends WxFactoryAbstract
 {
 	
 	/**
-	 * Configuration object.
-	 * 
-	 * @var WxparamsConfig 
+	 * @var WxparamsConfig  Configuration object.
 	 */
-	static $_config;
+	protected static $_config;
 	
 	/**
-	 * Constructor.
-	 * 
-	 * Method declared final private to avoid instances of this class.
-	 * 
+	 * @var WxparamsFactory The factory instance.
 	 */
-	final private function __construct()
+	protected static $_instance;
+	
+	public static function getInstance()
 	{
-	
-	}
-	
-	/**
-	 * Prevent clonning.
-	 */
-	final private function __clone()
-	{
-	
+		if(!self::$_instance instanceof self) {
+			self::$_instance = new self();
+		}
+		return self::$_instance;
 	}
 	
 	/**
@@ -60,7 +52,7 @@ class WxparamsFactory
 		
 		if(KFactory::tmp('lib.joomla.application')->isAdmin()) {
 			
-			$session_state = self::getSessionState();
+			$session_state = WxparamsHelperSession::getModelState();
 			
 			if(!$config->package) {
 				// Get the package from the session state variable
@@ -87,18 +79,6 @@ class WxparamsFactory
 			}
 		}
 		return KFactory::tmp('admin::com.wxparams.form.tabbed', $config)->importXml($xml);
-	}
-	
-	/**
-	 * Returns the session state variable which corresponds to the configurations view model state.
-	 * This variable provides information about the pre-selected package and view to be used to create
-	 * configuration rows.
-	 * 
-	 * 
-	 */
-	static public function getSessionState()
-	{
-		return KRequest::get('session.admin::com.wxparams.model.configurations.browse', 'cmd', array());
 	}
 	
 	/**
@@ -180,71 +160,11 @@ class WxparamsFactory
 			// Configuration not found. Return a configuration default object (containing the default
 			// values in the form XML file).
 			self::$_config = new WxparamsConfig(new KConfig(array(
-				'params' => WxparamsFactory::getForm(array(
+				'params' => WxparamsFactory::getInstance()->get('form', array(
 					'package' => $config->package, 
-					'type' => $config->type))->getDefaults())));
+					'type' => $config->type))
+					->getDefaults())));
 		}
 		return self::$_config;
 	}
-	
-	/**
-	 * SPL custom autoload function. 
-	 * 
-	 * @param string $class The class.
-	 */
-	public static function autoload($class)
-	{
-		
-		// 3rd party libraries
-		switch($class){
-			/*case 'Toto' :
-				require_once (dirname( __FILE__ ) . DS . '..' . DS . '..' . DS . 'toto' . DS . 'toto.php');
-				break;*/
-		}
-		
-		$path = array();
-		
-		// Split pascal cased strings
-		$results = preg_split('#(?<!^)(?=[A-Z])#', $class);
-		
-		// Map the current prefix to the corresponding directory
-		switch($results[0]){
-			case 'Wxparams':
-				$path[] = 'wxparams';
-				// Remove the prefix
-				array_shift($results);
-				break;
-		}
-		
-		while(1) {
-			
-			$class_dir = WXPARAMS_INCLUDES . DS . implode(DS, $path);
-			
-			if(!empty($results)) {
-				// For a class like WxMediaAbstract, it will check for wextend/mediaabstract.php,
-				// and wextend/media/abstract.php on two iterations
-				$class_file_name = strtolower(implode('', $results)) . '.php';
-				$class_path = $class_dir . DS . $class_file_name;
-				
-				// Checks if the current class path exists, loading the class if it does
-				if(file_exists($class_path)) {
-					require_once ($class_path);
-					break;
-				}
-			} else {
-				// As a last attempt to load the class, check if a class with the same name as the
-				// last item in the path exists, i.e. wextend/file/file.php for WxFile class
-				$class_file_name = strtolower(end($path)) . '.php';
-				$class_path = $class_dir . DS . $class_file_name;
-				if(file_exists($class_path)) {
-					require_once ($class_path);
-				}
-				break;
-			}
-			
-			$path[] = strtolower(array_shift($results));
-		}
-	
-	}
-
 }
