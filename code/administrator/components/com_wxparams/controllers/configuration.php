@@ -13,7 +13,9 @@ class ComWxparamsControllerConfiguration extends ComDefaultControllerDefault
 {
 	protected function _initialize(KConfig $config)
 	{
-		$config->append(array('persistable' => true, 'behaviors' => array('validatable', 'processable')));
+		$config->append(array(
+			'persistable' => true, 
+			'behaviors' => array('validatable', 'processable')));
 		parent::_initialize($config);
 	}
 	
@@ -27,7 +29,7 @@ class ComWxparamsControllerConfiguration extends ComDefaultControllerDefault
 				if($identifier = $data->$needle) {
 					// Enqueue the command
 					$this->getCommandChain()
-						->enqueue(KFactory::tmp($identifier));
+						->enqueue($this->getService($identifier));
 				}
 			}
 		}

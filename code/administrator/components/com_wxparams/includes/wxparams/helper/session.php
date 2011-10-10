@@ -13,7 +13,7 @@ class WxparamsHelperSession
 	{
 		$config = new KConfig($config);
 		$config->append(array('view' => 'configurations', 'action' => 'browse'));
-		return KRequest::get('session.admin::com.wxparams.model.' . $config->view . '.' . $config->action, 'cmd', array());
+		return KRequest::get('session.com://admin/wxparams.model.' . $config->view . '.' . $config->action, 'cmd', array());
 	}
 
 }

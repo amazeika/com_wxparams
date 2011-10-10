@@ -77,7 +77,7 @@ class ComWxparamsFormElementEditor extends KFormElementAbstract
 		
 		$config = new KConfig($this->getAttributes());
 		
-		$editor = KFactory::get('lib.joomla.editor', array($config->editor));
+		$editor = JFactory::getEditor($config->editor);
 		
 		$html = $editor->display($this->getName(), htmlspecialchars($this->getValue(), ENT_QUOTES), $config->width, $config->height, $config->cols, $config->rows, $config->buttons, $config->options);
 		

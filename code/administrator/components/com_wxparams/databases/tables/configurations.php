@@ -7,8 +7,8 @@ class ComWxparamsDatabaseTableConfigurations extends KDatabaseTableDefault
 	{
 		$config->append(array(
 			'behaviors' => array(
-				'admin::com.wxparams.database.behavior.configuration.defaultable', 
-				'admin::com.wxparams.database.behavior.configuration.validatable', 
+				'com://admin/wxparams.database.behavior.configuration.defaultable', 
+				'com://admin/wxparams.database.behavior.configuration.validatable', 
 				'lockable')));
 		parent::_initialize($config);
 	}

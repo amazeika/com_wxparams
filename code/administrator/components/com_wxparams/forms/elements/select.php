@@ -43,9 +43,9 @@ class ComWxparamsFormElementSelect extends KFormElementSelect
 			// Add it to the select element ...
 			$identifier = clone $this->getIdentifier();
 			$identifier->name = 'option';
-			$this->addOption(KFactory::tmp($identifier)->importXml($option));
+			$this->addOption($this->getService($identifier)->importXml($option));
 			// Get the option data
-			$rowset = KFactory::tmp($options_model)->set(array('limit' => 0))
+			$rowset = $this->getService($options_model)->set(array('limit' => 0))
 				->getList();
 			// Determine the row columns that will be used for labels and values
 			$options_label = (string) $attributes->options_label;
@@ -54,7 +54,7 @@ class ComWxparamsFormElementSelect extends KFormElementSelect
 				$option = new SimpleXMLElement('<option />');
 				$option->addAttribute('label', $row->$options_label);
 				$option->addAttribute('value', $row->$options_value);
-				$this->addOption(KFactory::tmp($identifier)->importXml($option));
+				$this->addOption($this->getService($identifier)->importXml($option));
 			}
 			return $this;
 		}

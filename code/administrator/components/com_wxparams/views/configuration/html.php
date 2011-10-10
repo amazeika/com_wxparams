@@ -13,14 +13,13 @@ class ComWxparamsViewConfigurationHtml extends ComWxparamsViewHtml
 {
 	public function display()
 	{
-		//KFactory::get('admin::com.wxparams.toolbar.configuration')->setTitle('WXPARAMS_CONFIGURATION');
 		$model = $this->getModel();
 		$this->assign('form', WxparamsFactory::getInstance()->get('form', array(
 			'params' => $model->getItem()
 				->getParams())));
 		
 		// Load the language file
-		KFactory::get('lib.joomla.language')->load($this->form->getPackage());
+		JFactory::getLanguage()->load($this->form->getPackage());
 		
 		return parent::display();
 	}

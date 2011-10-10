@@ -23,8 +23,8 @@ defined('KOOWA') or die('Restricted access');
 
 <style src="base://templates/khepri/css/icon.css" />
 
-<?=@helper('admin::com.default.template.helper.toolbar.render',array('toolbar'=>$this->getView()->getToolbar()));?>
-<?=@helper('admin::com.default.template.helper.toolbar.title',array('toolbar'=>$this->getView()->getToolbar()));?>
+<?=@helper('com://admin/default.template.helper.toolbar.render',array('toolbar'=>$this->getView()->getToolbar()));?>
+<?=@helper('com://admin/default.template.helper.toolbar.title',array('toolbar'=>$this->getView()->getToolbar()));?>
 
 <form action="<?=@route();?>" method="get" class="-koowa-grid">
 <table class="adminlist" style="clear: both;">
@@ -90,7 +90,7 @@ defined('KOOWA') or die('Restricted access');
 				<?=@escape($configuration->package);?>
 			</td>
 			<td align="center">
-			<?=@helper('admin::com.wextend.template.helper.grid.actions', array('actions' => array('edit','defaultable'), 'row' => $configuration));?>
+			<?=@helper('com://admin/wextend.template.helper.grid.actions', array('actions' => array('edit','defaultable'), 'row' => $configuration));?>
 			</td>
 		</tr>
 	<?

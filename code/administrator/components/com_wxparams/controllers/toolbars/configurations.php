@@ -39,7 +39,7 @@ class ComWxparamsControllerToolbarConfigurations extends ComDefaultControllerToo
 				'href' => 'index.php?option=com_wxparams&view=configurations&package=' . $config->config_package . '&type=' . $config->config_type, 
 				'onclick' => 'wxjq(this).colorbox({width: \'95%\', height: \'95%\', iframe: true}); return false;')));
 		
-		$document = KFactory::get('lib.joomla.document');
+		$document = JFactory::getDocument();
 		$document->addStyleSheet(WxHelperUri::absolutize('media/com_wxparams/css/admin.css'));
 	}
 

@@ -50,7 +50,7 @@ class WxparamsFactory extends WxFactoryAbstract
 		// Default values
 		$config->append(array('params' => null, 'package' => null, 'type' => null));
 		
-		if(KFactory::tmp('lib.joomla.application')->isAdmin()) {
+		if(JFactory::getApplication()->isAdmin()) {
 			
 			$session_state = WxparamsHelperSession::getModelState();
 			
@@ -75,10 +75,10 @@ class WxparamsFactory extends WxFactoryAbstract
 		foreach($xml->children() as $name => $element) {
 			// A form is considered as tabbed if every root element is a tab element.
 			if($name != 'tab') {
-				return KFactory::tmp('admin::com.wxparams.form.default', $config)->importXml($xml);
+				return KService::get('com://admin/wxparams.form.default', $config)->importXml($xml);
 			}
 		}
-		return KFactory::tmp('admin::com.wxparams.form.tabbed', $config)->importXml($xml);
+		return KService::get('com://admin/wxparams.form.tabbed', $config)->importXml($xml);
 	}
 	
 	/**
@@ -128,7 +128,7 @@ class WxparamsFactory extends WxFactoryAbstract
 		
 		if(!self::$_config) {
 			
-			$row = KFactory::tmp('admin::com.wxparams.database.row.configuration');
+			$row = KService::get('com://admin/wxparams.database.row.configuration');
 			
 			if(!is_null($config->item_id)) {
 				// An item_id was provided/determined, attempt to get a corresponding configuration object.

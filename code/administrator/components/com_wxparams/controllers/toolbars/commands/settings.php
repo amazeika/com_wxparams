@@ -16,7 +16,7 @@ class ComWxparamsControllerToolbarCommandSettings extends KControllerToolbarComm
             )
         ));
         parent::__construct($config);
-        $document = KFactory::get('lib.joomla.document');
+        $document = JFactory::getDocument();
         $document->addStyleSheet(WxHelperUri::absolutize('media/com_wxparams/css/admin.css'));
     }
 }

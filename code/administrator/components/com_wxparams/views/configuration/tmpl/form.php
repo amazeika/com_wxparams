@@ -24,8 +24,8 @@ defined('KOOWA') or die('Restricted access');
 <style src="base://templates/system/css/system.css" />
 <style src="base://templates/khepri/css/icon.css" />
 
-<?=@helper('admin::com.default.template.helper.toolbar.render', array('toolbar' => $this->getView()->getToolbar()));?>
-<?=@helper('admin::com.default.template.helper.toolbar.title', array('toolbar' => $this->getView()->getToolbar()));?>
+<?=@helper('com://admin/default.template.helper.toolbar.render', array('toolbar' => $this->getView()->getToolbar()));?>
+<?=@helper('com://admin/default.template.helper.toolbar.title', array('toolbar' => $this->getView()->getToolbar()));?>
 
 <script type="text/javascript">
 wxjq(document).ready(function() {
@@ -43,7 +43,7 @@ wxjq(document).ready(function() {
 if($form->getType() != 'global') {
 	?>
 <label for="item_id" class="mainlabel"><?=@text('WXPARAMS_MENU_ITEM');?></label>
-<?=@helper('admin::com.wxparams.template.helper.listbox.' . strtolower(WxHelperApplication::getName()) . '.menuitems');?><br />
+<?=@helper('com://admin/wxparams.template.helper.listbox.' . strtolower(WxHelperApplication::getName()) . '.menuitems');?><br />
 <?
 }
 ?>

@@ -41,7 +41,7 @@ class ComWxparamsFormElementTab extends KFormElementAbstract
 				$identifier = (string) $xmlElem['type'];
 			}
 			
-			$element = KFactory::tmp($identifier)->importXml($xmlElem);
+			$element = $this->getService($identifier)->importXml($xmlElem);
 			
 			// Add the label
 			if($dom_label = $element->renderDomLabel($dom)) {

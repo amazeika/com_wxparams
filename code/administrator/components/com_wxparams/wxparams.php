@@ -14,4 +14,4 @@ defined('KOOWA') or die('Restricted access');
 // Forcing component rendering only
 KRequest::set('get.tmpl', 'component');
 
-echo KFactory::get('admin::com.wxparams.dispatcher')->dispatch();
+echo KService::get('com://admin/wxparams.dispatcher')->dispatch();
