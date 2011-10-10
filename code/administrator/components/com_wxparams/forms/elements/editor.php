@@ -39,7 +39,7 @@ class ComWxparamsFormElementEditor extends KFormElementAbstract
 		parent::__construct($config);
 		
 		// Default attribute values
-		$this->_attribs = KConfig::toData($config->options);
+		$this->_attribs = KConfig::unbox($config->options);
 	
 	}
 	

@@ -63,7 +63,7 @@ class ComWxparamsFormDefault extends KFormDefault
 			$attributes = $element->attributes();
 			if($this->_values && $this->_values->{(string) $attributes->name}) {
 				// Bind parameter value
-				$value = KConfig::toData($this->_values->{(string) $attributes->name});
+				$value = KConfig::unbox($this->_values->{(string) $attributes->name});
 				// Array values are imploded using commas.
 				$value = is_array($value) ? implode(',', $value) : $value;
 				$element->addAttribute('value', $value);

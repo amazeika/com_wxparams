@@ -41,7 +41,7 @@ class WxparamsConfig extends KObjectArray
 		
 		$this->_row = $config->row;
 		
-		$this->_data = KConfig::toData($config->params);
+		$this->_data = KConfig::unbox($config->params);
 	
 	}
 	
