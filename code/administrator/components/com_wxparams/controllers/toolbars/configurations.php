@@ -11,7 +11,7 @@ class ComWxparamsControllerToolbarConfigurations extends ComDefaultControllerToo
 		
 		$title = WxText::_('WXPARAMS_CONFIGURATIONS');
 		// Determine the toolbar title
-		$type = KRequest::get('view.type', 'cmd', '');
+		$type = KRequest::get('get.type', 'cmd', '');
 		if($pos = strpos($type, '.')) {
 			// View config
 			$title .= ' - ' . WxText::_('WXPARAMS_VIEW') . ': ' . ucfirst(substr($type, $pos + 1));
