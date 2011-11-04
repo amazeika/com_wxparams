@@ -60,15 +60,15 @@ class ComWxparamsAssetConfig extends KObjectArray implements KServiceInstantiata
 	{
 		// Append default values.
 		$config->append(array(
-			'package' => KRequest::get('get.option','cmd'), 
-			'type' => 'view.' . KRequest::get('get.view','cmd'), 
+			'package' => KRequest::get('get.option', 'cmd'), 
+			'type' => 'view.' . KRequest::get('get.view', 'cmd'), 
 			'item_id' => KRequest::get('get.Itemid', 'int', 0)));
-
+		
 		$signature = $config->package . '.' . $config->type . '.';
 		$signature .= $config->type == 'global' ? '0' : $config->item_id;
 		
 		$identifier = 'com://admin/wxparams.asset.config.' . $signature;
-
+		
 		// Check if a configuation object with the current identifier already exists in the service container.
 		if(KService::has($identifier)) {
 			return KService::get($identifier);
@@ -98,10 +98,9 @@ class ComWxparamsAssetConfig extends KObjectArray implements KServiceInstantiata
 		
 		if(!$row->isNew()) {
 			$config->row = $row;
-			$config->params = $row->getParams();
 			// Merge form params (useful after upgrade when configuration rows are not yet synced with latest
 			// config form changes).
-			$config->params = array_merge($config->params, $form->getDefaults());
+			$config->params = array_merge($row->getParams(), $form->getDefaults());
 		} else {
 			// Configuration row not found. Return a default configuration object (containing the default values in
 			// the config form file).
