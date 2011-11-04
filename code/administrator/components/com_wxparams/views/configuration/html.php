@@ -14,7 +14,11 @@ class ComWxparamsViewConfigurationHtml extends ComWxparamsViewHtml
 	public function display()
 	{
 		$model = $this->getModel();
-		$this->assign('form', WxparamsFactory::getInstance()->get('form', array(
+		// Get package and type information from the session.
+		$session = ComWxparamsHelperSession::getModelState();
+		$this->assign('form', ComWxparamsFactory::getForm(array(
+			'package' => $session['package'], 
+			'type' => $session['type'], 
 			'params' => $model->getItem()
 				->getParams())));
 		
