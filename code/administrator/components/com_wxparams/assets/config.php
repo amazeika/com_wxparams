@@ -71,10 +71,10 @@ class ComWxparamsAssetConfig extends KObjectArray implements KServiceInstantiata
 
 		// Check if a configuation object with the current identifier already exists in the service container.
 		if(KService::has($identifier)) {
-			return $this->getService($identifier);
+			return KService::get($identifier);
 		}
 		
-		$row = $this->getService('com://admin/wxparams.database.row.configuration');
+		$row = KService::get('com://admin/wxparams.database.row.configuration');
 		
 		if($config->item_id) {
 			// An item_id was provided/determined, attempt to get a corresponding configuration row.
