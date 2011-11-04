@@ -29,14 +29,14 @@ class ComWxparamsControllerToolbarConfigurations extends ComDefaultControllerToo
 		$config = new KConfig($config);
 		
 		$config->append(array(
-			'config_package' => KRequest::get('get.option', 'cmd'), 
-			'config_type' => 'view.' . KInflector::singularize(KRequest::get('get.view', 'cmd'))));
+			'package' => KRequest::get('get.option', 'cmd'), 
+			'type' => 'view.' . KRequest::get('get.view', 'cmd')));
 		
 		$command->append(array(
 			
 			'attribs' => array(
 				
-				'href' => 'index.php?option=com_wxparams&view=configurations&package=' . $config->config_package . '&type=' . $config->config_type, 
+				'href' => 'index.php?option=com_wxparams&view=configurations&package=' . $config->package . '&type=' . $config->type, 
 				'onclick' => 'wxjq(this).colorbox({width: \'95%\', height: \'95%\', iframe: true}); return false;')));
 		
 		$document = JFactory::getDocument();
