@@ -41,7 +41,7 @@ class ComWxparamsFormTabbed extends ComWxparamsFormDefault
 			$a = $dom->createElement('a');
 			$a->setAttribute('href', '#tabs-' . $i);
 			$label = $element->getLabel();
-			$a->appendChild($dom->createTextNode(WxText::_($label['label'])));
+			$a->appendChild($dom->createTextNode(JText::_($label['label'])));
 			$li->appendChild($a);
 			$ul->appendChild($li);
 			

@@ -23,7 +23,7 @@ class ComWxparamsDatabaseBehaviorConfigurationValidatable extends ComWxparamsInc
 			->getRow()
 			->setData(array('item_id' => $this->item_id, 'package' => $this->package));
 		if($row->load() && $row->id != $this->id) {
-			$this->_setError(WxText::_('WXPARAMS_ALREADY_EXISTS'));
+			$this->_setError(JText::_('WXPARAMS_ALREADY_EXISTS'));
 			return false;
 		}
 		return true;

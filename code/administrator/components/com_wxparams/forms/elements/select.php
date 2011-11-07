@@ -36,7 +36,7 @@ class ComWxparamsFormElementSelect extends KFormElementSelect
 			parent::importXml($xml);
 			// Default option
 			$option = new SimpleXMLElement('<option />');
-			$option->addAttribute('label', ' - ' . WxText::_('WXPARAMS_SELECT') . ' - ');
+			$option->addAttribute('label', ' - ' . JText::_('WXPARAMS_SELECT') . ' - ');
 			$option->addAttribute('value', '');
 			// Add it to the select element ...
 			$identifier = clone $this->getIdentifier();

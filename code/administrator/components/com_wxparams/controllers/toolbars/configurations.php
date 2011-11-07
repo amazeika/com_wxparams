@@ -23,15 +23,15 @@ class ComWxparamsControllerToolbarConfigurations extends ComDefaultControllerToo
 			$config = new KConfig();
 		}
 		
-		$title = WxText::_('WXPARAMS_CONFIGURATIONS');
+		$title = JText::_('WXPARAMS_CONFIGURATIONS');
 		// Determine the toolbar title
 		$type = KRequest::get('get.type', 'cmd', '');
 		if($pos = strpos($type, '.')) {
 			// View config
-			$title .= ' - ' . WxText::_('WXPARAMS_VIEW') . ': ' . ucfirst(substr($type, $pos + 1));
+			$title .= ' - ' . JText::_('WXPARAMS_VIEW') . ': ' . ucfirst(substr($type, $pos + 1));
 		} else {
 			// Global config
-			$title .= ' - ' . WxText::_('WXPARAMS_GLOBAL');
+			$title .= ' - ' . JText::_('WXPARAMS_GLOBAL');
 		}
 		
 		$this->setTitle($title);

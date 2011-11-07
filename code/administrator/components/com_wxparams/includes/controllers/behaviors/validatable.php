@@ -224,7 +224,7 @@ abstract class ComWxparamsIncludeControllerBehaviorValidatable extends KControll
 			// Mandatory inputs should not be empty
 			if(empty($value) && !is_numeric($value)) {
 				// Report the input as not acceptable
-				$this->setValidationError(WxText::_($package . '_' . strtoupper($field) . '_EMPTY'));
+				$this->setValidationError(JText::_($package . '_' . strtoupper($field) . '_EMPTY'));
 				$pass = false;
 			}
 		}
