@@ -35,6 +35,8 @@ class ComWxparamsControllerToolbarConfigurations extends ComDefaultControllerToo
 		}
 		
 		$this->setTitle($title);
+		
+		$this->setIcon('configurations');
 	}
 	
 	protected function _commandSettings(KControllerToolbarCommand $command, $config = array())
