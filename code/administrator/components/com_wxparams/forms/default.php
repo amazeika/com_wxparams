@@ -50,6 +50,20 @@ class ComWxparamsFormDefault extends KFormDefault
 	}
 	
 	/**
+	 * Returns the form behaviors.
+	 * 
+	 * @return array A list of controller behavior identifiers.
+	 */
+	public function getBehaviors()
+	{
+		$attributes = $this->_xml->attributes();
+		if(!empty($attributes['behaviors'])) {
+			return explode(',', $attributes['behaviors']);
+		}
+		return null;
+	}
+	
+	/**
 	 * Process the XML form for use with com_wxparams. An optional params variable can be provided for
 	 * changing default values of the form elements.
 	 * 
@@ -136,19 +150,7 @@ class ComWxparamsFormDefault extends KFormDefault
 	{
 		
 		$dom = $this->renderDom();
-		
-		// Setting form behaviors.
-		$attributes = $this->_xml->attributes();
-		if($behaviors = $attributes['behaviors']) {
-			foreach(explode(',', $behaviors) as $identifier) {
-				$element = $dom->createElement('input');
-				$element->setAttribute('type', 'hidden');
-				$element->setAttribute('name', 'behaviors[]');
-				$element->setAttribute('value', htmlspecialchars($identifier, ENT_QUOTES));
-				$dom->appendChild($element);
-			}
-		}
-		
+				
 		$string = $dom->saveHTML();
 		
 		return str_replace('<', PHP_EOL . '<', $string);
