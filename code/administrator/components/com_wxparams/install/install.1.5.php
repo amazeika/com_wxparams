@@ -9,20 +9,3 @@
  * @link        http://www.nooku.org
  */
 defined('_JEXEC') or die('Restricted access');
-
-// Prevent the plugin row to be inserted more than once
-$query = "SELECT COUNT(*) FROM `#__plugins` WHERE element = 'wxparams' AND folder = 'system'";
-$database->setQuery($query);
-if(!$database->loadResult()) {
-	// Insert and publish the plugin
-	$plugin = JTable::getInstance('plugin');
-	$plugin->name = 'System - WxParams';
-	$plugin->folder = 'system';
-	$plugin->element = 'wxparams';
-	$plugin->published = 1;
-	if(!$plugin->store()) {
-		// Install failed, roll back
-		$this->parent->abort(JText::_('Plugin') . ' ' . JText::_('Install') . ': ' . $database->stderr(true));
-		return false;
-	}
-}

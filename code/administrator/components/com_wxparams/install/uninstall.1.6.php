@@ -11,7 +11,3 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
-
-// Delete the plugin from the database
-$database->setQuery("DELETE FROM `#__extensions` WHERE type = 'plugin' AND folder = 'system' AND element = 'wxparams'");
-$database->query();
