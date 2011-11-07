@@ -24,10 +24,15 @@ class ComWxparamsControllerConfiguration extends ComDefaultControllerDefault
 		
 		parent::__construct($config);
 		
-		if($this->isDispatched() && KRequest::method() != KHttpRequest::GET) {
-			// Enqueue behaviors passed within the form.
-			$data = KRequest::get(strtolower(KRequest::method()), 'raw');
-			if($behaviors = $data['behaviors']) {
+		// Form behaviors are only injected on singular views.
+		if(KInflector::isSingular($this->getView()
+			->getName()) && $model_state = ComWxparamsHelperSession::getModelState()) {
+			// Get the form
+			$form = ComWxparamsFactory::getForm(array(
+				'package' => $model_state['package'], 
+				'type' => $model_state['type']));
+			if($behaviors = $form->getBehaviors()) {
+			    // Inject behaviors.
 				$this->addBehavior($behaviors);
 			}
 		}
