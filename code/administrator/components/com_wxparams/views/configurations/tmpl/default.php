@@ -15,7 +15,7 @@ defined('KOOWA') or die('Restricted access');
 <?=@helper('behavior.modal');?>
 <style src="media://lib_koowa/css/koowa.css" />
 <style src="media://com_wxparams/css/wxparams.css" />
-<style src="media://com_wextend/css/wextend.css" />
+<style src="media://com_wxparams/css/wextend.css" />
 
 
 <script src="media://lib_koowa/js/koowa.js" />
@@ -89,7 +89,7 @@ defined('KOOWA') or die('Restricted access');
 				<?=@escape($configuration->package);?>
 			</td>
 			<td align="center">
-			<?=@helper('com://admin/wextend.template.helper.grid.actions', array('actions' => array('edit','defaultable'), 'row' => $configuration));?>
+			<?=@helper('com://admin/wxparams.include.template.helper.grid.actions', array('actions' => array('edit','defaultable'), 'row' => $configuration));?>
 			</td>
 		</tr>
 	<?
