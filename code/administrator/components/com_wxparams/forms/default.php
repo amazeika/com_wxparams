@@ -138,17 +138,15 @@ class ComWxparamsFormDefault extends KFormDefault
 		
 		$dom = $this->renderDom();
 		
-		// Setting validators, pre and post data processors
-		foreach($this->_xml->attributes() as $key => $value) {
-			switch($key){
-				case 'validator':
-				case 'processor':
-					$element = $dom->createElement('input');
-					$element->setAttribute('type', 'hidden');
-					$element->setAttribute('name', $key);
-					$element->setAttribute('value', $value);
-					$dom->appendChild($element);
-					break;
+		// Setting form behaviors.
+		$attributes = $this->_xml->attributes();
+		if($behaviors = $attributes['behaviors']) {
+			foreach(explode(',', $behaviors) as $identifier) {
+				$element = $dom->createElement('input');
+				$element->setAttribute('type', 'hidden');
+				$element->setAttribute('name', 'behaviors[]');
+				$element->setAttribute('value', htmlspecialchars($identifier, ENT_QUOTES));
+				$dom->appendChild($element);
 			}
 		}
 		

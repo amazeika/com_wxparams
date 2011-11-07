@@ -11,6 +11,23 @@
 
 class ComWxparamsControllerConfiguration extends ComDefaultControllerDefault
 {
+	public function __construct(KConfig $config = null)
+	{
+		if(!$config) {
+			$config = new KConfig();
+		}
+		
+		parent::__construct($config);
+		
+		if($this->isDispatched() && KRequest::method() != KHttpRequest::GET) {
+			// Enqueue behaviors passed within the form.
+			$data = KRequest::get(strtolower(KRequest::method()), 'raw');
+			if($behaviors = $data['behaviors']) {
+				$this->addBehavior($behaviors);
+			}
+		}
+	}
+	
 	protected function _initialize(KConfig $config)
 	{
 		$config->append(array(
@@ -18,22 +35,4 @@ class ComWxparamsControllerConfiguration extends ComDefaultControllerDefault
 			'behaviors' => array('validatable', 'processable')));
 		parent::_initialize($config);
 	}
-	
-	public function execute($action, KCommandContext $context)
-	{
-		// Enqueue validators, pre and post data processors if necessary. Commands are dinamically enqueued
-		// using the available information in the request data.
-		if($data = $context->data) {
-			$needles = array('validator', 'preprocessor', 'postprocessor');
-			foreach($needles as $needle) {
-				if($identifier = $data->$needle) {
-					// Enqueue the command
-					$this->getCommandChain()
-						->enqueue($this->getService($identifier));
-				}
-			}
-		}
-		return parent::execute($action, $context);
-	}
-
 }
