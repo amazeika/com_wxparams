@@ -16,7 +16,7 @@
  * @author Arunas Mazeika
  * @package com_wextend
  */
-class ComWxparamsIncludesDatabaseBehaviorDefaultable extends KDatabaseBehaviorAbstract
+class ComWxparamsIncludeDatabaseBehaviorDefaultable extends KDatabaseBehaviorAbstract
 {
 	
 	/**
