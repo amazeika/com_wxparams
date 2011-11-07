@@ -14,7 +14,7 @@
  * @author Arunas Mazeika
  * @package com_wxparams
  */
-class ComWxparamsControllerBehaviorProcessable extends ComWextendControllerBehaviorProcessable
+class ComWxparamsControllerBehaviorProcessable extends ComWxparamsIncludeControllerBehaviorProcessable
 {
 	protected function _processParams()
 	{

@@ -14,7 +14,7 @@
  * @author Arunas Mazeika
  * @package com_wxparams
  */
-class ComWxparamsControllerBehaviorValidatable extends ComWextendControllerBehaviorValidatable
+class ComWxparamsControllerBehaviorValidatable extends ComWxparamsIncludeControllerBehaviorValidatable
 {
 	protected function _initialize(KConfig $config)
 	{

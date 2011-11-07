@@ -14,7 +14,7 @@
  * @author Arunas Mazeika
  * @package com_wxparams
  */
-class ComWxparamsDatabaseBehaviorConfigurationDefaultable extends ComWextendDatabaseBehaviorDefaultable
+class ComWxparamsDatabaseBehaviorConfigurationDefaultable extends ComWxparamsIncludeDatabaseBehaviorDefaultable
 {
 	
 	public function _buildQueryWhere(KDatabaseQuery $query)

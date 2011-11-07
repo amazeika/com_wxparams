@@ -14,7 +14,7 @@
  * @author Arunas Mazeika
  * @package com_wxparams
  */
-class ComWxparamsDatabaseBehaviorConfigurationValidatable extends ComWextendDatabaseBehaviorValidatable
+class ComWxparamsDatabaseBehaviorConfigurationValidatable extends ComWxparamsIncludeDatabaseBehaviorValidatable
 {
 	protected function _validateItemid()
 	{
