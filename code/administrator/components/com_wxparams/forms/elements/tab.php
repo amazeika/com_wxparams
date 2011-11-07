@@ -6,11 +6,12 @@
  * @author Arunas Mazeika
  * @license GNU General Public License v3+ (GNU GPLv3) <http://www.gnu.org/licenses/gpl.html>
  * @link http://www.wextend.com
- * 
  */
 
 /**
- * Tab form element. Wraps child elements inside a div.
+ * Tab form element class.
+ * 
+ * Wraps child elements inside a div.
  * 
  * @author Arunas Mazeika
  * @package com_wxparams

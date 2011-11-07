@@ -1,12 +1,11 @@
 <?php
 /**
- * @version     $Id: uninstall.1.5.php 49 2011-03-28 23:04:49Z stiandidriksen $
- * @category    Koowa
- * @package     Koowa_Components
- * @subpackage  Extensions
- * @copyright   Copyright (C) 2010 Timble CVBA and Contributors. (http://www.timble.net)
- * @license     GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
- * @link        http://www.nooku.org
+ * @version 1.0 $Id$
+ * @package com_wxparams
+ * @copyright Copyright (C) 2011 Arunas Mazeika. All rights reserved
+ * @author Arunas Mazeika
+ * @license GNU General Public License v3+ (GNU GPLv3) <http://www.gnu.org/licenses/gpl.html>
+ * @link http://www.wextend.com
  */
 
 // no direct access

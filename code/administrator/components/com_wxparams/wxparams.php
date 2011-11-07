@@ -6,7 +6,6 @@
  * @author Arunas Mazeika
  * @license GNU General Public License v3+ (GNU GPLv3) <http://www.gnu.org/licenses/gpl.html>
  * @link http://www.wextend.com
- * 
  */
 
 defined('KOOWA') or die('Restricted access');

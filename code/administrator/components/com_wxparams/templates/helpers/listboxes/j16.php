@@ -6,9 +6,14 @@
  * @author Arunas Mazeika
  * @license GNU General Public License v3+ (GNU GPLv3) <http://www.gnu.org/licenses/gpl.html>
  * @link http://www.wextend.com
- * 
  */
 
+/**
+ * J!1.6 listbox template helper class.
+ * 
+ * @author Arunas Mazeika
+ * @package com_wxparams
+ */
 class ComWxparamsTemplateHelperListboxJ16 extends ComWxparamsTemplateHelperListboxAbstract
 {
 	

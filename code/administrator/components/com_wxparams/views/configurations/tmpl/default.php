@@ -6,7 +6,6 @@
  * @author Arunas Mazeika
  * @license GNU General Public License v3+ (GNU GPLv3) <http://www.gnu.org/licenses/gpl.html>
  * @link http://www.wextend.com
- * 
  */
 
 defined('KOOWA') or die('Restricted access');
@@ -15,7 +14,7 @@ defined('KOOWA') or die('Restricted access');
 <?=@helper('behavior.tooltip');?>
 <?=@helper('behavior.modal');?>
 <style src="media://lib_koowa/css/koowa.css" />
-<style src="media://com_wxparams/css/admin.css" />
+<style src="media://com_wxparams/css/wxparams.css" />
 <style src="media://com_wextend/css/wextend.css" />
 
 
