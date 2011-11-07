@@ -142,8 +142,7 @@ class ComWxparamsFormDefault extends KFormDefault
 		foreach($this->_xml->attributes() as $key => $value) {
 			switch($key){
 				case 'validator':
-				case 'preprocessor':
-				case 'postprocessor':
+				case 'processor':
 					$element = $dom->createElement('input');
 					$element->setAttribute('type', 'hidden');
 					$element->setAttribute('name', $key);
