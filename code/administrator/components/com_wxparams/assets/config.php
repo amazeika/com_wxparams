@@ -56,6 +56,12 @@ class ComWxparamsAssetConfig extends KObjectArray implements KServiceInstantiata
 		parent::_initialize($config);
 	}
 	
+	/**
+	 * Instantiation logic.
+	 * 
+	 * @param KConfigInterface Configuration object.
+	 * @param KServiceInterface The service container.
+	 */
 	public static function getInstance(KConfigInterface $config, KServiceInterface $container)
 	{
 		// Append default values.
@@ -70,11 +76,11 @@ class ComWxparamsAssetConfig extends KObjectArray implements KServiceInstantiata
 		$identifier = 'com://admin/wxparams.asset.config.' . $signature;
 		
 		// Check if a configuation object with the current identifier already exists in the service container.
-		if(KService::has($identifier)) {
-			return KService::get($identifier);
+		if($container::has($identifier)) {
+			return $container::get($identifier);
 		}
 		
-		$row = KService::get('com://admin/wxparams.database.row.configuration');
+		$row = $container::get('com://admin/wxparams.database.row.configuration');
 		
 		if($config->item_id) {
 			// An item_id was provided/determined, attempt to get a corresponding configuration row.
@@ -111,7 +117,7 @@ class ComWxparamsAssetConfig extends KObjectArray implements KServiceInstantiata
 		$instance = new self($config);
 		
 		// Set the object in the container for further use.
-		KService::set($identifier, $instance);
+		$container::set($identifier, $instance);
 		
 		return $instance;
 	}
