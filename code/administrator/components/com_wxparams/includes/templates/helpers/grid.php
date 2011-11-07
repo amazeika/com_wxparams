@@ -1,4 +1,12 @@
 <?php
+/**
+ * @version 1.0 $Id$
+ * @package com_wextend
+ * @copyright Copyright (C) 2011 Arunas Mazeika. All rights reserved
+ * @author Arunas Mazeika
+ * @license GNU General Public License v3+ (GNU GPLv3) <http://www.gnu.org/licenses/gpl.html>
+ * @link http://www.wextend.com
+ */
 
 class ComWxparamsIncludeTemplateHelperGrid extends KTemplateHelperGrid
 {
@@ -29,7 +37,7 @@ class ComWxparamsIncludeTemplateHelperGrid extends KTemplateHelperGrid
 		$view = KInflector::singularize(KRequest::get('get.view', 'cmd'));
 		$url = 'index.php?option=' . $option . '&view=' . $view . '&id=' . $config->row->id;
 		
-		return '<a title="' . WxText::_('WX_EDIT') . '" href="' . $url . '"><span class="icon-16-edit"/></a>';
+		return '<a title="' . JText::_('WX_EDIT') . '" href="' . $url . '"><span class="icon-16-edit"/></a>';
 	
 	}
 	
@@ -41,10 +49,10 @@ class ComWxparamsIncludeTemplateHelperGrid extends KTemplateHelperGrid
 		$html = '';
 		
 		if($config->row->default) {
-			$html .= '<a title="' . WxText::_('WX_DEFAULT') . '"><span class="icon-16-default"></span></a>';
+			$html .= '<a title="' . JText::_('WX_DEFAULT') . '"><span class="icon-16-default"></span></a>';
 		
 		} else {
-		    $title = WxText::_('WX_SET_DEFAULT');
+		    $title = JText::_('WX_SET_DEFAULT');
 		    $data = '{default: 1}';
 		    $html .= '<a class="wx-cursor" title="'.$title.'" data-action="edit" data-data="'.$data.'"><span class="icon-16-setdefault"></span></a>';
 		    	
