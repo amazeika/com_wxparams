@@ -58,7 +58,5 @@
 
 	<!-- Application/framework -->
 	<framework>
-		<file>/plugins/system/wxparams.php</file>
-		<file>/plugins/system/wxparams.xml</file>
 	</framework>
 </install>
