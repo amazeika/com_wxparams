@@ -56,7 +56,7 @@ class ComWxparamsControllerToolbarConfigurations extends ComDefaultControllerToo
 				'onclick' => 'wxjq(this).colorbox({width: \'95%\', height: \'95%\', iframe: true}); return false;')));
 		
 		$document = JFactory::getDocument();
-		$document->addStyleSheet(WxHelperUri::absolutize('media/com_wxparams/css/admin.css'));
+		$document->addStyleSheet(WxHelperUri::absolutize('media/com_wxparams/css/wxparams.css'));
 	}
 
 }
