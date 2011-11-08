@@ -105,7 +105,7 @@ class ComWxparamsAssetConfig extends KObjectArray implements KServiceInstantiata
 			$config->row = $row;
 			// Merge form params (useful after upgrade when configuration rows are not yet synced with latest
 			// config form changes).
-			$config->params = array_merge($row->getParams(), $form->getDefaults());
+			$config->params = array_merge($form->getDefaults(), $row->getParams());
 		} else {
 			// Configuration row not found. Return a default configuration object (containing the default values in
 			// the config form file).
