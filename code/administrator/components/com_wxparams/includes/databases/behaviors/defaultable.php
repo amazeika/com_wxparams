@@ -30,7 +30,8 @@ class ComWxparamsIncludeDatabaseBehaviorDefaultable extends KDatabaseBehaviorAbs
 	
 	public function _beforeTableInsert(KCommandContext $context)
 	{
-		if($context->data->default) {
+	    $row = $context->data;
+		if($row->default) {
 			// Before inserting a new row as the default one, we need to remove the default
 			// property from any other concerned row
 			$this->_resetDefaults($context);
