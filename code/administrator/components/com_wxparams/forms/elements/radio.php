@@ -26,6 +26,11 @@ class ComWxparamsFormElementRadio extends KFormElementRadio
 		return 'params[' . $this->_name . ']';
 	}
 	
+	/**
+	 * Method override for option name cleanup on radiolist context.
+	 * 
+	 * @see KFormElementAbstract::setName()
+	 */
 	public function setName($name)
 	{
 		if(preg_match('/params\[(.*?)\]/', $name, $result)) {
