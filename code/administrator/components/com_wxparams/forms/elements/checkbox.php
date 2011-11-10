@@ -25,4 +25,17 @@ class ComWxparamsFormElementCheckbox extends KFormElementCheckbox
 	{
 		return 'params[' . $this->_name . ']';
 	}
+	
+	/**
+	 * Method override for option name cleanup on checklist context.
+	 * 
+	 * @see KFormElementAbstract::setName()
+	 */
+	public function setName($name)
+	{
+		if(preg_match('/params\[(.*?)\]/', $name, $result)) {
+			$name = $result[1];
+		}
+		return parent::setName($name);
+	}
 }
