@@ -88,7 +88,10 @@ class ComWxparamsAssetConfig extends KObjectArray implements KServiceInstantiata
 				'item_id' => $config->item_id, 
 				'type' => $config->type))
 				->load();
-		} else {
+		}
+		
+		if($row->isNew()) {
+		    $row->reset();
 			// Default row fallback.
 			$row->setData(array(
 				'package' => $config->package, 
