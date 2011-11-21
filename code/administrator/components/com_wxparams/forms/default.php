@@ -109,7 +109,12 @@ class ComWxparamsFormDefault extends KFormDefault
 		
 		foreach($this->_xml->xpath('//*[@default]') as $element) {
 			$attributes = $element->attributes();
-			$defaults[(string) $attributes->name] = (string) $attributes->default;
+			$default = (string) $attributes->default;
+			if($attributes->multiple == 'multiple') {
+				// Return an array of values
+				$default = explode(',', $default);
+			}
+			$defaults[(string) $attributes->name] = $default;
 		}
 		
 		return $defaults;
@@ -150,7 +155,7 @@ class ComWxparamsFormDefault extends KFormDefault
 	{
 		
 		$dom = $this->renderDom();
-				
+		
 		$string = $dom->saveHTML();
 		
 		return str_replace('<', PHP_EOL . '<', $string);
