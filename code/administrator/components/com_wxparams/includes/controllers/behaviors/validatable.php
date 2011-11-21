@@ -168,12 +168,12 @@ abstract class ComWxparamsIncludeControllerBehaviorValidatable extends KControll
 	{
 		
 		$identifier = (string) $this->getIdentifier();
-		
+
 		// Get the session validation data for the current controller
 		$data = KRequest::get("session.{$identifier}", 'raw');
-		
+
 		if($data) {
-			$data = unserialize($data);
+		    $data = unserialize($data);
 			// Get a row for the current state and replace its content with
 			// the validation data
 			$context->caller->getModel()
@@ -195,23 +195,13 @@ abstract class ComWxparamsIncludeControllerBehaviorValidatable extends KControll
 		return true;
 	}
 	
-	protected function _beforeSave(KCommandContext $context)
-	{
-		// Same as Apply.
-		return $this->_beforeApply($context);
-	}
-	
-	protected function _beforeApply(KCommandContext $context)
+	protected function _beforeAdd(KCommandContext $context)
 	{
 		// Proceed to check mandatory fields.
 		if(!$this->checkMandatoryFields()) {
 			$this->_handleErrors($this->getValidationErrors());
 			return false;
 		}
-	}
-	
-	protected function _beforeAdd(KCommandContext $context)
-	{
 		// For the rest of the process, same as edit.
 		return $this->_beforeEdit($context);
 	}
