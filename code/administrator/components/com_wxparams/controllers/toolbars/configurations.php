@@ -23,15 +23,15 @@ class ComWxparamsControllerToolbarConfigurations extends ComDefaultControllerToo
 			$config = new KConfig();
 		}
 		
-		$title = JText::_('WXPARAMS_CONFIGURATIONS');
+		$title = WxText::_('WXPARAMS_CONFIGURATIONS');
 		// Determine the toolbar title
 		$type = KRequest::get('get.type', 'cmd', '');
 		if($pos = strpos($type, '.')) {
 			// View config
-			$title .= ' - ' . JText::_('WXPARAMS_VIEW') . ': ' . ucfirst(substr($type, $pos + 1));
+			$title .= ' - ' . WxText::_('WXPARAMS_VIEW') . ': ' . ucfirst(substr($type, $pos + 1));
 		} else {
 			// Global config
-			$title .= ' - ' . JText::_('WXPARAMS_GLOBAL');
+			$title .= ' - ' . WxText::_('WXPARAMS_GLOBAL');
 		}
 		
 		$this->setTitle($title);
@@ -56,7 +56,7 @@ class ComWxparamsControllerToolbarConfigurations extends ComDefaultControllerToo
 				'onclick' => 'wxjq(this).colorbox({width: \'95%\', height: \'95%\', iframe: true}); return false;')));
 		
 		$document = JFactory::getDocument();
-		$document->addStyleSheet(WxHelperUri::absolutize('media/com_wxparams/css/wxparams.css'));
+		$document->addStyleSheet('../media/com_wxparams/css/wxparams.css');
 	}
 
 }
