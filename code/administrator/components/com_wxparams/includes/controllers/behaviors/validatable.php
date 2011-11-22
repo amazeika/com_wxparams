@@ -168,12 +168,12 @@ abstract class ComWxparamsIncludeControllerBehaviorValidatable extends KControll
 	{
 		
 		$identifier = (string) $this->getIdentifier();
-
+		
 		// Get the session validation data for the current controller
 		$data = KRequest::get("session.{$identifier}", 'raw');
-
+		
 		if($data) {
-		    $data = unserialize($data);
+			$data = unserialize($data);
 			// Get a row for the current state and replace its content with
 			// the validation data
 			$context->caller->getModel()
@@ -187,6 +187,11 @@ abstract class ComWxparamsIncludeControllerBehaviorValidatable extends KControll
 	
 	protected function _beforeEdit(KCommandContext $context)
 	{
+		// Check for errors so far (missing mandatory fields when applies).
+		if($errors = $this->getValidationErrors()) {
+			$this->_handleErrors($errors);
+			return false;
+		}
 		// Proceed to data validation.
 		if(!$this->validate()) {
 			$this->_handleErrors($this->getValidationErrors());
@@ -195,42 +200,52 @@ abstract class ComWxparamsIncludeControllerBehaviorValidatable extends KControll
 		return true;
 	}
 	
+	protected function _beforeSave(KCommandContext $context) {
+	    // Same as apply.
+	    return $this->_beforeApply($context);
+	}
+	
+	protected function _beforeApply(KCommandContext $context)
+	{
+		// Proceed to check mandatory fields. Errors (if any) will be handled latter.
+		$this->checkMandatoryFields();
+		return true;
+	}
+	
 	protected function _beforeAdd(KCommandContext $context)
 	{
-		// Proceed to check mandatory fields.
-		if(!$this->checkMandatoryFields()) {
-			$this->_handleErrors($this->getValidationErrors());
-			return false;
-		}
+		// Proceed to check mandatory fields. Errors (if any) will be handled latter.
+		$this->checkMandatoryFields();
 		// For the rest of the process, same as edit.
 		return $this->_beforeEdit($context);
 	}
 	
 	/**
 	 * Checks if the mandatory fields are set in the request data. This method is only
-	 * triggered on save/apply actions as it's under these conditions that a full dataset is
+	 * triggered on save/apply/add actions as it's under these conditions that a full dataset is
 	 * expected from the user.
-	 * 
-	 * @return boolean True on success, false othewise.
 	 */
 	public function checkMandatoryFields()
 	{
-		$pass = true;
-		$package = strtoupper($this->getIdentifier()->package);
+	    // Avoid double checks.
+		static $checked = false;
 		
-		foreach($this->_mandatory_fields as $field) {
-			// Remove extra white spaces
-			$value = trim($this->_context->data->$field);
-			// Mandatory inputs should not be empty
-			if(empty($value) && !is_numeric($value)) {
-				// Report the input as not acceptable
-				$this->setValidationError(JText::_($package . '_' . strtoupper($field) . '_EMPTY'));
-				$pass = false;
+		if(!$checked) {
+			
+			$package = strtoupper($this->getIdentifier()->package);
+			
+			foreach($this->_mandatory_fields as $field) {
+				// Remove extra white spaces
+				$value = trim($this->_context->data->$field);
+				// Mandatory inputs should not be empty
+				if(empty($value) && !is_numeric($value)) {
+					// Report the input as not acceptable
+					$this->setValidationError(WxText::_($package . '_' . strtoupper($field) . '_EMPTY'));
+				}
 			}
+			// Set as checked.
+			$checked = true;
 		}
-		
-		return $pass;
-	
 	}
 	
 	/**
@@ -262,5 +277,4 @@ abstract class ComWxparamsIncludeControllerBehaviorValidatable extends KControll
 		$data = $this->_context->data;
 		return isset($data->$property) ? $data->$property : null;
 	}
-
 }
