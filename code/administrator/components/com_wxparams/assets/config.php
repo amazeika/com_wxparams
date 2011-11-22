@@ -66,11 +66,12 @@ class ComWxparamsAssetConfig extends KObjectArray implements KServiceInstantiata
 		// Append default values.
 		$config->append(array(
 			'package' => KRequest::get('get.option', 'cmd'), 
-			'type' => 'view.' . KRequest::get('get.view', 'cmd'), 
-			'item_id' => KRequest::get('get.Itemid', 'int', 0)));
+			'type' => 'view.' . KRequest::get('get.view', 'cmd')))
+			->append(array(
+			'item_id' => $config->type == 'global' ? '0' : KRequest::get('get.Itemid', 'int', 0)));
 		
 		$signature = $config->package . '.' . $config->type . '.';
-		$signature .= $config->type == 'global' ? '0' : $config->item_id;
+		$signature .= $config->item_id;
 		
 		$identifier = 'com://admin/wxparams.asset.config.' . $signature;
 		
@@ -91,7 +92,7 @@ class ComWxparamsAssetConfig extends KObjectArray implements KServiceInstantiata
 		}
 		
 		if($row->isNew()) {
-		    $row->reset();
+			$row->reset();
 			// Default row fallback.
 			$row->setData(array(
 				'package' => $config->package, 
