@@ -52,7 +52,8 @@ class ComWxparamsFactory
 	public static function getModelBehavior($config = array())
 	{
 		$config = new KConfig($config);
-		$class_name = 'ComWxparamsModelBehavior' . ucfirst(KInflector::singularize($config->model)) . WxHelperApplication::getName();
+		$application = JVersion::isCompatible('1.6.0') ? 'J16' : 'J15';
+		$class_name = 'ComWxparamsModelBehavior' . ucfirst(KInflector::singularize($config->model)) . $application;
 		return new $class_name();
 	}
 
