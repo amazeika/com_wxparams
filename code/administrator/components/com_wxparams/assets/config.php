@@ -70,10 +70,9 @@ class ComWxparamsAssetConfig extends KObjectArray implements KServiceInstantiata
 			->append(array(
 			'item_id' => $config->type == 'global' ? '0' : KRequest::get('get.Itemid', 'int', 0)));
 		
-		$signature = $config->package . '.' . $config->type . '.';
-		$signature .= $config->item_id;
+		$signature = $config->package . '.' . $config->type . '.' . $config->item_id;
 		
-		$identifier = 'com://admin/wxparams.asset.config.' . $signature;
+		$identifier = $config->service_identifier . '.' . $signature;
 		
 		// Check if a configuation object with the current identifier already exists in the service container.
 		if($container::has($identifier)) {
