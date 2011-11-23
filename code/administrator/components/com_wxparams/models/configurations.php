@@ -16,6 +16,7 @@
  */
 class ComWxparamsModelConfigurations extends KModelDefault
 {
+    protected $_behavior;
 	
 	public function __construct(KConfig $config = null)
 	{
@@ -26,11 +27,22 @@ class ComWxparamsModelConfigurations extends KModelDefault
 		
 		parent::__construct($config);
 		
+		$this->_behavior = ComWxparamsFactory::getModelBehavior(array('model'=>'configurations'));
+		
 		$state = $this->getState();
 		$state->insert('default', 'int');
 		$state->insert('package', 'cmd');
 		$state->insert('type', 'cmd');
 	
+	}
+	
+	protected function _buildQueryColumns(KDatabaseQuery $query) {
+	    $this->_behavior->buildQueryColumns($query);
+	}
+	
+	protected function _buildQueryJoins(KDatabaseQuery $query) {
+	    $this->_behavior->buildQueryJoins($query);
+	    parent::_buildQueryJoins($query);
 	}
 	
 	protected function _buildQueryWhere(KDatabaseQuery $query)
@@ -39,15 +51,15 @@ class ComWxparamsModelConfigurations extends KModelDefault
 		$state = $this->getState();
 		
 		if(is_numeric($state->default)) {
-			$query->where('default', '=', $state->default);
+			$query->where('tbl.default', '=', $state->default);
 		}
 		
 		if($state->package) {
-			$query->where('package', '=', $state->package);
+			$query->where('tbl.package', '=', $state->package);
 		}
 		
 		if($state->type) {
-			$query->where('type', '=', $state->type);
+			$query->where('tbl.type', '=', $state->type);
 		}
 		
 		parent::_buildQueryWhere($query);
