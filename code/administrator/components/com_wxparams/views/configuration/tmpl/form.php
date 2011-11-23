@@ -31,8 +31,7 @@ wxjq(document).ready(function() {
 });
 </script>
 
-<form method="post" action="<?=@route('id=' . $configuration->id)?>" class="-koowa-form" id="mainform">
-<label for="title" class="mainlabel"><?=@text('WXPARAMS_TITLE');?></label>
+<form method="post" action="<?=@route('id=' . $configuration->id)?>" class="-koowa-form" id="mainform"><label for="title" class="mainlabel"><?=@text('WXPARAMS_TITLE');?></label>
 <input id="title" type="text" name="title"
 	value="<?=@escape($configuration->title);?>" /><br />
 <label for="description" class="mainlabel"><?=@text('WXPARAMS_DESCRIPTION');?></label>
@@ -41,11 +40,13 @@ wxjq(document).ready(function() {
 if($form->getType() != 'global') {
 	?>
 <label for="item_id" class="mainlabel"><?=@text('WXPARAMS_MENU_ITEM');?></label>
-<?=@helper('com://admin/wxparams.template.helper.listbox.' . strtolower(WxHelperApplication::getName()) . '.menuitems');?><br />
+<?=@helper('com://admin/wxparams.template.helper.listbox.' . strtolower(WxHelperApplication::getName()) . '.menuitems', array('filter'=>array('package'=>$form->getPackage())));?><br />
 <?
 }
 ?>
-<? // Render the XML form
+<? 
+// Render the XML form
+
 echo $form->renderHtml();
 ?>
 <input type="hidden" name="package" value="<?=$form->getPackage();?>" />
