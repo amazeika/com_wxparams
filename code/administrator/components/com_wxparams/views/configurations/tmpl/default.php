@@ -77,7 +77,7 @@ defined('KOOWA') or die('Restricted access');
 				<?=@escape($configuration->id);?>
 			</td>
 			<td align="center">
-				<?=@escape($configuration->item_id).' ('.$configuration->item_id_title.')';?>
+				<?=@helper('com://admin/wxparams.template.helper.grid.itemid', array('row'=>$configuration));?>
 			</td>
 			<td align="center">
 				<?=@escape($configuration->title);?>
