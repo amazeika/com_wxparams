@@ -16,14 +16,20 @@
  */
 class ComWxparamsDatabaseBehaviorConfigurationValidatable extends ComWxparamsIncludeDatabaseBehaviorValidatable
 {
-	protected function _validateItemid()
+	protected function _validateType()
 	{
-		// Check if there's no other configuration row for the same package and itemid
+		if($this->type == 'global') {
+			return true;
+		}
+		// Check if there's no other configuration row for the same package, type and Itemid.
 		$row = $this->getTable()
 			->getRow()
-			->setData(array('item_id' => $this->item_id, 'package' => $this->package));
+			->setData(array(
+			'type' => $this->type, 
+			'item_id' => $this->item_id, 
+			'package' => $this->package));
 		if($row->load() && $row->id != $this->id) {
-			$this->_setError(JText::_('WXPARAMS_ALREADY_EXISTS'));
+			$this->setValidationError(WxText::_('WXPARAMS_ALREADY_EXISTS'));
 			return false;
 		}
 		return true;
