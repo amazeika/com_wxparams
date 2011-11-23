@@ -45,7 +45,7 @@ defined('KOOWA') or die('Restricted access');
 			<th width="5">
 				<?=@helper('grid.sort', array('column' => 'id', 'title' => @text('WXPARAMS_ID')));?>
 			</th>
-			<th width="5">
+			<th>
 				<?=@helper('grid.sort', array('column' => 'item_id', 'title' => @text('WXPARAMS_MENU_ITEM')));?>
 			<th>
 				<?=@helper('grid.sort', array('column' => 'title', 'title' => @text('WXPARAMS_TITLE')));?>
@@ -77,7 +77,7 @@ defined('KOOWA') or die('Restricted access');
 				<?=@escape($configuration->id);?>
 			</td>
 			<td align="center">
-				<?=@escape($configuration->item_id);?>
+				<?=@escape($configuration->item_id).' ('.$configuration->item_id_title.')';?>
 			</td>
 			<td align="center">
 				<?=@escape($configuration->title);?>
