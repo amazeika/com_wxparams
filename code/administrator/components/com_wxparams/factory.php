@@ -42,5 +42,18 @@ class ComWxparamsFactory
 		}
 		return KService::get('com://admin/wxparams.form.tabbed', $config)->importXml($xml);
 	}
+	
+	/**
+	 * Returns a model behavior object based on the application being used.
+	 * 
+	 * @param array An optional configuration array.
+	 * @return object The model behavior object.
+	 */
+	public static function getModelBehavior($config = array())
+	{
+		$config = new KConfig($config);
+		$class_name = 'ComWxparamsModelBehavior' . ucfirst(KInflector::singularize($config->model)) . WxHelperApplication::getName();
+		return new $class_name();
+	}
 
 }
