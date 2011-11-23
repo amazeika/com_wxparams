@@ -8,7 +8,7 @@ class ComWxparamsTemplateHelperGrid extends KTemplateHelperGrid {
 
         $row = $config->row;
         if (!$row->item_id) {
-            return WxText::_('DOES_NOT_APPLY');
+            return JText::_('DOES_NOT_APPLY');
         }
                 
         $html = $row->item_id.' ('.htmlspecialchars($row->item_id_title,ENT_QUOTES).')';
