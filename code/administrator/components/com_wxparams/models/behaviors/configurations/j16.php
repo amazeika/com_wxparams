@@ -1,6 +1,6 @@
 <?php
 
-class ComWxparamsModelBehaviorConfigurationJ15 implements ComWxparamsModelBehaviorConfigurationInterface
+class ComWxparamsModelBehaviorConfigurationJ16 implements ComWxparamsModelBehaviorConfigurationInterface
 {
 	
 	public function buildQueryColumns(KDatabaseQuery $query)
