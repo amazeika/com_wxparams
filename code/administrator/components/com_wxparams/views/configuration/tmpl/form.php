@@ -11,6 +11,8 @@
 defined('KOOWA') or die('Restricted access');
 ?>
 
+<?=@helper('behavior.mootools');?>
+
 <script src="media://lib_koowa/js/koowa.js" />
 <script src="media://com_wextend/js/libraries/jquery/jquery.js" />
 <script src="media://com_wextend/js/libraries/jquery/ui/jquery-ui.min.js" />

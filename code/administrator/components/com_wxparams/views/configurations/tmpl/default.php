@@ -13,6 +13,8 @@ defined('KOOWA') or die('Restricted access');
 
 <?=@helper('behavior.tooltip');?>
 <?=@helper('behavior.modal');?>
+<?=@helper('behavior.mootools');?>
+
 <style src="media://lib_koowa/css/koowa.css" />
 <style src="media://com_wxparams/css/wxparams.css" />
 <style src="media://com_wextend/css/wextend.css" />
