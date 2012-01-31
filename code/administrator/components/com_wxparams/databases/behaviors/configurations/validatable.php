@@ -10,18 +10,25 @@
 
 /**
  * Validatable behavior.
- * 
+ *
  * @author Arunas Mazeika
  * @package com_wxparams
  */
 class ComWxparamsDatabaseBehaviorConfigurationValidatable extends ComWextendDatabaseBehaviorValidatable
 {
+	protected function _initialize(KConfig $config)
+	{
+		$config->append(array('mandatory_fields' => array('title', 'package', 'type')));
+		parent::_initialize($config);
+	}
+	
 	protected function _validateType()
 	{
-	    if ($this->type == 'global') {
-	        return true;
-	    }
-		// Check if there's no other configuration row for the same package, type and Itemid.
+		if($this->type == 'global') {
+			return true;
+		}
+		// Check if there's no other configuration row for the same package,
+		// type and Itemid.
 		$row = $this->getTable()
 			->getRow()
 			->setData(array(

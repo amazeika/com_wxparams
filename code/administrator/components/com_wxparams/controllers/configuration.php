@@ -10,7 +10,7 @@
 
 /**
  * Configuration controller.
- * 
+ *
  * @author Arunas Mazeika
  * @package com_wxparams
  */
@@ -32,7 +32,7 @@ class ComWxparamsControllerConfiguration extends ComDefaultControllerDefault
 				'package' => $model_state['package'], 
 				'type' => $model_state['type']));
 			if($behaviors = $form->getBehaviors()) {
-			    // Inject behaviors.
+				// Inject behaviors.
 				$this->addBehavior($behaviors);
 			}
 		}
@@ -42,7 +42,7 @@ class ComWxparamsControllerConfiguration extends ComDefaultControllerDefault
 	{
 		$config->append(array(
 			'persistable' => true, 
-			'behaviors' => array('validatable', 'processable')));
+			'behaviors' => array('com://admin/wextend.controller.behavior.editable', 'processable')));
 		parent::_initialize($config);
 	}
 }
