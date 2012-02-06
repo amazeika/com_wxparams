@@ -10,7 +10,7 @@
 
 /**
  * Factory class.
- * 
+ *
  * @author Arunas Mazeika
  * @package com_wxparams
  */
@@ -24,7 +24,8 @@ class ComWxparamsFactory
 	/**
 	 * Returns a form object.
 	 *
-	 * @param array $config Optional configuration array.
+	 * @param $config array
+	 *       	 Optional configuration array.
 	 * @return WxForm The form object.
 	 */
 	public static function getForm($config = array())
@@ -32,14 +33,18 @@ class ComWxparamsFactory
 		$config = new KConfig($config);
 		
 		$form = WxHelperApplication::getPath('admin') . '/components/' . $config->package . '/configs/' . str_replace('.', '/', $config->type) . '/form.xml';
-
-		return KService::get('wextend:form', array('form' => $form, 'data' => $config->params, 'container' => 'params'));
+		
+		return KService::get('com://admin/wxparams.form.default', array(
+			'form' => $form, 
+			'data' => $config->params, 
+			'container' => 'params'));
 	}
 	
 	/**
 	 * Returns a model behavior object based on the application being used.
-	 * 
-	 * @param array An optional configuration array.
+	 *
+	 * @param
+	 *       	 array An optional configuration array.
 	 * @return object The model behavior object.
 	 */
 	public static function getModelBehavior($config = array())
