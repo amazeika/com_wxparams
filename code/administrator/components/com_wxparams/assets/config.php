@@ -10,7 +10,7 @@
 
 /**
  * Configuration object.
- * 
+ *
  * @author Arunas Mazeika
  * @package com_wxparams
  */
@@ -19,15 +19,16 @@ class ComWxparamsAssetConfig extends KObjectArray implements KServiceInstantiata
 	
 	/**
 	 * Configuration row.
-	 * 
+	 *
 	 * @var mixed ComWxparamsDatabaseRowConfiguration or null.
 	 */
 	protected $_row;
 	
 	/**
 	 * Constructor.
-	 * 
-	 * @param KConfig $config Optional configuration object.
+	 *
+	 * @param $config KConfig
+	 *       	 Optional configuration object.
 	 */
 	public function __construct(KConfig $config = null)
 	{
@@ -46,8 +47,9 @@ class ComWxparamsAssetConfig extends KObjectArray implements KServiceInstantiata
 	
 	/**
 	 * Initializes the options for the object.
-	 * 
-	 * @param KConfig $config The configuration object.
+	 *
+	 * @param $config KConfig
+	 *       	 The configuration object.
 	 */
 	protected function _initialize(KConfig $config)
 	{
@@ -57,9 +59,11 @@ class ComWxparamsAssetConfig extends KObjectArray implements KServiceInstantiata
 	
 	/**
 	 * Instantiation logic.
-	 * 
-	 * @param KConfigInterface Configuration object.
-	 * @param KServiceInterface The service container.
+	 *
+	 * @param
+	 *       	 KConfigInterface Configuration object.
+	 * @param
+	 *       	 KServiceInterface The service container.
 	 */
 	public static function getInstance(KConfigInterface $config, KServiceInterface $container)
 	{
@@ -74,7 +78,8 @@ class ComWxparamsAssetConfig extends KObjectArray implements KServiceInstantiata
 		
 		$identifier = $config->service_identifier . '.' . $signature;
 		
-		// Check if a configuation object with the current identifier already exists in the service container.
+		// Check if a configuation object with the current identifier already
+		// exists in the service container.
 		if($container::has($identifier)) {
 			return $container::get($identifier);
 		}
@@ -82,7 +87,8 @@ class ComWxparamsAssetConfig extends KObjectArray implements KServiceInstantiata
 		$row = $container::get('com://admin/wxparams.database.row.configuration');
 		
 		if($config->item_id) {
-			// An item_id was provided/determined, attempt to get a corresponding configuration row.
+			// An item_id was provided/determined, attempt to get a
+			// corresponding configuration row.
 			$row->setData(array(
 				'package' => $config->package, 
 				'item_id' => $config->item_id, 
@@ -102,17 +108,14 @@ class ComWxparamsAssetConfig extends KObjectArray implements KServiceInstantiata
 		
 		$form = ComWxparamsFactory::getForm(array(
 			'package' => $config->package, 
-			'type' => $config->type));
+			'type' => $config->type, 
+			'params' => $row->getParams()));
+		
+		$config->params = $form->getData();
 		
 		if(!$row->isNew()) {
+			// Append the row to the configuration object.
 			$config->row = $row;
-			// Merge form params (useful after upgrade when configuration rows are not yet synced with latest
-			// config form changes).
-			$config->params = array_merge($form->getDefaults(), $row->getParams());
-		} else {
-			// Configuration row not found. Return a default configuration object (containing the default values in
-			// the config form file).
-			$config->params = $form->getDefaults();
 		}
 		
 		// Instantiate the object
@@ -125,13 +128,15 @@ class ComWxparamsAssetConfig extends KObjectArray implements KServiceInstantiata
 	}
 	
 	/**
-	 * Saves the current set of parameteres to the corresponding configuration row (if any).
-	 * 
+	 * Saves the current set of parameteres to the corresponding configuration
+	 * row (if any).
+	 *
 	 * @return boolean True if successfully saved, false otherwise.
 	 */
 	public function save()
 	{
-		// The configuration can only be saved if a row for this configuration object exists.
+		// The configuration can only be saved if a row for this configuration
+		// object exists.
 		if($this->_row instanceof ComWxparamsDatabaseRowConfiguration) {
 			$this->_row->params = json_encode($this->toArray());
 			if($this->_row->save()) {
@@ -144,8 +149,8 @@ class ComWxparamsAssetConfig extends KObjectArray implements KServiceInstantiata
 	
 	/**
 	 * Row getter.
-	 * 
-	 * @return mixed ComWxparamsDatabaseRowConfiguration or null. 
+	 *
+	 * @return mixed ComWxparamsDatabaseRowConfiguration or null.
 	 */
 	public function getRow()
 	{
