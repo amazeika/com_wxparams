@@ -27,3 +27,10 @@ li.value {
 #editor-xtd-buttons {
 	margin: 0 0 0 100px;
 }
+
+/* J!1.7 Template fixes */
+div.current label, fieldset label {
+	clear: none !important;
+	margin-top: 0px !important;
+	min-width: 0px !important;
+}
