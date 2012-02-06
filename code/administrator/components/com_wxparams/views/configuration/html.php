@@ -10,7 +10,7 @@
 
 /**
  * Configuration HTML view.
- * 
+ *
  * @author Arunas Mazeika
  * @package com_wxparams
  */
@@ -21,14 +21,16 @@ class ComWxparamsViewConfigurationHtml extends ComWxparamsViewHtml
 		$model = $this->getModel();
 		// Get package and type information from the session.
 		$session = ComWxparamsHelperSession::getModelState();
+		$this->assign('package', $session['package']);
+		$this->assign('type', $session['type']);
 		$this->assign('form', ComWxparamsFactory::getForm(array(
-			'package' => $session['package'], 
-			'type' => $session['type'], 
+			'package' => $this->package, 
+			'type' => $this->type, 
 			'params' => $model->getItem()
 				->getParams())));
 		
 		// Load the language file
-		JFactory::getLanguage()->load($this->form->getPackage());
+		JFactory::getLanguage()->load($this->package);
 		
 		return parent::display();
 	}
