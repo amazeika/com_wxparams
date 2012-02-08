@@ -22,6 +22,7 @@ class ComWxparamsControllerToolbarConfigurations extends ComDefaultControllerToo
 		if(!$config) {
 			$config = new KConfig();
 		}
+		parent::__construct($config);
 		
 		$title = WxText::_('WXPARAMS_CONFIGURATIONS');
 		// Determine the toolbar title
