@@ -10,7 +10,7 @@
 
 /**
  * Configuration row class.
- * 
+ *
  * @author Arunas Mazeika
  * @package com_wxparams
  */
@@ -19,6 +19,9 @@ class ComWxparamsDatabaseRowConfiguration extends KDatabaseRowDefault
 	
 	public function getParams()
 	{
+		if($this->isNew()) {
+			return array();
+		}
 		return json_decode($this->params, true);
 	}
 
