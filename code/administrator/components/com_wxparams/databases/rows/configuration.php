@@ -19,7 +19,7 @@ class ComWxparamsDatabaseRowConfiguration extends KDatabaseRowDefault
 	
 	public function getParams()
 	{
-		if($this->isNew()) {
+		if(!$this->params) {
 			return array();
 		}
 		return json_decode($this->params, true);
