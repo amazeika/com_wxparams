@@ -80,11 +80,11 @@ class ComWxparamsAssetConfig extends KObjectArray implements KServiceInstantiata
 		
 		// Check if a configuation object with the current identifier already
 		// exists in the service container.
-		if($container::has($identifier)) {
-			return $container::get($identifier);
+		if(call_user_func(array($container, 'has'), $identifier)) {
+			return call_user_func(array($container, 'get'), $identifier);
 		}
 		
-		$row = $container::get('com://admin/wxparams.database.row.configuration');
+		$row = call_user_func(array($container, 'get'), 'com://admin/wxparams.database.row.configuration');
 		
 		if($config->item_id) {
 			// An item_id was provided/determined, attempt to get a
@@ -122,7 +122,7 @@ class ComWxparamsAssetConfig extends KObjectArray implements KServiceInstantiata
 		$instance = new self($config);
 		
 		// Set the object in the container for further use.
-		$container::set($identifier, $instance);
+		call_user_func(array($container, 'set'), $identifier, $instance);
 		
 		return $instance;
 	}
