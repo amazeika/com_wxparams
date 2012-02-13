@@ -15,7 +15,8 @@
 	<!-- Application/administrator -->
 	<administration>
 		<files folder="administrator/components/com_wxparams">
-			<folder>includes</folder>
+			<folder>assets</folder>
+			<folder>helpers</folder>
 			<folder>controllers</folder>
 			<folder>templates</folder>
 			<folder>install</folder>
@@ -23,6 +24,7 @@
 			<folder>forms</folder>
 			<folder>databases</folder>
 			<folder>views</folder>
+			<file>factory.php</file>
 			<file>wxparams.php</file>
 			<file>dispatcher.php</file>
 		</files>
