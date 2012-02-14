@@ -5,7 +5,7 @@ class ComWxparamsModelBehaviorMenuJ16 implements ComWxparamsModelBehaviorMenuInt
 	
 	public function buildQueryWhere(KDatabaseQuery $query, KConfigState $state)
 	{
-		$query->where('jtbl.name', '=', $state->package);
+		$query->where('jtbl.element', '=', $state->package);
 	}
 	
 	public function buildQueryJoins(KDatabaseQuery $query)
