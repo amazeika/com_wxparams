@@ -32,6 +32,8 @@ class ComWxparamsFactory
 	{
 		$config = new KConfig($config);
 		
+		$config->append(array('params' => array()));
+		
 		$form = WxHelperApplication::getPath('admin') . '/components/' . $config->package . '/configs/' . str_replace('.', '/', $config->type) . '/form.xml';
 		
 		return KService::get('com://admin/wxparams.form.default', array(
