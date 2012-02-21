@@ -39,25 +39,4 @@ class ComWxparamsControllerToolbarConfigurations extends ComDefaultControllerToo
 		
 		$this->setIcon('configurations');
 	}
-	
-	protected function _commandSettings(KControllerToolbarCommand $command, $config = array())
-	{
-		
-		$config = new KConfig($config);
-		
-		$config->append(array(
-			'package' => KRequest::get('get.option', 'cmd'), 
-			'type' => 'view.' . KRequest::get('get.view', 'cmd')));
-		
-		$command->append(array(
-			
-			'attribs' => array(
-				
-				'href' => 'index.php?option=com_wxparams&view=configurations&package=' . $config->package . '&type=' . $config->type, 
-				'onclick' => 'wxjq(this).colorbox({width: \'95%\', height: \'95%\', iframe: true}); return false;')));
-		
-		$document = JFactory::getDocument();
-		$document->addStyleSheet(WxHelperUri::absolutize('media/com_wxparams/css/wxparams.css'));
-	}
-
 }
