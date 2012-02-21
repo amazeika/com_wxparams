@@ -9,3 +9,8 @@
  */
 
 defined('_JEXEC') or die('Restricted access');
+
+// Disable com_wxparams so that menu doesn't show in the backend.
+$query = "UPDATE `#__extensions` SET `enabled` = '0' WHERE type = 'component' AND element = 'com_wxparams'";
+$database->setQuery($query);
+$database->query();

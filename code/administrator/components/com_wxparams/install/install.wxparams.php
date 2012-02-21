@@ -13,7 +13,7 @@ $database = JFactory::getDBO();
 $source = $this->parent->getPath('source');
 $manifest = simplexml_load_file($this->parent->getPath('manifest'));
 $package = strtolower((string) $manifest->name);
-$jversion = JVersion::isCompatible('1.6.0') ? '1.6' : '1.5';
+$type = JVersion::isCompatible('1.6.0') ? 'joomla' : 'legacy';
 
 // Move framework folders to their corresponding locations
 foreach($manifest->framework->folder as $folder) {
@@ -29,4 +29,4 @@ foreach($manifest->framework->file as $file) {
 }
 
 //Run platform specific procedures
-require JPATH_ROOT . '/administrator/components/com_' . $package . '/install/install.' . $jversion . '.php';
+require JPATH_ROOT . '/administrator/components/com_' . $package . '/install/install.' . $type . '.php';
