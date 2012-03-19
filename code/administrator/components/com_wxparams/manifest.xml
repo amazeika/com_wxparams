@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <install type="component" version="1.5.0" method="upgrade">
+    <identifier>com:wxparams</identifier>
 	<name>WxParams</name>
 	<author>Arunas Mazeika</author>
 	<creationDate>August 2011</creationDate>
