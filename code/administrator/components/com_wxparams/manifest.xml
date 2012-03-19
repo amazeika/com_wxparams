@@ -45,8 +45,7 @@
 
 	<uninstall>
 		<sql>
-			<file charset="utf8" driver="mysql">install/uninstall.sql
-			</file>
+			<file charset="utf8" driver="mysql">install/uninstall.sql</file>
 		</sql>
 	</uninstall>
 
@@ -56,8 +55,4 @@
 		<folder>images</folder>
 		<folder>js</folder>
 	</media>
-
-	<!-- Application/framework -->
-	<framework>
-	</framework>
 </install>
