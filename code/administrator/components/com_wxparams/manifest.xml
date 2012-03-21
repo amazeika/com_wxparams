@@ -24,7 +24,8 @@
 			<folder>forms</folder>
 			<folder>databases</folder>
 			<folder>views</folder>
-			<file>factory.php</file>
+			<file>index.html</file>
+            <file>factory.php</file>
 			<file>wxparams.php</file>
 			<file>dispatcher.php</file>
 		</files>
@@ -52,7 +53,8 @@
 
 	<!-- Media -->
 	<media destination="com_wxparams" folder="media/com_wxparams">
-		<folder>css</folder>
+		<file>index.html</file>
+        <folder>css</folder>
 		<folder>images</folder>
 		<folder>js</folder>
 	</media>
