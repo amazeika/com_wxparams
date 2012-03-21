@@ -3,13 +3,13 @@
     <identifier>com:wxparams</identifier>
 	<name>WxParams</name>
 	<author>Arunas Mazeika</author>
-	<creationDate>August 2011</creationDate>
+	<creationDate>March 2012</creationDate>
 	<copyright>Copyright (C) 2011 Arunas Mazeika - All rights reserved
 	</copyright>
 	<license>GNU GPLv3 - http://www.gnu.org/licenses/gpl.html</license>
 	<authorEmail>contact@wextend.com</authorEmail>
 	<authorUrl>www.wextend.com</authorUrl>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<description>A re-usable settings and parameters component</description>
 
 	<!-- Application/administrator -->
