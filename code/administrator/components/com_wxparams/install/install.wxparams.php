@@ -7,6 +7,7 @@
  * @license GNU General Public License v3+ (GNU GPLv3) <http://www.gnu.org/licenses/gpl.html>
  * @link http://www.wextend.com
  */
+defined('_JEXEC') or die('Restricted access');
 
 // Variable definitions
 $database = JFactory::getDBO();
